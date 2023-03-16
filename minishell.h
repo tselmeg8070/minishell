@@ -7,19 +7,31 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-typedef struct s_stack {
-	struct s_stack	*tail;
-	int				val;
-}	t_stack;
+/*
+	0 - ''
+	1 - ""
+	2 - > - redirect output
+	3 - < - redirect input file
+	4 - >> - redirect output using append
+	5 - << - call heredoc with ending condition
+	6 - $ - call global variables or call command
+	7 - | - Pipe
+	8 - $? - exit status
+	9 - && - AND operation
+	10 - || - OR operation
+	11 - () - Prioritization
+	12 - * - Wildcard
+*/
 
-int		st_len(t_stack *a);
+typedef struct s_instruction {
+	char	*val;
+	int		type;
+}	t_instruction;
 
-t_stack	*st_pop(t_stack **a);
+void	ft_split_free(char ***res);
 
-t_stack	*st_create_node(int val);
+int		ft_quote_check(char *str);
 
-int	st_push(t_stack **stack, int val);
-
-void	st_clear(t_stack **stack);
+char	**ft_split_pipe(char const *strp, char charset);
 
 #endif

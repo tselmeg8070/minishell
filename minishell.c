@@ -14,7 +14,7 @@
 
 /**
 PARSING:
-	cmd arg1 arg2 | cmd | cmd 'arg1' | cmd "fdsf" | cmd << end |
+	cmd arg1 arg2 | cmd | cmd 'arg1' | cmd "fdsf" |
 	SPECIAL:
 		" - Query string
 		' - string
@@ -54,25 +54,23 @@ int	ft_quote_check(char *str)
 	return (0);
 }
 
-int	ft_lexa_parse(char *str)
+void	ft_lexa_parse(char *line)
 {
-	int	quote;
-	int	i;
+	char	**insts;
+	int		i;
 
-	quote = 0;
-	i = 0;
-	while (str[i] != '\0')
+	insts = ft_split_pipe(line, '|');
+	if (!insts)
+		write(2, "Allocation err\n", 16);
+	else
 	{
-		if (quote == 0 && str[i] == '\'')
-			quote = 1;
-		else if (quote == 0 && str[i] == '\"')
-			quote = 2;
-		else if ((quote == 1 && str[i] == '\'')
-			&& (quote == 2 && str[i] == '\"'))
-			quote = 0;
-		if (quote == 1)
-			write(1, str + i, 1);
-		i++;
+		i = 0;
+		while (insts[i] != 0)
+		{
+			printf("%s\n", insts[i]);
+			i++;
+		}
+		ft_split_free(&insts);
 	}
 }
 
@@ -88,7 +86,9 @@ int	main(int argc, char **argv, char **paths)
 			if (ft_quote_check(line) == 0)
 				write(2, "Unclosed quotation mark\n", 25);
 			else
-				printf("%s\n", line);
+			{
+				ft_lexa_parse(line);
+			}
 			free(line);
 		}
 	}

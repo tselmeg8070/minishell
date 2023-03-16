@@ -1,50 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_util_bonus.c                                 :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tadiyamu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/31 17:18:41 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/02/06 21:16:36 by tadiyamu         ###   ########.fr       */
+/*   Created: 2023/03/04 17:00:39 by tadiyamu          #+#    #+#             */
+/*   Updated: 2023/03/04 17:00:42 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
-
-char	**ft_get_paths(char **envp)
-{
-	int		i;
-	char	*path;
-	char	**paths;
-
-	i = 0;
-	path = 0;
-	paths = 0;
-	while (envp[i] != 0)
-	{
-		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
-			path = envp[i];
-		i++;
-	}
-	if (path)
-	{
-		path = ft_strchr(path, '=');
-		path++;
-		paths = ft_split(path, ':');
-	}
-	return (paths);
-}
-
-int	ft_cnt_split(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr && arr[i] != 0)
-		i++;
-	return (i);
-}
+#include "minishell.h"
 
 void	ft_split_free(char ***res)
 {
@@ -58,10 +24,4 @@ void	ft_split_free(char ***res)
 	}
 	if (*res)
 		free(*res);
-}
-
-void	ft_command_free(char ***res, char **joined)
-{
-	ft_split_free(res);
-	free(*joined);
 }
