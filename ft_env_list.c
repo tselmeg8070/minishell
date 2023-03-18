@@ -35,8 +35,8 @@ char	*ft_find_elm(t_env_list **list, char *key)
 	tmp = *list;
 	while (tmp->next != NULL)
 	{
-		if (ft_strncmp(tmp->key, key, ft_strlen(key)) == 0)
-			return (ft_strdup(tmp->val));
+		if (ft_strncmp(tmp->key, key, ft_strlen(tmp->key)) == 0)
+			return (tmp->val);
 		tmp = tmp->next;
 	}
 	return (NULL);

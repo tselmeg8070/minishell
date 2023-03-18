@@ -81,7 +81,7 @@ void	ft_lexa_parse(char *line, t_env_list *env)
 int	main(int argc, char **argv, char **paths)
 {
 	char		*line;
-	
+
 	t_env_list	*env;
 
 	env = ft_create_envlist(paths);
@@ -90,10 +90,6 @@ int	main(int argc, char **argv, char **paths)
 		printf("err\n");
 		return (0);
 	}
-	ft_printlist(&env);
-	if (!ft_free_envlst(&env))
-		printf ("list deleted!\n");
-	ft_printlist(&env);
 	while (1)
 	{
 		line = readline("minishell>");
@@ -108,4 +104,6 @@ int	main(int argc, char **argv, char **paths)
 			free(line);
 		}
 	}
+	if (!ft_free_envlst(&env))
+		printf ("list deleted!\n");
 }
