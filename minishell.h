@@ -37,10 +37,10 @@ typedef struct s_instruction {
 }	t_instruction;
 
 //ft for linked list
-void	ft_add2list(t_env_list **list, t_env_list *n_elm);
-t_env_list	*create_elm(char *key, char *val);
+int	ft_add2list(t_env_list **list, t_env_list *n_elm);
 char	*ft_find_elm(t_env_list **list, char *key);
 void	ft_delete_elm(t_env_list **list, char *key);
+int	ft_free_envlst(t_env_list **list);
 
 void	ft_split_free(char ***res);
 
@@ -48,6 +48,11 @@ int		ft_quote_check(char *str);
 
 char	**ft_split_pipe(char const *strp, char charset);
 
-char	*ft_replace_env(char *str);
+char	*ft_replace_env(char *str, t_env_list *env);
+// char	*ft_replace_env(char *str);
+
+//+++
+t_env_list  *ft_create_envlist(char **paths);
+void    ft_printlist(t_env_list **list);
 
 #endif
