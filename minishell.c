@@ -54,7 +54,7 @@ int	ft_quote_check(char *str)
 	return (0);
 }
 
-void	ft_lexa_parse(char *line)
+void	ft_lexa_parse(char *line, t_env_list *env)
 {
 	char	**insts;
 	int		i;
@@ -69,7 +69,7 @@ void	ft_lexa_parse(char *line)
 		while (insts[i] != 0)
 		{
 			printf("%s\n", insts[i]);
-			temp = ft_replace_env(insts[i]);
+			temp = ft_replace_env(insts[i], env);
 			printf("%s\n", temp);
 			free(temp);
 			i++;
@@ -80,8 +80,20 @@ void	ft_lexa_parse(char *line)
 
 int	main(int argc, char **argv, char **paths)
 {
-	char	*line;
+	char		*line;
+	
+	t_env_list	*env;
 
+	env = ft_create_envlist(paths);
+	if (!env)
+	{
+		printf("err\n");
+		return (0);
+	}
+	ft_printlist(&env);
+	if (!ft_free_envlst(&env))
+		printf ("list deleted!\n");
+	ft_printlist(&env);
 	while (1)
 	{
 		line = readline("minishell>");
@@ -91,7 +103,7 @@ int	main(int argc, char **argv, char **paths)
 				write(2, "Unclosed quotation mark\n", 25);
 			else
 			{
-				ft_lexa_parse(line);
+				ft_lexa_parse(line, env);
 			}
 			free(line);
 		}

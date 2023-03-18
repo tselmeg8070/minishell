@@ -16,7 +16,9 @@ LIBFT = ./libft/libft.a
 FILES = minishell \
 		minishell_utils \
 		ft_replace_env \
-		ft_split_pipe
+		ft_split_pipe\
+		ft_env_list\
+		ft_env_list_utils
 
 SRCS = $(addsuffix .c, $(FILES))
 OBJS = $(addsuffix .o, $(FILES))

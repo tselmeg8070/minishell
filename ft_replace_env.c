@@ -1,9 +1,10 @@
 #include "minishell.h"
 
-char	*ft_find_from_env(char *key)
-{
-	return ("tselmeg");
-}
+// char	*ft_find_from_env(char *key, t_env_list *env)
+// {
+
+// 	return ("tselmeg");
+// }
 
 void	ft_concat_char(char **str, char c)
 {
@@ -25,7 +26,7 @@ void	ft_concat_char(char **str, char c)
 	*str = res;
 }
 
-int	ft_string_creation(char **str, char **res, int i)
+int	ft_string_creation(char **str, char **res, int i, t_env_list *env)
 {
 	int		l;
 	int		d;
@@ -42,7 +43,7 @@ int	ft_string_creation(char **str, char **res, int i)
 		key = ft_substr(*str, l, i - l);
 		if (ft_strlen(key) > 0)
 		{
-			val = ft_find_from_env(key);
+			val = ft_find_elm(&env, key);
 			temp = ft_strjoin(*res, val);
 			free(*res);
 			*res = temp;
@@ -52,7 +53,7 @@ int	ft_string_creation(char **str, char **res, int i)
 	return (i);
 }
 
-char	*ft_replace_env(char *str)
+char	*ft_replace_env(char *str, t_env_list *env)
 {
 	int		quote;
 	int		i;
@@ -71,7 +72,7 @@ char	*ft_replace_env(char *str)
 			|| (quote == 2 && str[i] == '\"'))
 			quote = 0;
 		if ((quote == 0 || quote == 2) && str[i] == '$')
-			i = ft_string_creation(&str, &res, i);
+			i = ft_string_creation(&str, &res, i, env);
 		else
 		{
 			ft_concat_char(&res, str[i]);
