@@ -17,13 +17,13 @@ int	ft_add2list(t_env_list **list, t_env_list *n_elm)
 	if (!*list)
 	{
 		*list = n_elm;
-		return 0;
+		return (0);
 	}
 	if (!n_elm)
-		return 1;
+		return (1);
 	n_elm->next = *list;
 	*list = n_elm;
-	return 0;
+	return (0);
 }
 
 char	*ft_find_elm(t_env_list **list, char *key)
@@ -35,7 +35,7 @@ char	*ft_find_elm(t_env_list **list, char *key)
 	tmp = *list;
 	while (tmp->next != NULL)
 	{
-		if (ft_strncmp(tmp->key, key, ft_strlen(key)) == 0)
+		if (ft_strncmp(tmp->key, key, ft_strlen(tmp->key)) == 0)
 			return (ft_strdup(tmp->val));
 		tmp = tmp->next;
 	}
