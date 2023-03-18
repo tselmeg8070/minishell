@@ -58,6 +58,7 @@ void	ft_lexa_parse(char *line)
 {
 	char	**insts;
 	int		i;
+	char	*temp;
 
 	insts = ft_split_pipe(line, '|');
 	if (!insts)
@@ -68,6 +69,9 @@ void	ft_lexa_parse(char *line)
 		while (insts[i] != 0)
 		{
 			printf("%s\n", insts[i]);
+			temp = ft_replace_env(insts[i]);
+			printf("%s\n", temp);
+			free(temp);
 			i++;
 		}
 		ft_split_free(&insts);
