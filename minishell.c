@@ -80,8 +80,9 @@ void	ft_lexa_parse(char *line, t_env_list *env)
 
 int	main(int argc, char **argv, char **paths)
 {
-	char		*line;
-	t_env_list	*env;
+	char				*line;
+	t_env_list			*env;
+	struct sigaction	sa;
 
 	env = ft_create_envlist(paths);
 	if (!env)
@@ -89,13 +90,13 @@ int	main(int argc, char **argv, char **paths)
 		printf("err\n");
 		return (0);
 	}
-	struct sigaction sa;
 	ft_init_sig(&sa);
 	while (1)
 	{
 		line = readline("minishell>");
 		if (line == NULL)
 			exit(ft_exit(line, &env));
+		ft_history(line);
 		if (line)
 		{
 			if (ft_quote_check(line) == 0)
