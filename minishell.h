@@ -7,6 +7,7 @@
 # include "./libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 
 /*
 	0 - ''
@@ -54,5 +55,11 @@ char	*ft_replace_env(char *str, t_env_list *env);
 //+++
 t_env_list  *ft_create_envlist(char **paths);
 void    ft_printlist(t_env_list **list);
+
+/*signal*/
+// void ft_signal_test(int num);
+void    ft_init_sig(struct sigaction    *sa);
+int ft_exit(char *line, t_env_list **env);
+
 
 #endif

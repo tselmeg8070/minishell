@@ -18,7 +18,9 @@ FILES = minishell \
 		ft_replace_env \
 		ft_split_pipe\
 		ft_env_list\
-		ft_env_list_utils
+		ft_env_list_utils\
+		ft_signal\
+		ft_exit
 
 SRCS = $(addsuffix .c, $(FILES))
 OBJS = $(addsuffix .o, $(FILES))
