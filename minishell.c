@@ -68,7 +68,7 @@ void	ft_lexa_parse(char *line, t_env_list *env)
 		i = 0;
 		while (insts[i] != 0)
 		{
-			printf("%s\n", insts[i]);
+			ft_define_in_out(insts, env);
 			temp = ft_replace_env(insts[i], env);
 			printf("%s\n", temp);
 			free(temp);
