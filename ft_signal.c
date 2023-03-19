@@ -6,7 +6,7 @@
 /*   By: galtange <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 17:32:22 by galtange          #+#    #+#             */
-/*   Updated: 2023/03/19 17:34:40 by galtange         ###   ########.fr       */
+/*   Updated: 2023/03/19 19:07:12 by galtange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ void	handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		printf ("we catch ctrl+c, print new promt\n");
+		write(2, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
 	}
 	if (sig == SIGQUIT)
 	{
