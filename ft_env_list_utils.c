@@ -52,7 +52,7 @@ t_env_list	*ft_create_envlist(char **paths)
 	return (env_list);
 }
 
-void	ft_printlist(t_env_list **list)
+void	ft_print_env(t_env_list **list)
 {
 	t_env_list	*tmp;
 
