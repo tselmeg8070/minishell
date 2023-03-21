@@ -26,7 +26,7 @@ void	ft_concat_char(char **str, char c)
 	*str = res;
 }
 
-int	ft_string_creation(char **str, char **res, int i, t_env_list *env)
+int	ft_string_creation(char *str, char **res, int i, t_env_list *env)
 {
 	int		l;
 	int		d;
@@ -36,16 +36,17 @@ int	ft_string_creation(char **str, char **res, int i, t_env_list *env)
 
 	i = i + 1;
 	l = i;
-	while ((*str)[i] && (ft_isalnum((*str)[i]) || (*str)[i] == '_'))
+	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
 		i++;
 	if (i - l >= 1)
 	{
-		key = ft_substr(*str, l, i - l);
+		key = ft_substr(str, l, i - l);
 		if (ft_strlen(key) > 0)
 		{
 			val = ft_find_elm(&env, key);
 			temp = ft_strjoin(*res, val);
-			free(*res);
+			if (*res)
+				free(*res);
 			*res = temp;
 		}
 		free(key);
@@ -64,20 +65,11 @@ char	*ft_replace_env(char *str, t_env_list *env)
 	res = 0;
 	while (str[i] != '\0')
 	{
-		if (quote == 0 && str[i] == '\'')
-			quote = 1;
-		else if (quote == 0 && str[i] == '\"')
-			quote = 2;
-		else if ((quote == 1 && str[i] == '\'')
-			|| (quote == 2 && str[i] == '\"'))
-			quote = 0;
+		quote = ft_quoter(str[i], quote);
 		if ((quote == 0 || quote == 2) && str[i] == '$')
-			i = ft_string_creation(&str, &res, i, env);
+			i = ft_string_creation(str, &res, i, env);
 		else
-		{
-			ft_concat_char(&res, str[i]);
-			i++;
-		}
+			ft_concat_char(&res, str[i++]);
 	}
 	return (res);
 }

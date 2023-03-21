@@ -35,3 +35,14 @@ int	ft_strcmp(char *s1, char *s2)
 	}
 	return (*s1 - *s2);
 }
+
+int	ft_quoter(char c, int quote)
+{
+	if (quote == 0 && c == '\'')
+		quote = 1;
+	else if (quote == 0 && c == '\"')
+		quote = 2;
+	else if ((quote == 1 && c == '\'') || (quote == 2 && c == '\"'))
+		quote = 0;
+	return (quote);
+}

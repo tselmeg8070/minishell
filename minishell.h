@@ -38,6 +38,17 @@ typedef struct s_instruction {
 	int		type;
 }	t_instruction;
 
+/*
+	2 - > - redirect output
+	3 - < - redirect input file
+	4 - >> - redirect output using append
+	5 - << - call heredoc with ending condition
+*/
+typedef struct s_redirection {
+	int		type;
+	char	*filename;
+}	t_redirection;
+
 //ft for linked list
 int		ft_add2list(t_env_list **list, t_env_list *n_elm);
 
@@ -60,5 +71,13 @@ t_env_list	*ft_create_envlist(char **paths);
 void	ft_printlist(t_env_list **list);
 
 int		ft_strcmp(char *s1, char *s2);
+
+char	*ft_get_filename(char *str, t_env_list *env);
+
+void	ft_concat_char(char **str, char c);
+
+int		ft_string_creation(char *str, char **res, int i, t_env_list *env);
+
+int		ft_quoter(char c, int quote);
 
 #endif

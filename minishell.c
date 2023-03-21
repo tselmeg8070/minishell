@@ -40,18 +40,27 @@ int	ft_quote_check(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (quote == 0 && str[i] == '\'')
-			quote = 1;
-		else if (quote == 0 && str[i] == '\"')
-			quote = 2;
-		else if ((quote == 1 && str[i] == '\'')
-			|| (quote == 2 && str[i] == '\"'))
-			quote = 0;
+		quote = ft_quoter(str[i], quote);
 		i++;
 	}
 	if (quote == 0)
 		return (1);
 	return (0);
+}
+
+void	ft_lexa_space(char *line)
+{
+	int		i;
+	char	**strings;
+
+	i = 0;
+	strings = ft_split_pipe(line, ' ');
+	while (strings[i])
+	{
+		printf("String: %s$\n", strings[i]);
+		i++;
+	}
+	ft_split_free(&strings);
 }
 
 void	ft_lexa_parse(char *line, t_env_list *env)
@@ -68,7 +77,8 @@ void	ft_lexa_parse(char *line, t_env_list *env)
 		i = 0;
 		while (insts[i] != 0)
 		{
-			ft_define_in_out(insts, env);
+			// ft_lexa_space(insts[i]);
+			printf("File: %s\n", ft_get_filename(insts[i], env));
 			temp = ft_replace_env(insts[i], env);
 			printf("%s\n", temp);
 			free(temp);
