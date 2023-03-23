@@ -23,7 +23,8 @@ void	handler(int sig)
 	}
 	if (sig == SIGQUIT)
 	{
-		printf ("we catch ctrl+'\', do nothing\n");
+		rl_on_new_line();
+		ft_history("");
 	}
 }
 

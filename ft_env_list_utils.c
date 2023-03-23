@@ -21,14 +21,17 @@ t_env_list	*ft_env_lstnew(char *path)
 	newnode = (t_env_list *)malloc(sizeof(t_env_list));
 	if (!newnode)
 		return (NULL);
-	while (path[i] != '=')
+	while (path[i] != '=' && path[i])
 		i++;
 	newnode->key = ft_substr(path, 0, i);
 	if (!newnode->key)
 		return (NULL);
-	newnode->val = ft_strdup(path + (i + 1));
+	if (path[i + 1] != '\0')
+		newnode->val = ft_strdup(path + (i + 1));
+	else
+		newnode->val = ft_strdup("\0");
 	if (!newnode->val)
-		return (NULL);
+			return (NULL);
 	newnode->next = NULL;
 	return (newnode);
 }
@@ -64,7 +67,8 @@ void	ft_print_env(t_env_list **list)
 	tmp = *list;
 	while (tmp != NULL)
 	{
-		printf("%s=%s\n", tmp->key, tmp->val);
+		if (ft_strncmp(tmp->val, "", ft_strlen(tmp->val)))
+			printf("%s=%s\n", tmp->key, tmp->val);
 		tmp = tmp->next;
 	}
 }

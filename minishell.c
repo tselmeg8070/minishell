@@ -105,6 +105,17 @@ int	main(int argc, char **argv, char **paths)
 			{
 				ft_lexa_parse(line, env);
 			}
+			if (!ft_strncmp(line, "env", ft_strlen(line)))
+			{
+				ft_print_env(&env);
+			}
+			if (!ft_strncmp(line, "export", 6))
+			{
+				if (line[7] == '\0')
+					ft_export(NULL, &env);
+				else
+					ft_export(line + 7, &env);
+			}
 			free(line);
 		}
 	}

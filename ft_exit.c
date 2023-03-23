@@ -29,3 +29,25 @@ void	ft_history(char *line)
 		add_history (line);
 	rl_redisplay ();
 }
+
+// void	ft_exit2(int status)
+// {
+// 	if (status == 127)
+// 		printf("Command 'duudagdsan command' not found, did you mean:\n");
+// 	if (status)
+// 	{
+
+// 	}
+// }
+
+void	exit_from_child(int	status, char *bltin, char *cmd, char *msg)
+{
+	printf("status = %d\n", status);
+	if (bltin)
+		printf("%s: ", bltin);
+	if (cmd)
+		printf("`%s': ", cmd);
+	if (msg)
+		printf("%s\n", msg);
+	return ;
+}

@@ -21,7 +21,8 @@ FILES = minishell \
 		ft_env_list_utils\
 		ft_signal\
 		ft_exit\
-		ft_builtins
+		ft_builtins\
+		ft_env_builtin
 
 SRCS = $(addsuffix .c, $(FILES))
 OBJS = $(addsuffix .o, $(FILES))

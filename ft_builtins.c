@@ -54,17 +54,6 @@ void	*ft_echo(void **ptr)
 	return (ptr);
 }
 
-void	*ft_env(void **ptr)
-{
-	t_env_list	**env;
-
-	env = (t_env_list **)ptr;
-	if (!env || !*env)
-		return (NULL);
-	ft_print_env(env);
-	return (ptr);
-}
-
 void	*ft_cd(void **ptr, t_env_list **env)
 {
 	int		i;
@@ -77,14 +66,17 @@ void	*ft_cd(void **ptr, t_env_list **env)
 	if (i != 1)
 	{
 		printf("minishell> cd: too many arguments\n");
-		return (cd);
+		return (NULL);
 	}
-	if (!ft_strncmp(cd->str[0], "", ft_strlen(*str))
-		|| !ft_strncmp(cd->str[0], "~", ft_strlen(*str)))
+	if (!ft_strncmp(*str, "", ft_strlen(*str))
+		|| !ft_strncmp(*str, "~", ft_strlen(*str)))
 	{
 		chdir(getenv("HOME"));
 	}
-	else if
-		printf("cd: %s: No such file or directory\n", cd->str[0]);
+	else
+	{
+		printf("cd: %s: No such file or directory\n", *str);
+		return (NULL);
+	}
 	return (ptr);
 }

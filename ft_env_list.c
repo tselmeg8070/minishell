@@ -36,9 +36,11 @@ char	*ft_find_elm(t_env_list **list, char *key)
 	while (tmp->next != NULL)
 	{
 		if (ft_strncmp(tmp->key, key, ft_strlen(tmp->key)) == 0)
-			return (ft_strdup(tmp->val));
+			return (tmp->val);
+			// return (ft_strdup(tmp->val));
 		tmp = tmp->next;
 	}
+	// return ("env not found");
 	return (NULL);
 }
 
@@ -46,6 +48,7 @@ void	ft_del_node(t_env_list *elm)
 {
 	if (!elm)
 		return ;
+		
 	if (elm->key)
 		free(elm->key);
 	if (elm->val)
