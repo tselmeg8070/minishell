@@ -63,11 +63,24 @@ void	ft_lexa_space(char *line)
 	ft_split_free(&strings);
 }
 
+void	ft_instruction(char	*command, t_env_list *env)
+{
+	t_instruction	insts;
+	char			*temp;
+
+	insts.files = 0;
+	insts.val = ft_define_redirections(command, env, &(insts.files));
+	temp = ft_replace_env(insts.val, env);
+	free(insts.val);
+	insts.val = temp;
+	printf("Res: %s|\n", insts.val);
+	free(insts.val);
+}
+
 void	ft_lexa_parse(char *line, t_env_list *env)
 {
 	char	**insts;
 	int		i;
-	char	*temp;
 
 	insts = ft_split_pipe(line, '|');
 	if (!insts)
@@ -77,11 +90,7 @@ void	ft_lexa_parse(char *line, t_env_list *env)
 		i = 0;
 		while (insts[i] != 0)
 		{
-			// ft_lexa_space(insts[i]);
-			printf("File: %s\n", ft_get_filename(insts[i], env));
-			temp = ft_replace_env(insts[i], env);
-			printf("%s\n", temp);
-			free(temp);
+			ft_instruction(insts[i], env);
 			i++;
 		}
 		ft_split_free(&insts);

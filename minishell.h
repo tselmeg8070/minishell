@@ -31,13 +31,6 @@ typedef struct s_env_list
     struct s_env_list   *next;
 } t_env_list;
 
-typedef struct s_instruction {
-	int		in;
-	int		out;
-	char	*val;
-	int		type;
-}	t_instruction;
-
 /*
 	2 - > - redirect output
 	3 - < - redirect input file
@@ -48,6 +41,13 @@ typedef struct s_redirection {
 	int		type;
 	char	*filename;
 }	t_redirection;
+
+typedef struct s_instruction {
+	int		in;
+	int		out;
+	char	*val;
+	t_list	*files;
+}	t_instruction;
 
 //ft for linked list
 int		ft_add2list(t_env_list **list, t_env_list *n_elm);
@@ -72,12 +72,16 @@ void	ft_printlist(t_env_list **list);
 
 int		ft_strcmp(char *s1, char *s2);
 
-char	*ft_get_filename(char *str, t_env_list *env);
+char	*ft_define_redirections(char *str, t_env_list *env, t_list **files);
 
 void	ft_concat_char(char **str, char c);
 
 int		ft_string_creation(char *str, char **res, int i, t_env_list *env);
 
 int		ft_quoter(char c, int quote);
+
+int		ft_local_quoter(char c, int *quote);
+
+int		ft_red_filename(char *str, int type, t_env_list *env, t_list **list);
 
 #endif

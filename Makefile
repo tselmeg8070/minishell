@@ -19,6 +19,7 @@ FILES = minishell \
 		ft_split_pipe\
 		ft_env_list\
 		ft_redirection\
+		ft_redirection_utils\
 		ft_env_list_utils
 
 SRCS = $(addsuffix .c, $(FILES))
