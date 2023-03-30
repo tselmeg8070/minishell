@@ -81,18 +81,16 @@ void	ft_instruction(char	*command, t_env_list *env)
 
 void	ft_lexa_parse(char *line, t_env_list *env)
 {
-	char	**insts;
-	int		i;
+	int	i;
+	int	quote;
 
-	insts = ft_split_pipe(line, '|');
-	if (!insts)
-		write(2, "Allocation err\n", 16);
-	else
+	i = 0;
+	quote = 0;
+	while (line[i])
 	{
-		i = 0;
-		while (insts[i] != 0)
-			ft_instruction(insts[i++], env);
-		free(insts);
+		ft_local_quoter(line[i], &quote);
+		if (quote == 0)
+		i++;
 	}
 }
 

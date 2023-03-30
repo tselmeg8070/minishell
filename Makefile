@@ -33,6 +33,7 @@ $(NAME): $(OBJS) $(LIBFT)
 
 $(LIBFT):
 	make -C libft
+	make -C bonus
 
 .c.o: $(SRCS)
 	$(CC) $(CFLAGS) -c -o $@ $<
