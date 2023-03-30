@@ -69,10 +69,12 @@ void	ft_instruction(char	*command, t_env_list *env)
 	char			*temp;
 
 	insts.files = 0;
-	insts.val = ft_define_redirections(command, env, &(insts.files));
-	temp = ft_replace_env(insts.val, env);
-	free(insts.val);
-	insts.val = temp;
+	insts.val = command;
+	if (!ft_define_redirections(&insts, env))
+		printf("Free the memory and return err\n");
+	// temp = ft_replace_env(insts.val, env);
+	// free(insts.val);
+	// insts.val = temp;
 	printf("Res: %s|\n", insts.val);
 	free(insts.val);
 }
@@ -89,11 +91,8 @@ void	ft_lexa_parse(char *line, t_env_list *env)
 	{
 		i = 0;
 		while (insts[i] != 0)
-		{
-			ft_instruction(insts[i], env);
-			i++;
-		}
-		ft_split_free(&insts);
+			ft_instruction(insts[i++], env);
+		free(insts);
 	}
 }
 

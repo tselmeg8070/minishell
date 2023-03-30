@@ -72,7 +72,7 @@ void	ft_printlist(t_env_list **list);
 
 int		ft_strcmp(char *s1, char *s2);
 
-char	*ft_define_redirections(char *str, t_env_list *env, t_list **files);
+int		ft_define_redirections(t_instruction *inst, t_env_list *env);
 
 void	ft_concat_char(char **str, char c);
 

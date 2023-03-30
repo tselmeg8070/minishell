@@ -7,6 +7,17 @@ int	ft_check_filename_eof(char c, int quote)
 	return (1);
 }
 
+/*
+Gets a filename from string
+Cases:
+	"test.txt"
+	$test
+	'test with space'
+	'test $test'
+	"$test"
+Fallbacks:
+	MEM fail: null
+*/
 char	*ft_get_filename(char *str, t_env_list *env, int *s)
 {
 	int		i;
@@ -20,17 +31,21 @@ char	*ft_get_filename(char *str, t_env_list *env, int *s)
 		i++;
 	while (str[i] && ft_check_filename_eof(str[i], quote))
 	{
-		if (ft_local_quoter(str[i], &quote))
-			i++;
-		else if ((quote == 0 || quote == 2) && str[i] == '$')
-			i = ft_string_creation(str, &res, i, env);
-		else
-			ft_concat_char(&res, str[i++]);
+		ft_local_quoter(str[i], &quote);
+		ft_concat_char(&res, str[i++]);
+		if (!res)
+			return (res);
 	}
 	*s = i;
 	return (res);
 }
 
+/*
+Assign filename to structure and adds it to list
+Fallback:
+	No file name found: 0
+	MEM fail: 0
+*/
 int	ft_red_filename(char *str, int type, t_env_list *env, t_list **list)
 {
 	int				i;

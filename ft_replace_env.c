@@ -1,11 +1,11 @@
 #include "minishell.h"
 
-// char	*ft_find_from_env(char *key, t_env_list *env)
-// {
-
-// 	return ("tselmeg");
-// }
-
+/*
+Concats char to string.
+Edge case:
+	memory fail
+	res: *str = null;
+*/
 void	ft_concat_char(char **str, char c)
 {
 	char	*res;

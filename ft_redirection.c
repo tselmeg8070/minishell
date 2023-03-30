@@ -32,6 +32,9 @@ int	ft_local_quoter(char c, int *quote)
 	return (0);
 }
 
+/*
+Compares with
+*/
 int	ft_inout_balancer(char *str, t_env_list *env, t_list **files)
 {
 	char	*token1;
@@ -42,13 +45,23 @@ int	ft_inout_balancer(char *str, t_env_list *env, t_list **files)
 	token1 = ft_substr(str, 0, 2);
 	token2 = ft_substr(str, 0, 1);
 	if (ft_strcmp(">>", token1) == 0)
-		l += ft_red_filename(str + 2, 4, env, files) + 2;
+		l = ft_red_filename(str + 2, 4, env, files);
 	else if (ft_strcmp("<<", token1) == 0)
-		l += ft_red_filename(str + 2, 5, env, files) + 2;
+		l = ft_red_filename(str + 2, 5, env, files);
 	else if (ft_strcmp(">", token2) == 0)
-		l += ft_red_filename(str + 1, 2, env, files) + 1;
+		l = ft_red_filename(str + 1, 2, env, files);
 	else if (ft_strcmp("<", token2) == 0)
-		l += ft_red_filename(str + 1, 3, env, files) + 1;
+		l = ft_red_filename(str + 1, 3, env, files);
+	if (l == 0)
+	{
+		free(token1);
+		free(token2);
+		return (-1);
+	}
+	if (ft_strcmp(">>", token1) == 0 || ft_strcmp("<<", token1) == 0)
+		l += 2;
+	else if (ft_strcmp(">", token2) == 0 || ft_strcmp("<", token2) == 0)
+		l++;
 	free(token1);
 	free(token2);
 	return (l);
@@ -60,7 +73,7 @@ void	ft_check_list(void *file)
 	printf("File: %s Type: %d\n", temp->filename, temp->type);
 }
 
-char	*ft_define_redirections(char *str, t_env_list *env, t_list **files)
+int		ft_define_redirections(t_instruction *inst, t_env_list *env)
 {
 	int		quote;
 	int		i;
@@ -68,21 +81,27 @@ char	*ft_define_redirections(char *str, t_env_list *env, t_list **files)
 	char	*res;
 
 	quote = 0;
-	i = 0;
 	res = 0;
-	while (str[i] != '\0')
+	i = 0;
+	while (inst->val[i] != '\0')
 	{
-		ft_local_quoter(str[i], &quote);
-		if (quote == 0)
-			d = ft_inout_balancer(str + i, env, files);
-		if (d > 0)
-			i += d;
-		else
+		ft_local_quoter(inst->val[i], &quote);
+		if (quote == 0 && (inst->val[i] == '<' || inst->val[i] == '>'))
 		{
-			ft_concat_char(&res, str[i]);
-			i++;
+			d = ft_inout_balancer(inst->val + i, env, &inst->files);
+			if (d <= 0)
+				printf("minishell: syntax error near unexpected token `newline'\n");
 		}
+		if (d > 0)
+		{
+			i += d;
+			d = 0;
+		}
+		else
+			ft_concat_char(&res, inst->val[i++]);
 	}
-	ft_lstiter(*files, ft_check_list);
-	return (res);
+	free(inst->val);
+	inst->val = res;
+	ft_lstiter(inst->files, ft_check_list);
+	return (1);
 }
