@@ -45,6 +45,8 @@ typedef struct s_redirection {
 typedef struct s_instruction {
 	int		in;
 	int		out;
+	int		err_code;
+	char	*err_msg;
 	char	*val;
 	t_list	*files;
 }	t_instruction;
@@ -72,8 +74,6 @@ void	ft_printlist(t_env_list **list);
 
 int		ft_strcmp(char *s1, char *s2);
 
-int		ft_define_redirections(t_instruction *inst, t_env_list *env);
-
 void	ft_concat_char(char **str, char c);
 
 int		ft_string_creation(char *str, char **res, int i, t_env_list *env);
@@ -82,6 +82,8 @@ int		ft_quoter(char c, int quote);
 
 int		ft_local_quoter(char c, int *quote);
 
-int		ft_red_filename(char *str, int type, t_env_list *env, t_list **list);
+int		ft_handle_redirection(char *str, t_instruction *inst);
+
+int		ft_red_filename(char *str, int type, t_list **list);
 
 #endif

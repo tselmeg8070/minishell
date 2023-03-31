@@ -18,7 +18,7 @@ Cases:
 Fallbacks:
 	MEM fail: null
 */
-char	*ft_get_filename(char *str, t_env_list *env, int *s)
+char	*ft_get_filename(char *str, int *s)
 {
 	int		i;
 	int		quote;
@@ -46,7 +46,7 @@ Fallback:
 	No file name found: 0
 	MEM fail: 0
 */
-int	ft_red_filename(char *str, int type, t_env_list *env, t_list **list)
+int	ft_red_filename(char *str, int type, t_list **list)
 {
 	int				i;
 	t_redirection	*redirection;
@@ -55,7 +55,7 @@ int	ft_red_filename(char *str, int type, t_env_list *env, t_list **list)
 	redirection = malloc(sizeof(t_redirection));
 	if (!redirection)
 		return (0);
-	redirection->filename = ft_get_filename(str, env, &i);
+	redirection->filename = ft_get_filename(str, &i);
 	if (!redirection->filename)
 	{
 		free(redirection);
