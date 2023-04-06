@@ -48,6 +48,23 @@ int	ft_isvalid_name(char *str)
 	return (0);
 }
 
+int	ft_env_is_exist(char *str, t_env_list **env)
+{
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	tmp = ft_substr(str, 0, i);
+	if (!tmp)
+		return (0);
+	if (ft_find_elm(env, tmp))
+		return (1);
+	free(tmp);
+	return (0);
+}
+
 void	*ft_export(void *ptr, t_env_list **env)
 {
 	char	*str;
@@ -62,8 +79,12 @@ void	*ft_export(void *ptr, t_env_list **env)
 	str = (char *)ptr;
 	if (ft_isvalid_name(str))
 	{
-		exit_from_child(1, "export", str, ": not a valid identifier");
+		exit_from_child(1, "export", str, "not a valid identifier");
 		return (ptr);
+	}
+	if (ft_env_is_exist(str, env))
+	{
+		printf("env deja existed!\n");
 	}
 	head = *env;
 	while ((*env)->next != NULL)
