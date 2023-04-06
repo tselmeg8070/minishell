@@ -2,7 +2,7 @@
 
 int	ft_check_filename_eof(char c, int quote)
 {
-	if (quote == 0 && (c == ' ' || c == '<' || c == '\t' || c == '>'))
+	if (quote == 0 && (c == ' ' || c == '\t'))
 		return (0);
 	return (1);
 }

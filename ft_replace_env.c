@@ -26,6 +26,14 @@ void	ft_concat_char(char **str, char c)
 	*str = res;
 }
 
+int	ft_concat_char_protected(char **token, char c)
+{
+	ft_concat_char(token, c);
+	if (token == 0)
+		return (0);
+	return (1);
+}
+
 int	ft_string_creation(char *str, char **res, int i, t_env_list *env)
 {
 	int		l;

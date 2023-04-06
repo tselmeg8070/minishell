@@ -149,29 +149,51 @@ void	ft_check_list_inst(void *file)
 	ft_lstiter(temp->files, ft_check_list);
 }
 
+// void	ft_lexa_parse(char *line, t_env_list *env)
+// {
+// 	int		i;
+// 	int		quote;
+// 	int		c;
+// 	t_list	*list;
+
+// 	list = ft_init_instructions();
+// 	i = 0;
+// 	quote = 0;
+// 	while (line[i])
+// 	{
+// 		ft_local_quoter(line[i], &quote);
+// 		if (quote == 0 && (line[i] == '<' || line[i] == '>'))
+// 			i += ft_handle_redirection(line + i, ft_get_instuction(list));
+// 		else if (quote == 0 && line[i] == '|' && ++i)
+// 			ft_add_instruction(&list);
+// 		else
+// 			ft_concat_char(&(ft_get_instuction(list)->val), line[i++]);
+// 		if (ft_get_instuction(list)->err_code != 0)
+// 			printf("%s\n", ft_get_instuction(list)->err_msg);
+// 	}
+// 	ft_lstiter(list, ft_check_list_inst);
+// }
+
+void	ft_check_list_token(void *token)
+{
+	char *temp = (char*) token;
+	printf("Token: %s\n", temp);
+}
+
+void	ft_free_list_token(void *token)
+{
+	char *temp = (char*) token;
+	free(temp);
+}
+
 void	ft_lexa_parse(char *line, t_env_list *env)
 {
-	int		i;
-	int		quote;
-	int		c;
 	t_list	*list;
 
-	list = ft_init_instructions();
-	i = 0;
-	quote = 0;
-	while (line[i])
-	{
-		ft_local_quoter(line[i], &quote);
-		if (quote == 0 && (line[i] == '<' || line[i] == '>'))
-			i += ft_handle_redirection(line + i, ft_get_instuction(list));
-		else if (quote == 0 && line[i] == '|' && ++i)
-			ft_add_instruction(&list);
-		else
-			ft_concat_char(&(ft_get_instuction(list)->val), line[i++]);
-		if (ft_get_instuction(list)->err_code != 0)
-			printf("%s\n", ft_get_instuction(list)->err_msg);
-	}
-	ft_lstiter(list, ft_check_list_inst);
+	list = 0;
+	if (ft_tokenize(line, &list))
+		ft_lstiter(list, ft_check_list_token);
+	ft_lstclear(&list, ft_free_list_token);
 }
 
 int	main(int argc, char **argv, char **paths)
@@ -203,6 +225,4 @@ int	main(int argc, char **argv, char **paths)
 			return (0);
 		}
 	}
-	if (!ft_free_envlst(&env))
-		printf ("list deleted!\n");
 }

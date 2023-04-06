@@ -46,3 +46,23 @@ int	ft_quoter(char c, int quote)
 		quote = 0;
 	return (quote);
 }
+
+int	ft_local_quoter(char c, int *quote)
+{
+	if (*quote == 0 && c == '\'')
+	{
+		*quote = 1;
+		return (1);
+	}
+	else if (*quote == 0 && c == '\"')
+	{
+		*quote = 2;
+		return (1);
+	}
+	else if ((*quote == 1 && c == '\'') || (*quote == 2 && c == '\"'))
+	{
+		*quote = 0;
+		return (1);
+	}
+	return (0);
+}
