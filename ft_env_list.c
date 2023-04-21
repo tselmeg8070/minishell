@@ -33,7 +33,7 @@ char	*ft_find_elm(t_env_list **list, char *key)
 	if (!list || !*list)
 		return (NULL);
 	tmp = *list;
-	while (tmp->next != NULL)
+	while (tmp->next)
 	{
 		if (ft_strncmp(tmp->key, key, ft_strlen(tmp->key)) == 0)
 			return (tmp->val);

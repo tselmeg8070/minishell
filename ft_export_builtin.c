@@ -85,7 +85,9 @@ void	*ft_export(void *ptr, t_env_list **env)
 	if (ft_env_is_exist(str, env))
 	{
 		printf("env deja existed!\n");
+		return (ptr);
 	}
+	printf("---head %s=%s|\n", (*env)->key, (*env)->val);
 	head = *env;
 	while ((*env)->next != NULL)
 	{

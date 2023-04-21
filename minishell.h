@@ -8,6 +8,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <errno.h>
 
 /*
 	0 - ''
@@ -64,6 +65,9 @@ void	ft_history(char *line);
 
 //for test
 void    ft_print_env(t_env_list **list);
+void    ft_cd(char **strs);
+void    ft_echo(void **strs, t_env_list **envs);
+void    ft_exec_pwd(void);
 void	exit_from_child(int	status, char *bltin, char *cmd, char *msg);
 void	*ft_export(void *ptr, t_env_list **env);
 

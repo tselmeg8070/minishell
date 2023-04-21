@@ -84,6 +84,24 @@ int	main(int argc, char **argv, char **paths)
 	t_env_list			*env;
 	struct sigaction	sa;
 
+//echo test str
+	char **test_echo = NULL;
+	test_echo = ft_split("-nn $.$HOME . $? test $123 $", ' ');
+	if (!test_echo)
+	{
+		printf("ERR in test_echo\n");
+		return (-1);
+	}
+
+//cd test str
+	char **test_cd = NULL;
+	test_cd = ft_split("", ' ');
+	if (!test_cd)
+	{
+		printf("ERR in test_cd\n");
+		return (-1);
+	}
+
 	env = ft_create_envlist(paths);
 	if (!env)
 	{
@@ -105,16 +123,17 @@ int	main(int argc, char **argv, char **paths)
 			{
 				ft_lexa_parse(line, env);
 			}
-			if (!ft_strncmp(line, "env", ft_strlen(line)))
+			if (!ft_strncmp(line, "1", ft_strlen(line)))
 			{
-				ft_print_env(&env);
+				ft_echo((void **)test_echo, &env);
 			}
-			if (!ft_strncmp(line, "export", 6))
+			if (!ft_strncmp(line, "2", ft_strlen(line)))
 			{
-				if (line[7] == '\0')
-					ft_export(NULL, &env);
-				else
-					ft_export(line + 7, &env);
+				ft_cd(test_cd);
+			}
+			if (!ft_strncmp(line, "3", ft_strlen(line)))
+			{
+				ft_exec_pwd();
 			}
 			free(line);
 		}

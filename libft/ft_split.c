@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	ft_count_split(char *str, char charset)
+int	ft_count_splt(char *str, char charset)
 {
 	int		i;
 	int		str_flag;
@@ -36,7 +36,7 @@ int	ft_count_split(char *str, char charset)
 	return (i);
 }
 
-char	**ft_malloc(int arr_c)
+char	**ft_mallc(int arr_c)
 {
 	char	**result;
 
@@ -55,8 +55,8 @@ char	**ft_split(char const *strp, char charset)
 	char	*start;
 
 	str = (char *) strp;
-	c = ft_count_split(str, charset);
-	result = ft_malloc(c);
+	c = ft_count_splt(str, charset);
+	result = ft_mallc(c);
 	if (result == 0)
 		return (0);
 	c = 0;
