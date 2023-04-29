@@ -63,90 +63,40 @@ void	ft_lexa_space(char *line)
 	ft_split_free(&strings);
 }
 
-void	ft_instruction(char	*command, t_env_list *env)
-{
-	t_instruction	insts;
-	char			*temp;
+// void	ft_instruction(char	*command, t_env_list *env)
+// {
+// 	t_instruction	insts;
+// 	char			*temp;
 
-	insts.files = 0;
-	insts.val = command;
+// 	insts.files = 0;
+// 	insts.val = command;
 
-	// temp = ft_replace_env(insts.val, env);
-	// free(insts.val);
-	// insts.val = temp;
-	printf("Res: %s|\n", insts.val);
-	free(insts.val);
-}
-
-t_instruction	*ft_init_instruction()
-{
-	t_instruction	*inst;
-
-	inst = malloc(sizeof(t_instruction));
-	if (inst)
-	{
-		inst->val = 0;
-		inst->in = 0;
-		inst->out = 0;
-		inst->err_msg = 0;
-		inst->err_code = 0;
-		inst->files = 0;
-	}
-	return (inst);
-}
-
-t_list	*ft_init_instructions()
-{
-	t_list	*list;
-	t_instruction	*inst;
-
-	list = 0;
-	inst = ft_init_instruction();
-	if (inst)
-	{
-		list = ft_lstnew(inst);
-		if (!list)
-			free(inst);
-		return (list);
-	}
-	return (0);
-}
-
-t_instruction *ft_get_instuction(t_list *list)
-{
-	t_list	*node;
-	t_instruction	*inst;
-
-	node = ft_lstlast(list);
-	inst = (t_instruction*) node->content;
-	return (inst);
-}
-
-
-void	ft_add_instruction(t_list **list)
-{
-	t_list	*node;
-	t_instruction *inst;
-
-	node = 0;
-	inst = ft_init_instruction();
-	if (inst)
-		node = ft_lstnew(inst);
-	if (node)
-		ft_lstadd_back(list, node);
-}
+// 	// temp = ft_replace_env(insts.val, env);
+// 	// free(insts.val);
+// 	// insts.val = temp;
+// 	printf("Res: %s|\n", insts.val);
+// 	free(insts.val);
+// }
 
 void	ft_check_list(void *file)
 {
+	char *temp = (char*) file;
+	printf("CMD Token: %s\n", temp);
+}
+
+void	ft_check_redirections(void *file)
+{
 	t_redirection *temp = (t_redirection*) file;
-	printf("File: %s Type: %d\n", temp->filename, temp->type);
+	printf("Name: %s type: %d\n", temp->filename, temp->type);
 }
 
 void	ft_check_list_inst(void *file)
 {
 	t_instruction *temp = (t_instruction*) file;
-	printf("Command: %s\n", temp->val);
-	ft_lstiter(temp->files, ft_check_list);
+	printf("Command:\n");
+	ft_lstiter(temp->commands, ft_check_list);
+	printf("Redirections:\n");
+	ft_lstiter(temp->files, ft_check_redirections);
 }
 
 // void	ft_lexa_parse(char *line, t_env_list *env)
@@ -174,11 +124,7 @@ void	ft_check_list_inst(void *file)
 // 	ft_lstiter(list, ft_check_list_inst);
 // }
 
-void	ft_check_list_token(void *token)
-{
-	char *temp = (char*) token;
-	printf("Token: %s\n", temp);
-}
+
 
 void	ft_free_list_token(void *token)
 {
@@ -189,17 +135,29 @@ void	ft_free_list_token(void *token)
 void	ft_lexa_parse(char *line, t_env_list *env)
 {
 	t_list	*list;
+	t_list	*command_table;
 
 	list = 0;
 	if (ft_tokenize(line, &list))
-		ft_lstiter(list, ft_check_list_token);
+	{
+		if (ft_token_check(list))
+		{
+			command_table = ft_token_seperation(list);
+			if (command_table)
+			{
+				ft_handle_instruction_redirection(command_table);
+				ft_handle_env_command(command_table, env);
+				ft_handle_env_redirection(command_table, env);
+				ft_lstiter(command_table, ft_check_list_inst);
+			}
+		}
+	}
 	ft_lstclear(&list, ft_free_list_token);
 }
 
 int	main(int argc, char **argv, char **paths)
 {
 	char		*line;
-
 	t_env_list	*env;
 
 	env = ft_create_envlist(paths);

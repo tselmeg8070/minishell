@@ -15,12 +15,15 @@ CFLAGSDD = -Wall -Wextra -Werror
 LIBFT = ./libft/libft.a
 FILES = minishell \
 		minishell_utils \
+		minishell_utils2 \
 		ft_replace_env \
 		ft_split_pipe\
 		ft_env_list\
 		ft_tokenize\
+		ft_token_check\
+		ft_instruction\
+		ft_create_command\
 		ft_redirection\
-		ft_redirection_utils\
 		ft_env_list_utils
 
 SRCS = $(addsuffix .c, $(FILES))

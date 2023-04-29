@@ -1,118 +1,94 @@
 #include "minishell.h"
 
-/*
-Cases:
-	Basic:
-		< 'Tselmeg is'
-		< $TEST
-	Edge:
-		export $TEST="Running lion"
-		echo tselmeg > $TEST // bash: $test: ambiguous redirect
-		echo tselmeg > "$TEST" // works
-		echo tselmeg > // bash: syntax error near unexpected token `newline'
-*/
-
-/*
-Compares with
-*/
-int	ft_inout_balancer(char *str, t_list **files)
+int	ft_red_token_id(t_list *token)
 {
-	char	*token1;
-	char	*token2;
-	int		l;
-
-	l = 0;
-	token1 = ft_substr(str, 0, 2);
-	token2 = ft_substr(str, 0, 1);
-	if (ft_strcmp(">>", token1) == 0)
-		l = ft_red_filename(str + 2, 4, files);
-	else if (ft_strcmp("<<", token1) == 0)
-		l = ft_red_filename(str + 2, 5, files);
-	else if (ft_strcmp(">", token2) == 0)
-		l = ft_red_filename(str + 1, 2, files);
-	else if (ft_strcmp("<", token2) == 0)
-		l = ft_red_filename(str + 1, 3, files);
-	if (l == 0)
-	{
-		free(token1);
-		free(token2);
-		return (-1);
-	}
-	if (ft_strcmp(">>", token1) == 0 || ft_strcmp("<<", token1) == 0)
-		l += 2;
-	else if (ft_strcmp(">", token2) == 0 || ft_strcmp("<", token2) == 0)
-		l++;
-	free(token1);
-	free(token2);
-	return (l);
+	if (token == 0)
+		return (0);
+	if (ft_strcmp(">>", (char *) token->content) == 0)
+		return (4);
+	if (ft_strcmp("<<", (char *) token->content) == 0)
+		return (5);
+	if (ft_strcmp(">", (char *) token->content) == 0)
+		return (2);
+	if (ft_strcmp("<", (char *) token->content) == 0)
+		return (3);
+	return (0);
 }
 
-int	ft_handle_redirection(char *str, t_instruction *inst)
+int	ft_red_filename_free(t_redirection *red)
 {
-	char	*token1;
-	char	*token2;
-	int		l;
-
-	l = 0;
-	token1 = ft_substr(str, 0, 2);
-	token2 = ft_substr(str, 0, 1);
-	if (ft_strcmp(">>", token1) == 0)
-		l = ft_red_filename(str + 2, 4, &inst->files);
-	else if (ft_strcmp("<<", token1) == 0)
-		l = ft_red_filename(str + 2, 5, &inst->files);
-	else if (ft_strcmp(">", token2) == 0)
-		l = ft_red_filename(str + 1, 2, &inst->files);
-	else if (ft_strcmp("<", token2) == 0)
-		l = ft_red_filename(str + 1, 3, &inst->files);
-	if (l == 0)
-	{
-		inst->err_msg = ft_strdup("Unexpected new line");
-		inst->err_code = 1;
-	}
-	if (ft_strcmp(">>", token1) == 0 || ft_strcmp("<<", token1) == 0)
-		l += 2;
-	else if (ft_strcmp(">", token2) == 0 || ft_strcmp("<", token2) == 0)
-		l++;
-	free(token1);
-	free(token2);
-	return (l);
+	free(red->filename);
+	free(red);
+	return (0);
 }
 
-// void	ft_check_list(void *file)
-// {
-// 	t_redirection *temp = (t_redirection*) file;
-// 	printf("File: %s Type: %d\n", temp->filename, temp->type);
-// }
+/*
+Assign filename to structure and adds it to list
+Fallback:
+	(0) - memory fail
+*/
+int	ft_red_filename(char *str, int type, t_list **list)
+{
+	int				i;
+	t_redirection	*redirection;
+	t_list			*node;
 
-// int		ft_define_redirections(t_instruction *inst, t_env_list *env)
-// {
-// 	int		quote;
-// 	int		i;
-// 	int		d;
-// 	char	*res;
+	redirection = malloc(sizeof(t_redirection));
+	if (!redirection)
+		return (0);
+	redirection->filename = ft_strdup(str);
+	if (!redirection->filename)
+	{
+		free(redirection);
+		return (0);
+	}
+	redirection->type = type;
+	node = ft_lstnew(redirection);
+	if (node)
+		ft_lstadd_back(list, node);
+	else
+		return (ft_red_filename_free(redirection));
+	return (1);
+}
 
-// 	quote = 0;
-// 	res = 0;
-// 	i = 0;
-// 	while (inst->val[i] != '\0')
-// 	{
-// 		ft_local_quoter(inst->val[i], &quote);
-// 		if (quote == 0 && (inst->val[i] == '<' || inst->val[i] == '>'))
-// 		{
-// 			d = ft_inout_balancer(inst->val + i, env, &inst->files);
-// 			if (d <= 0)
-// 				printf("minishell: syntax error near unexpected token `newline'\n");
-// 		}
-// 		if (d > 0)
-// 		{
-// 			i += d;
-// 			d = 0;
-// 		}
-// 		else
-// 			ft_concat_char(&res, inst->val[i++]);
-// 	}
-// 	free(inst->val);
-// 	inst->val = res;
-// 	ft_lstiter(inst->files, ft_check_list);
-// 	return (1);
-// }
+/*
+Assigns redirections to instruction files
+Fallback:
+	(0) - memory fail(handle free in parent function)
+*/
+int	ft_handle_redirection_command(t_instruction *inst)
+{
+	t_list	*token;
+	t_list	*pre;
+	int		red_id;
+
+	token = inst->tokens;
+	pre = 0;
+	while (token)
+	{
+		red_id = ft_red_token_id(pre);
+		if (pre && ft_red_token_id(pre) != 0
+			&& !ft_red_filename(token->content, red_id, &inst->files))
+			return (0);
+		else if ((!pre || (pre && ft_red_token_id(pre) == 0))
+			&& ft_red_token_id(token) == 0)
+		{
+			if (!ft_lstadd_back_safe(&inst->commands, token->content))
+				return (0);
+		}
+		pre = token;
+		token = token->next;
+	}
+	return (1);
+}
+
+int	ft_handle_instruction_redirection(t_list *inst)
+{
+	while (inst)
+	{
+		if (!ft_handle_redirection_command(inst->content))
+			return (0);
+		inst = inst->next;
+	}
+	return (1);
+}

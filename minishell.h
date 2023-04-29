@@ -47,11 +47,12 @@ typedef struct s_instruction {
 	int		out;
 	int		err_code;
 	char	*err_msg;
-	char	*val;
+	char	**val;
+	t_list	*commands;
+	t_list	*tokens;
 	t_list	*files;
 }	t_instruction;
 
-//ft for linked list
 int		ft_add2list(t_env_list **list, t_env_list *n_elm);
 
 char	*ft_find_elm(t_env_list **list, char *key);
@@ -84,10 +85,32 @@ int		ft_quoter(char c, int quote);
 
 int		ft_local_quoter(char c, int *quote);
 
-int		ft_handle_redirection(char *str, t_instruction *inst);
-
-int		ft_red_filename(char *str, int type, t_list **list);
+int		ft_handle_redirection(t_instruction *inst);
 
 int		ft_tokenize(char *line, t_list **list);
+
+int		ft_is_token(char c);
+
+int		ft_token_check(t_list *list);
+
+t_instruction	*ft_init_instruction();
+
+t_list			*ft_init_instructions();
+
+t_instruction	*ft_get_instuction(t_list *list);
+
+void	ft_add_instruction(t_list **list);
+
+void	ft_free_instruction(void *inst);
+
+t_list	*ft_token_seperation(t_list *token);
+
+int		ft_lstadd_back_safe(t_list **list, void *content);
+
+int		ft_handle_instruction_redirection(t_list *inst);
+
+int		ft_handle_env_command(t_list *inst_table, t_env_list *env);
+
+int		ft_handle_env_redirection(t_list *inst_table, t_env_list *env);
 
 #endif

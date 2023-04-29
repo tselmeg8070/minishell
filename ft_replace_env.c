@@ -1,43 +1,15 @@
 #include "minishell.h"
 
 /*
-Concats char to string.
-Edge case:
-	memory fail
-	res: *str = null;
+Finds string based on key from env list and concats it to result.
+Fallback:
+	(-1) - memory fails
+Return:
+	(size) - size of the given key
 */
-void	ft_concat_char(char **str, char c)
-{
-	char	*res;
-	int		len;
-
-	if (*str == 0)
-		len = 0;
-	else
-		len = ft_strlen(*str);
-	res = malloc(len + 2);
-	if (res)
-	{
-		ft_memcpy(res, *str, len);
-		res[len + 1] = '\0';
-		res[len] = c;
-		free(*str);
-	}
-	*str = res;
-}
-
-int	ft_concat_char_protected(char **token, char c)
-{
-	ft_concat_char(token, c);
-	if (token == 0)
-		return (0);
-	return (1);
-}
-
 int	ft_string_creation(char *str, char **res, int i, t_env_list *env)
 {
 	int		l;
-	int		d;
 	char	*val;
 	char	*key;
 	char	*temp;
@@ -49,7 +21,7 @@ int	ft_string_creation(char *str, char **res, int i, t_env_list *env)
 	if (i - l >= 1)
 	{
 		key = ft_substr(str, l, i - l);
-		if (ft_strlen(key) > 0)
+		if (key && ft_strlen(key) > 0)
 		{
 			val = ft_find_elm(&env, key);
 			temp = ft_strjoin(*res, val);
@@ -58,14 +30,22 @@ int	ft_string_creation(char *str, char **res, int i, t_env_list *env)
 			*res = temp;
 		}
 		free(key);
+		if (val && *res == 0)
+			return (-1);
 	}
 	return (i);
 }
 
+/*
+Replaces env variable in string.
+Fallback:
+	(null) - memory fails
+*/
 char	*ft_replace_env(char *str, t_env_list *env)
 {
 	int		quote;
 	int		i;
+	int		s;
 	char	*res;
 
 	quote = 0;
@@ -74,10 +54,81 @@ char	*ft_replace_env(char *str, t_env_list *env)
 	while (str[i] != '\0')
 	{
 		quote = ft_quoter(str[i], quote);
-		if ((quote == 0 || quote == 2) && str[i] == '$')
-			i = ft_string_creation(str, &res, i, env);
-		else
-			ft_concat_char(&res, str[i++]);
+		if ((quote == 0 || quote == 2) && str[i] == '$'
+			&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_'))
+		{
+			s = ft_string_creation(str, &res, i, env);
+			if (s == -1)
+				return (0);
+			i = s;
+		}
+		else if (!ft_concat_char_protected(&res, str[i++]))
+			return (0);
 	}
 	return (res);
+}
+
+/*
+Expands command tokens in command table.
+Fallback:
+	(0) - memory fails
+*/
+int	ft_handle_env_command(t_list *inst_table, t_env_list *env)
+{
+	t_instruction	*inst;
+	t_list			*token_list;
+	char			*token;
+	char			*expanded;
+
+	while (inst_table)
+	{
+		inst = (t_instruction *) inst_table->content;
+		token_list = (t_list *) inst->commands;
+		while (token_list)
+		{
+			token = (char *) token_list->content;
+			expanded = ft_replace_env(token, env);
+			if (expanded == 0)
+				return (0);
+			free(token);
+			token_list->content = expanded;
+			token_list = token_list->next;
+		}
+		inst_table = inst_table->next;
+	}
+	return (1);
+}
+
+/*
+Expands redirections in command table.
+Fallback:
+	(0) - memory fails
+*/
+int	ft_handle_env_redirection(t_list *inst_table, t_env_list *env)
+{
+	t_instruction	*inst;
+	t_list			*file_list;
+	t_redirection	*file;
+	char			*expanded;
+
+	while (inst_table)
+	{
+		inst = (t_instruction *) inst_table->content;
+		file_list = (t_list *) inst->files;
+		while (file_list)
+		{
+			file = (t_redirection *) file_list->content;
+			if (file->type != 5)
+			{
+				expanded = ft_replace_env(file->filename, env);
+				if (expanded == 0)
+					return (0);
+				free(file->filename);
+				file->filename = expanded;
+			}
+			file_list = file_list->next;
+		}
+		inst_table = inst_table->next;
+	}
+	return (1);
 }
