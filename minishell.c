@@ -132,6 +132,14 @@ void	ft_free_list_token(void *token)
 	free(temp);
 }
 
+void	ft_free_command_table(void *command)
+{
+	t_instruction	*inst;
+
+	inst = (t_instruction *) command;
+
+}
+
 void	ft_lexa_parse(char *line, t_env_list *env)
 {
 	t_list	*list;
@@ -149,6 +157,7 @@ void	ft_lexa_parse(char *line, t_env_list *env)
 				ft_handle_env_command(command_table, env);
 				ft_handle_env_redirection(command_table, env);
 				ft_lstiter(command_table, ft_check_list_inst);
+				ft_lstclear(&command_table, ft_free_instruction);
 			}
 		}
 	}

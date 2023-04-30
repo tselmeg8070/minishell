@@ -73,7 +73,7 @@ int	ft_handle_redirection_command(t_instruction *inst)
 		else if ((!pre || (pre && ft_red_token_id(pre) == 0))
 			&& ft_red_token_id(token) == 0)
 		{
-			if (!ft_lstadd_back_safe(&inst->commands, token->content))
+			if (!ft_lstadd_back_safe(&inst->commands, ft_strdup(token->content)))
 				return (0);
 		}
 		pre = token;

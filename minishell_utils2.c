@@ -12,10 +12,20 @@
 
 #include "minishell.h"
 
+/*
+Safely adds element to the list. If content is null its fallbacks.
+Fallback:
+	(0) - Memory fails and clears the current instruction list
+*/
 int	ft_lstadd_back_safe(t_list **list, void *content)
 {
 	t_list	*node;
 
+	if (!content)
+	{
+		ft_lstclear(list, &ft_free_instruction);
+		return (0);
+	}
 	node = ft_lstnew(content);
 	if (!node)
 	{

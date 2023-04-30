@@ -24,12 +24,32 @@ t_instruction	*ft_init_instruction()
 	return (inst);
 }
 
+void	ft_free_redirection(void *file)
+{
+	t_redirection	*redirection;
+
+	redirection = (t_redirection *) file;
+	free(redirection->filename);
+	free(redirection);
+}
+
+void	ft_free_token(void *token)
+{
+	char	*string;
+
+	string = (char *) token;
+	if (token)
+		free(string);
+}
+
 void	ft_free_instruction(void *rinst)
 {
 	t_instruction	*inst;
 
 	inst = (t_instruction *) rinst;
-	ft_lstclear(&inst->tokens, free);
+	ft_lstclear(&inst->files, &ft_free_redirection);
+	ft_lstclear(&inst->commands, &ft_free_token);
+	ft_lstclear(&inst->tokens, &ft_free_token);
 	free(inst);
 }
 
