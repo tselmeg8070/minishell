@@ -30,7 +30,7 @@ int	ft_string_creation(char *str, char **res, int i, t_env_list *env)
 			*res = temp;
 		}
 		free(key);
-		if (val && *res == 0)
+		if (val != 0 && *res == 0)
 			return (-1);
 	}
 	return (i);

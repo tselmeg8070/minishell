@@ -23,6 +23,8 @@ FILES = minishell \
 		ft_token_check\
 		ft_instruction\
 		ft_create_command\
+		ft_generate_char_list\
+		ft_quote_strip\
 		ft_redirection\
 		ft_env_list_utils
 

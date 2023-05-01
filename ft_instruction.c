@@ -13,6 +13,7 @@ t_instruction	*ft_init_instruction()
 	if (inst)
 	{
 		inst->val = 0;
+		inst->valc = 0;
 		inst->in = 0;
 		inst->out = 0;
 		inst->err_msg = 0;
@@ -50,6 +51,7 @@ void	ft_free_instruction(void *rinst)
 	ft_lstclear(&inst->files, &ft_free_redirection);
 	ft_lstclear(&inst->commands, &ft_free_token);
 	ft_lstclear(&inst->tokens, &ft_free_token);
+	ft_split_free(&inst->val);
 	free(inst);
 }
 

@@ -48,6 +48,7 @@ typedef struct s_instruction {
 	int		err_code;
 	char	*err_msg;
 	char	**val;
+	int		valc;
 	t_list	*commands;
 	t_list	*tokens;
 	t_list	*files;
@@ -78,6 +79,8 @@ int		ft_strcmp(char *s1, char *s2);
 void	ft_concat_char(char **str, char c);
 
 int		ft_concat_char_protected(char **token, char c);
+
+void	ft_concat_empty(char **val);
 
 int		ft_string_creation(char *str, char **res, int i, t_env_list *env);
 
@@ -112,5 +115,13 @@ int		ft_handle_instruction_redirection(t_list *inst);
 int		ft_handle_env_command(t_list *inst_table, t_env_list *env);
 
 int		ft_handle_env_redirection(t_list *inst_table, t_env_list *env);
+
+int		ft_lstlen(t_list *head);
+
+int		ft_generate_char_list_traverse(t_list *table);
+
+int		ft_quote_strip(t_instruction *inst);
+
+int		ft_quote_strip_traverse(t_list *table);
 
 #endif

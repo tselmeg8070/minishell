@@ -97,6 +97,14 @@ void	ft_check_list_inst(void *file)
 	ft_lstiter(temp->commands, ft_check_list);
 	printf("Redirections:\n");
 	ft_lstiter(temp->files, ft_check_redirections);
+	printf("Expanded: \n");
+	int i = 0;
+	// printf("Exp: %s\n", temp->val[0]);
+	while (temp->val[i] != 0)
+	{
+		printf("Exp: %s\n", temp->val[i]);
+		i++;
+	}
 }
 
 // void	ft_lexa_parse(char *line, t_env_list *env)
@@ -132,14 +140,6 @@ void	ft_free_list_token(void *token)
 	free(temp);
 }
 
-void	ft_free_command_table(void *command)
-{
-	t_instruction	*inst;
-
-	inst = (t_instruction *) command;
-
-}
-
 void	ft_lexa_parse(char *line, t_env_list *env)
 {
 	t_list	*list;
@@ -156,6 +156,8 @@ void	ft_lexa_parse(char *line, t_env_list *env)
 				ft_handle_instruction_redirection(command_table);
 				ft_handle_env_command(command_table, env);
 				ft_handle_env_redirection(command_table, env);
+				ft_generate_char_list_traverse(command_table);
+				ft_quote_strip_traverse(command_table);
 				ft_lstiter(command_table, ft_check_list_inst);
 				ft_lstclear(&command_table, ft_free_instruction);
 			}

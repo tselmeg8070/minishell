@@ -38,10 +38,8 @@ int	ft_token_check_pipe(t_list *list)
 {
 	int		pipe;
 	char	*token;
-	char	*prev;
 
 	pipe = 0;
-	prev = 0;
 	while (list)
 	{
 		token = (char *) list->content;
@@ -55,7 +53,6 @@ int	ft_token_check_pipe(t_list *list)
 		else
 			pipe = 0;
 		list = list->next;
-		prev = token;
 	}
 	if (pipe)
 		return (ft_msg_token("|"));

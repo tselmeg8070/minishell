@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
+#include "minishell.h"
 
 int	ft_count_split(char *str, char charset)
 {
