@@ -32,21 +32,21 @@ void	ft_print_export(t_env_list **env)
 	}
 }
 
-int	ft_isvalid_name(char *str)
-{
-	int	i;
+// int	ft_isvalid_name(char *str)
+// {
+// 	int	i;
 
-	i = 0;
-	if (!ft_isalpha(str[i]) && str[i] != '_')
-		return (1);
-	while (str[i] && str[i] != '=')
-	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
-			return (1);
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	if (!ft_isalpha(str[i]) && str[i] != '_')
+// 		return (1);
+// 	while (str[i] && str[i] != '=')
+// 	{
+// 		if (!ft_isalnum(str[i]) && str[i] != '_')
+// 			return (1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 int	ft_env_is_exist(char *str, t_env_list **env)
 {

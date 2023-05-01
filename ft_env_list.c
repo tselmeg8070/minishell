@@ -65,14 +65,14 @@ void	ft_delete_elm(t_env_list **list, char *key)
 		return ;
 	head = *list;
 	tmp = *list;
-	if (ft_strncmp(tmp->key, key, ft_strlen(tmp->key)) == 0)
+	if (ft_strcmp(tmp->key, key) == 0)
 	{
 		ft_del_node(*list);
 		*list = tmp->next;
 		return ;
 	}
 	tmp = (*list)->next;
-	while (ft_strncmp(tmp->key, key, ft_strlen(tmp->key))
+	while (ft_strcmp(tmp->key, key))
 		&& (*list)->next != NULL)
 	{
 		*list = (*list)->next;

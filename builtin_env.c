@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tadiyamu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: galtange <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/04 17:00:39 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/03/04 17:00:42 by tadiyamu         ###   ########.fr       */
+/*   Created: 2023/05/01 19:26:44 by galtange          #+#    #+#             */
+/*   Updated: 2023/05/01 19:28:12 by galtange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_split_free(char ***res)
+void	ft_env(char **str, t_env_list **envs)
 {
-	int	i;
+	t_env_list	*tmp;
 
-	i = 0;
-	while ((*res) && (*res)[i] != 0)
+	(void) str;
+	if (!envs || !*envs)
+		printf("in ft_print_export, enter the null env list\n");
+	tmp = *envs;
+	while (tmp->next)
 	{
-		free((*res)[i]);
-		i++;
+		if (tmp->val != NULL)
+			printf("%s=%s\n", tmp->key, tmp->val);
+		tmp = tmp->next;
 	}
-	if (*res)
-		free(*res);
-}
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	while (*s1 && *s1 == *s2)
-	{
-		s1++;
-		s2++;
-	}
-	return (*s1 - *s2);
 }

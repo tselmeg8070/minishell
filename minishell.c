@@ -101,6 +101,24 @@ int	main(int argc, char **argv, char **paths)
 		printf("ERR in test_cd\n");
 		return (-1);
 	}
+//cd test export
+	char **test_export = NULL;
+	// test_export = strdup("");
+	test_export = ft_split("USER=.0=400.hi=100.hi=5", '.');
+	if (!test_export)
+	{
+		printf("ERR in test_echo\n");
+		return (-1);
+	}
+//cd test unset
+	char **test_unset = NULL;
+	// test_export = strdup("");
+	test_unset = ft_split("USER.DISPLAY.PAGER=less", '.');
+	if (!test_unset)
+	{
+		printf("ERR in test_echo\n");
+		return (-1);
+	}
 
 	env = ft_create_envlist(paths);
 	if (!env)
@@ -133,7 +151,23 @@ int	main(int argc, char **argv, char **paths)
 			}
 			if (!ft_strncmp(line, "3", ft_strlen(line)))
 			{
-				ft_exec_pwd();
+				ft_pwd(test_cd);
+			}
+			if (!ft_strncmp(line, "4", ft_strlen(line)))
+			{
+				ft_export_test(test_export, &env);
+			}
+			if (!ft_strncmp(line, "5", ft_strlen(line)))
+			{
+				ft_export_test(NULL, &env);
+			}
+			if (!ft_strncmp(line, "6", ft_strlen(line)))
+			{
+				ft_env(test_export, &env);
+			}
+			if (!ft_strncmp(line, "7", ft_strlen(line)))
+			{
+				ft_unset(test_unset, &env);
 			}
 			free(line);
 		}
