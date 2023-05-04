@@ -25,7 +25,7 @@ void	ft_print_export(t_env_list **env)
 	{
 		printf("declare -x ");
 		printf("%s", tmp->key);
-		if (ft_strncmp(tmp->val, "", ft_strlen(tmp->val)))
+		if (ft_strcmp(tmp->val, ""))
 			printf("=\"%s\"", tmp->val);
 		printf("\n");
 		tmp = tmp->next;

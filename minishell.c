@@ -104,7 +104,7 @@ int	main(int argc, char **argv, char **paths)
 //cd test export
 	char **test_export = NULL;
 	// test_export = strdup("");
-	test_export = ft_split("USER=.0=400.hi=100.hi=5", '.');
+	test_export = ft_split("USER=0.0=400.hi=100.hi=5", '.');
 	if (!test_export)
 	{
 		printf("ERR in test_echo\n");

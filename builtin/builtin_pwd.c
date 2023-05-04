@@ -62,25 +62,3 @@ void	ft_pwd(char **strs)
 		}
 	}
 }
-
-// void    ft_exec_pwd(void)
-// {
-//     char    cwd[1000];
-
-//     getcwd(cwd, 1000);
-//     printf("%s\n", cwd);
-// }
-
-// int main() {
-
-//     char buffer[BUFFER_SIZE];
-//     if ( getcwd( buffer, BUFFER_SIZE ) == NULL ) {
-//         fprintf( stderr, "Cannot get current working directory path\n" );
-//         if ( errno == ERANGE ) {
-//             fprintf( stderr, "Buffer size is too small.\n" );
-//         }
-//         exit( EXIT_FAILURE );
-//     }
-
-//     printf( "Current working directory: %s\n", buffer ); 
-//     return EXIT_SUCCESS;

@@ -36,7 +36,7 @@ void	ft_cd(char **str)
 		printf("minishell: cd: too many arguments\n");
 	else if (i == 0)
 		path = ft_strdup(getenv("HOME"));
-	else if (!ft_strncmp(*str, "~", 1))
+	else if (ft_strcmp(*str, "~"))
 			path = ft_strjoin(getenv("HOME"), &str[0][1]);
 	else
 			path = ft_strdup(*str);

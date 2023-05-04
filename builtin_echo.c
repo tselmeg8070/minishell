@@ -84,7 +84,7 @@ void	ft_echo(void **strs, t_env_list **envs)
 		return ;
 	flag_n = 1;
 	tmp = (char **)strs;
-	if (*tmp && !ft_strncmp(*tmp, "-n", ft_strlen(*tmp)))
+	if (*tmp && !ft_strcmp(*tmp, "-n"))
 	{
 		flag_n = 0;
 		if (tmp + 1)

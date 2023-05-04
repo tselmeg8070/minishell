@@ -69,7 +69,7 @@ void    ft_export_env(t_env_list *new, t_env_list **envs)
     while (tmp)
     {
         printf("1\n");
-        if (ft_strncmp(tmp->key, new->key, ft_strlen(tmp->key)) == 0)
+        if (ft_strcmp(tmp->key, new->key) == 0)
         {
             if (new->val != NULL)
                 tmp->val = new->val;
