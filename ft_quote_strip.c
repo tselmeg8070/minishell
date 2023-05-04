@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	ft_get_quote_id(char c)
+static int	ft_get_quote_id(char c)
 {
 	if (c == '\'')
 		return (1);
@@ -9,7 +9,7 @@ int	ft_get_quote_id(char c)
 	return (0);
 }
 
-char	*ft_quote_strip_mem_fail(char **res)
+static char	*ft_quote_strip_mem_fail(char **res)
 {
 	free(*res);
 	return (0);

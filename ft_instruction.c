@@ -16,6 +16,8 @@ t_instruction	*ft_init_instruction()
 		inst->valc = 0;
 		inst->in = 0;
 		inst->out = 0;
+		inst->in_file = 0;
+		inst->out_file = 0;
 		inst->err_msg = 0;
 		inst->err_code = 0;
 		inst->commands = 0;
@@ -31,6 +33,7 @@ void	ft_free_redirection(void *file)
 
 	redirection = (t_redirection *) file;
 	free(redirection->filename);
+	free(redirection->original);
 	free(redirection);
 }
 

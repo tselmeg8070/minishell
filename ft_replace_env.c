@@ -123,7 +123,7 @@ int	ft_handle_env_redirection(t_list *inst_table, t_env_list *env)
 				expanded = ft_replace_env(file->filename, env);
 				if (expanded == 0)
 					return (0);
-				free(file->filename);
+				file->original = (file->filename);
 				file->filename = expanded;
 			}
 			file_list = file_list->next;

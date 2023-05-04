@@ -48,36 +48,6 @@ int	ft_quote_check(char *str)
 	return (0);
 }
 
-void	ft_lexa_space(char *line)
-{
-	int		i;
-	char	**strings;
-
-	i = 0;
-	strings = ft_split_pipe(line, ' ');
-	while (strings[i])
-	{
-		printf("String: %s$\n", strings[i]);
-		i++;
-	}
-	ft_split_free(&strings);
-}
-
-// void	ft_instruction(char	*command, t_env_list *env)
-// {
-// 	t_instruction	insts;
-// 	char			*temp;
-
-// 	insts.files = 0;
-// 	insts.val = command;
-
-// 	// temp = ft_replace_env(insts.val, env);
-// 	// free(insts.val);
-// 	// insts.val = temp;
-// 	printf("Res: %s|\n", insts.val);
-// 	free(insts.val);
-// }
-
 void	ft_check_list(void *file)
 {
 	char *temp = (char*) file;
@@ -99,7 +69,6 @@ void	ft_check_list_inst(void *file)
 	ft_lstiter(temp->files, ft_check_redirections);
 	printf("Expanded: \n");
 	int i = 0;
-	// printf("Exp: %s\n", temp->val[0]);
 	while (temp->val[i] != 0)
 	{
 		printf("Exp: %s\n", temp->val[i]);
@@ -107,37 +76,41 @@ void	ft_check_list_inst(void *file)
 	}
 }
 
-// void	ft_lexa_parse(char *line, t_env_list *env)
-// {
-// 	int		i;
-// 	int		quote;
-// 	int		c;
-// 	t_list	*list;
-
-// 	list = ft_init_instructions();
-// 	i = 0;
-// 	quote = 0;
-// 	while (line[i])
-// 	{
-// 		ft_local_quoter(line[i], &quote);
-// 		if (quote == 0 && (line[i] == '<' || line[i] == '>'))
-// 			i += ft_handle_redirection(line + i, ft_get_instuction(list));
-// 		else if (quote == 0 && line[i] == '|' && ++i)
-// 			ft_add_instruction(&list);
-// 		else
-// 			ft_concat_char(&(ft_get_instuction(list)->val), line[i++]);
-// 		if (ft_get_instuction(list)->err_code != 0)
-// 			printf("%s\n", ft_get_instuction(list)->err_msg);
-// 	}
-// 	ft_lstiter(list, ft_check_list_inst);
-// }
-
-
-
 void	ft_free_list_token(void *token)
 {
 	char *temp = (char*) token;
 	free(temp);
+}
+
+void	ft_print_execution_res(int fd)
+{
+	char	*res;
+
+	res = "";
+	while (res)
+	{
+		res = get_next_line(fd);
+		if (res)
+		{
+			printf("%s", res);
+			free(res);
+		}
+	};
+}
+
+int		ft_call_execution(t_list *command_table, t_env_list *env)
+{
+	char	*path;
+	char	**paths;
+	int 	link[2];
+
+	path = ft_find_elm(&env, "PATH");
+	paths = ft_split(path, ':');
+	ft_execute_loop(paths, command_table, 0, link);
+	ft_print_execution_res(link[0]);
+	close(link[0]);
+	ft_split_free(&paths);
+	return (1);
 }
 
 void	ft_lexa_parse(char *line, t_env_list *env)
@@ -158,7 +131,7 @@ void	ft_lexa_parse(char *line, t_env_list *env)
 				ft_handle_env_redirection(command_table, env);
 				ft_generate_char_list_traverse(command_table);
 				ft_quote_strip_traverse(command_table);
-				ft_lstiter(command_table, ft_check_list_inst);
+				ft_call_execution(command_table, env);
 				ft_lstclear(&command_table, ft_free_instruction);
 			}
 		}

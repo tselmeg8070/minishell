@@ -26,6 +26,13 @@ FILES = minishell \
 		ft_generate_char_list\
 		ft_quote_strip\
 		ft_redirection\
+		get_next_line/get_next_line\
+		get_next_line/get_next_line_utils\
+		ft_command_execution\
+		command_redirection/ft_redirection_ambiguous\
+		command_redirection/ft_redirection_file\
+		command_redirection/ft_redirection_loop\
+		command_redirection/ft_redirection_permission\
 		ft_env_list_utils
 
 SRCS = $(addsuffix .c, $(FILES))

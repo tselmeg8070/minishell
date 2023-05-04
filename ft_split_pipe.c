@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_count_split(char *str, char charset)
+static int	ft_count_split(char *str, char charset)
 {
 	int		i;
 	int		str_flag;
@@ -36,7 +36,7 @@ int	ft_count_split(char *str, char charset)
 	return (i);
 }
 
-char	**ft_malloc(int arr_c)
+static char	**ft_malloc(int arr_c)
 {
 	char	**result;
 

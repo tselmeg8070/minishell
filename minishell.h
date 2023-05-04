@@ -4,10 +4,15 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+# include "get_next_line/get_next_line.h"
 # include "./libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
-
+# include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <errno.h>
 /*
 	0 - ''
 	1 - ""
@@ -40,11 +45,14 @@ typedef struct s_env_list
 typedef struct s_redirection {
 	int		type;
 	char	*filename;
+	char	*original;
 }	t_redirection;
 
 typedef struct s_instruction {
 	int		in;
 	int		out;
+	char	*in_file;
+	char	*out_file;
 	int		err_code;
 	char	*err_msg;
 	char	**val;
@@ -120,8 +128,19 @@ int		ft_lstlen(t_list *head);
 
 int		ft_generate_char_list_traverse(t_list *table);
 
+char	*ft_strip(char *token);
+
 int		ft_quote_strip(t_instruction *inst);
 
 int		ft_quote_strip_traverse(t_list *table);
 
+int		ft_execute_loop(char **paths, t_list *command_table, int fd, int *link);
+
+int		ft_check_ambiguous(t_instruction *inst, t_redirection *red);
+
+void	ft_redirection_file(t_instruction *inst, t_redirection *red);
+
+int		ft_command_redirection(t_instruction *inst);
+
+int		ft_check_red_permission(t_instruction *inst, t_redirection *red);
 #endif
