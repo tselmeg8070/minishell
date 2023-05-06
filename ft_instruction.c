@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_instruction.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/06 19:03:58 by tadiyamu          #+#    #+#             */
+/*   Updated: 2023/05/06 20:47:42 by tadiyamu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -15,7 +27,7 @@ t_instruction	*ft_init_instruction()
 		inst->val = 0;
 		inst->valc = 0;
 		inst->in = 0;
-		inst->out = 0;
+		inst->out = 1;
 		inst->in_file = 0;
 		inst->out_file = 0;
 		inst->err_msg = 0;
@@ -55,6 +67,8 @@ void	ft_free_instruction(void *rinst)
 	ft_lstclear(&inst->commands, &ft_free_token);
 	ft_lstclear(&inst->tokens, &ft_free_token);
 	ft_split_free(&inst->val);
+	if (inst->err_msg)
+		free(inst->err_msg);
 	free(inst);
 }
 

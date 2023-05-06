@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_redirection.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/06 19:03:47 by tadiyamu          #+#    #+#             */
+/*   Updated: 2023/05/06 19:03:48 by tadiyamu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	ft_red_token_id(t_list *token)
@@ -82,6 +94,11 @@ int	ft_handle_redirection_command(t_instruction *inst)
 	return (1);
 }
 
+/*
+Redirection parser from instruction
+Fallback:
+	(0) - memory error
+*/
 int	ft_handle_instruction_redirection(t_list *inst)
 {
 	while (inst)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_generate_char_list.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/06 19:04:04 by tadiyamu          #+#    #+#             */
+/*   Updated: 2023/05/06 19:04:05 by tadiyamu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	ft_assign_tokens_list(char **tokens, t_list **res)
@@ -70,6 +82,11 @@ int	ft_generate_char_list(t_instruction *inst)
 	return (ft_tokens_list_to_char(inst, res));
 }
 
+/*
+Converts command list into char** array to give to pipex.
+Fallback:
+	(0) - memory fails
+*/
 int	ft_generate_char_list_traverse(t_list *table)
 {
 	while (table)

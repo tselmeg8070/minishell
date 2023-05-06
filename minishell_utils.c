@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tadiyamu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:00:39 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/03/04 17:00:42 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/06 19:16:59 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,22 @@ int	ft_local_quoter(char c, int *quote)
 		*quote = 0;
 		return (1);
 	}
+	return (0);
+}
+
+int	ft_quote_check(char *str)
+{
+	int	quote;
+	int	i;
+
+	quote = 0;
+	i = 0;
+	while (str[i] != '\0')
+	{
+		quote = ft_quoter(str[i], quote);
+		i++;
+	}
+	if (quote == 0)
+		return (1);
 	return (0);
 }

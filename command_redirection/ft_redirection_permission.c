@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_redirection_permission.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/06 19:24:54 by tadiyamu          #+#    #+#             */
+/*   Updated: 2023/05/06 19:26:01 by tadiyamu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 /*
@@ -30,7 +42,7 @@ Result:
 	(0) - has all necessary permissions
 	(1) - don't have write permission
 */
-static int ft_check_write_access(char *path)
+static int	ft_check_write_access(char *path)
 {
 	if ((access(path, F_OK) == 0 && access(path, W_OK) != 0))
 		return (1);

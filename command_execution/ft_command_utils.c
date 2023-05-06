@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_command_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tadiyamu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/07 16:48:46 by tadiyamu          #+#    #+#             */
-/*   Updated: 2022/12/25 19:08:34 by tadiyamu         ###   ########.fr       */
+/*   Created: 2023/05/06 20:35:50 by tadiyamu          #+#    #+#             */
+/*   Updated: 2023/05/06 20:35:52 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-size_t	ft_strlen(const char *str)
+void	ft_write_result(int out, int fd)
 {
-	size_t	c;
+	char	*line;
 
-	c = 0;
-	while (str[c] != '\0')
-		c++;
-	return (c);
+	line = "";
+	while (line != 0)
+	{
+		line = get_next_line(fd);
+		if (line)
+		{
+			write(out, line, ft_strlen(line));
+			free(line);
+		}
+	}
+	close(fd);
+	close(out);
 }

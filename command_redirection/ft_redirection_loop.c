@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_redirection_loop.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/06 19:24:49 by tadiyamu          #+#    #+#             */
+/*   Updated: 2023/05/06 19:24:50 by tadiyamu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 /*
@@ -42,6 +54,7 @@ int	ft_command_redirection(t_instruction *inst)
 		if (res != 0)
 			return (res);
 		ft_redirection_file(inst, red);
+		files = files->next;
 	}
 	return (0);
 }

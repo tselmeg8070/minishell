@@ -143,4 +143,11 @@ void	ft_redirection_file(t_instruction *inst, t_redirection *red);
 int		ft_command_redirection(t_instruction *inst);
 
 int		ft_check_red_permission(t_instruction *inst, t_redirection *red);
+
+int		ft_call_execution(t_list *command_table, t_env_list *env);
+
+int		ft_check_access(char **paths, char *arr);
+
+void	ft_write_result(int out, int fd);
+
 #endif

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_token_check.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/06 19:03:27 by tadiyamu          #+#    #+#             */
+/*   Updated: 2023/05/06 19:03:28 by tadiyamu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	ft_msg_token(char *token)
@@ -59,6 +71,12 @@ int	ft_token_check_pipe(t_list *list)
 	return (1);
 }
 
+/*
+Check tokens are valid
+Result:
+	(0) - has error
+	(1) - success
+*/
 int	ft_token_check(t_list *list)
 {
 	if (ft_token_check_red(list) == 0)

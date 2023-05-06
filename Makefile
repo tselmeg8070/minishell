@@ -3,12 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tadiyamu <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/05 16:51:42 by tadiyamu          #+#    #+#              #
-#    Updated: 2023/02/05 16:51:46 by tadiyamu         ###   ########.fr        #
+#    Updated: 2023/05/06 21:09:33 by tadiyamu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 NAME = minishell
 CC = cc
 CFLAGSDD = -Wall -Wextra -Werror
@@ -28,7 +29,10 @@ FILES = minishell \
 		ft_redirection\
 		get_next_line/get_next_line\
 		get_next_line/get_next_line_utils\
-		ft_command_execution\
+		command_execution/ft_command_execution\
+		command_execution/ft_command_call\
+		command_execution/ft_command_permission\
+		command_execution/ft_command_utils\
 		command_redirection/ft_redirection_ambiguous\
 		command_redirection/ft_redirection_file\
 		command_redirection/ft_redirection_loop\
