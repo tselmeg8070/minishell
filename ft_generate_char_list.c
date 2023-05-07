@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:04:04 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/06 19:04:05 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/07 22:54:35 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	ft_assign_tokens_list(char **tokens, t_list **res)
 
 int	ft_tokens_list_to_char(t_instruction *inst, t_list *token)
 {
-	int	size;
-	int	i;
+	int		size;
+	int		i;
 	t_list	*next;
 
 	i = 0;

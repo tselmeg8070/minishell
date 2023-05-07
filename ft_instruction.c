@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:03:58 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/06 20:47:42 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/07 22:56:24 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ Initializes the instruction
 Fallback:
 	(0/null) - Memory fails
 */
-t_instruction	*ft_init_instruction()
+t_instruction	*ft_init_instruction(void)
 {
 	t_instruction	*inst;
 
@@ -72,9 +72,9 @@ void	ft_free_instruction(void *rinst)
 	free(inst);
 }
 
-t_list	*ft_init_instructions()
+t_list	*ft_init_instructions(void)
 {
-	t_list	*list;
+	t_list			*list;
 	t_instruction	*inst;
 
 	list = 0;
@@ -89,20 +89,20 @@ t_list	*ft_init_instructions()
 	return (0);
 }
 
-t_instruction *ft_get_instuction(t_list *list)
+t_instruction	*ft_get_instuction(t_list *list)
 {
-	t_list	*node;
+	t_list			*node;
 	t_instruction	*inst;
 
 	node = ft_lstlast(list);
-	inst = (t_instruction*) node->content;
+	inst = (t_instruction *) node->content;
 	return (inst);
 }
 
 void	ft_add_instruction(t_list **list)
 {
-	t_list	*node;
-	t_instruction *inst;
+	t_list			*node;
+	t_instruction	*inst;
 
 	node = 0;
 	inst = ft_init_instruction();
