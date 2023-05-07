@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/06 21:12:16 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/07 18:23:30 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	ft_execute(char **paths, t_instruction *inst, int *link, int fd)
 		dup2(link[1], STDOUT_FILENO);
 		close(link[0]);
 		close(link[1]);
-		close(fd);
+		if (fd != 0)
+			close(fd);
 		if (ft_check_access(paths, inst->val[0]))
 			ft_try_every_path(paths, inst->val);
 	}
@@ -55,7 +56,6 @@ int	ft_execution_out_red(int out, int fd)
 	if (out != 1)
 	{
 		ft_write_result(out, fd);
-		return (0);
 	}
 	return (fd);
 }
