@@ -37,8 +37,6 @@ char	*ft_find_elm(t_env_list **list, char *key)
 	{
 		if (ft_strcmp(tmp->key, key) == 0)
 			return (tmp->val);
-		else if (ft_strcmp("$?", key) == 0)
-			return (ft_find_elm(list, "_exitcode"));
 		tmp = tmp->next;
 	}
 	return (NULL);
@@ -96,3 +94,21 @@ int	ft_free_envlst(t_env_list **list)
 	}
 	return (0);
 }
+
+// char	*ft_find_elm(t_env_list **list, char *key)
+// {
+// 	t_env_list	*tmp;
+
+// 	if (!list || !*list)
+// 		return (NULL);
+// 	tmp = *list;
+// 	while (tmp->next != NULL)
+// 	{
+// 		if (ft_strcmp(tmp->key, key) == 0)
+// 			return (tmp->val);
+// 		else if (ft_strcmp("$?", key) == 0)
+// 			return (ft_find_elm(list, "_exitcode"));
+// 		tmp = tmp->next;
+// 	}
+// 	return (NULL);
+// }

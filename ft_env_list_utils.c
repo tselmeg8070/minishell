@@ -41,7 +41,7 @@ t_env_list	*ft_create_envlist(char **paths)
 	i = 0;
 	while (paths[i])
 		i++;
-	if (ft_add2list(&env_list, ft_env_lstnew("_exitcode=0")))
+	if (ft_add2list(&env_list, ft_env_lstnew("$?=0")))
 		return (NULL);
 	while (--i >= 0)
 	{
