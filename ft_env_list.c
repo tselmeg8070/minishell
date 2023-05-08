@@ -17,13 +17,13 @@ int	ft_add2list(t_env_list **list, t_env_list *n_elm)
 	if (!*list)
 	{
 		*list = n_elm;
-		return 0;
+		return (0);
 	}
 	if (!n_elm)
-		return 1;
+		return (1);
 	n_elm->next = *list;
 	*list = n_elm;
-	return 0;
+	return (0);
 }
 
 char	*ft_find_elm(t_env_list **list, char *key)
@@ -35,7 +35,7 @@ char	*ft_find_elm(t_env_list **list, char *key)
 	tmp = *list;
 	while (tmp->next != NULL)
 	{
-		if (ft_strncmp(tmp->key, key, ft_strlen(tmp->key)) == 0)
+		if (ft_strcmp(tmp->key, key) == 0)
 			return (tmp->val);
 		tmp = tmp->next;
 	}
@@ -94,3 +94,21 @@ int	ft_free_envlst(t_env_list **list)
 	}
 	return (0);
 }
+
+// char	*ft_find_elm(t_env_list **list, char *key)
+// {
+// 	t_env_list	*tmp;
+
+// 	if (!list || !*list)
+// 		return (NULL);
+// 	tmp = *list;
+// 	while (tmp->next != NULL)
+// 	{
+// 		if (ft_strcmp(tmp->key, key) == 0)
+// 			return (tmp->val);
+// 		else if (ft_strcmp("$?", key) == 0)
+// 			return (ft_find_elm(list, "_exitcode"));
+// 		tmp = tmp->next;
+// 	}
+// 	return (NULL);
+// }
