@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:00:39 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/06 21:03:17 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/08 00:38:31 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,32 @@ int	ft_lexa_parse(char *line, t_env_list *env)
 	return (res);
 }
 
+void	ft_history(char *line)
+{
+	if (line && ft_strncmp(line, "", 1))
+		add_history(line);
+	rl_redisplay();
+}
+
 int	main(int argc, char **argv, char **paths)
 {
-	char		*line;
-	t_env_list	*env;
+	char				*line;
+	t_env_list			*env;
+	struct sigaction	sa;
 
 	env = ft_create_envlist(paths);
 	if (!env)
 	{
 		printf("err\n");
-		return (0);
+		return (1);
 	}
+	ft_init_sig(&sa);
 	while (1)
 	{
 		line = readline("minishell>");
 		if (line)
 		{
+			ft_history(line);
 			if (ft_quote_check(line) == 0)
 				write(2, "Unclosed quotation mark\n", 25);
 			else
@@ -88,6 +98,7 @@ int	main(int argc, char **argv, char **paths)
 		}
 		else
 		{
+			rl_clear_history();
 			ft_free_envlst(&env);
 			return (0);
 		}

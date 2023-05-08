@@ -6,26 +6,29 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:56 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/06 19:02:57 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/07 23:12:20 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_print_error(int err, char *name)
+int	ft_print_error(int err, char *name)
 {
 	if (err == 0)
 	{
 		write(2, "minishell: command not found: ", 30);
 		write(2, name, ft_strlen(name));
 		write(2, "\n", 1);
+		return (127);
 	}
 	else if (err == 1 || name == 0)
 	{
 		write(2, "minishell: permission denied: ", 30);
 		write(2, name, ft_strlen(name));
 		write(2, "\n", 1);
+		return (126);
 	}
+	return (1);
 }
 
 int	ft_check_access(char **paths, char *arr)
@@ -50,9 +53,9 @@ int	ft_check_access(char **paths, char *arr)
 			err = 2;
 		free(path);
 	}
-	ft_print_error(err, args[0]);
+	err = ft_print_error(err, args[0]);
 	ft_split_free(&args);
 	if (err == 2)
 		return (1);
-	return (0);
+	return (err);
 }

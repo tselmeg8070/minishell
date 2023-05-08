@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_command_call.c                                  :+:      :+:    :+:   */
+/*   ft_signal.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/06 19:14:30 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/08 11:46:51 by tadiyamu         ###   ########.fr       */
+/*   Created: 2023/03/19 17:32:22 by galtange          #+#    #+#             */
+/*   Updated: 2023/05/07 23:46:40 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_call_execution(t_list *command_table, t_env_list *env)
+void	handler(int sig)
 {
-	char	*path;
-	char	**paths;
-	int		link[2];
-	int		res;
+	if (sig == SIGINT)
+	{
+		write(2, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		ft_history("");
+	}
+	if (sig == SIGQUIT)
+	{
+		rl_on_new_line();
+		ft_history("");
+	}
+}
 
-	paths = 0;
-	path = ft_find_elm(&env, "PATH");
-	if (path)
-		paths = ft_split(path, ':');
-	res = ft_execute_loop(paths, command_table, link, env);
-	close(link[0]);
-	unlink("tmp");
-	if (path)
-		ft_split_free(&paths);
-	return (res);
+void	ft_init_sig(struct sigaction *sa)
+{
+	sigemptyset(&sa->sa_mask);
+	sa->sa_flags = SA_SIGINFO;
+	sa->sa_handler = &handler;
+	sigaction(SIGINT, sa, NULL);
+	sigaction(SIGQUIT, sa, NULL);
 }

@@ -6,7 +6,7 @@
 #    By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/05 16:51:42 by tadiyamu          #+#    #+#              #
-#    Updated: 2023/05/06 21:09:33 by tadiyamu         ###   ########.fr        #
+#    Updated: 2023/05/07 23:46:28 by tadiyamu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ FILES = minishell \
 		command_redirection/ft_redirection_file\
 		command_redirection/ft_redirection_loop\
 		command_redirection/ft_redirection_permission\
+		signal/ft_signal\
 		ft_env_list_utils
 
 SRCS = $(addsuffix .c, $(FILES))

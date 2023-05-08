@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/07 21:36:18 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/08 00:56:12 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	ft_try_every_path(char **paths, char **arr)
 
 int	ft_execute(char **paths, t_instruction *inst, int *link, int fd)
 {
+	int	perm_err;
+
 	if (fd >= 0)
 	{
 		if (fd / 10000 != 1)
@@ -44,8 +46,11 @@ int	ft_execute(char **paths, t_instruction *inst, int *link, int fd)
 		close(link[1]);
 		if (fd % 10000 != 0)
 			close(fd % 10000);
-		if (ft_check_access(paths, inst->val[0]))
+		perm_err = ft_check_access(paths, inst->val[0]);
+		if (perm_err == 1)
 			ft_try_every_path(paths, inst->val);
+		else
+			return (perm_err);
 	}
 	return (EXIT_FAILURE);
 }
@@ -64,13 +69,15 @@ Return:
 Fallback:
 	(-1) - memory error
 */
-int	ft_execute_loop(char **paths, t_list *command_table, int fd, int *link)
+int	ft_execute_loop(char **paths, t_list *command_table, int *link, t_env_list *env)
 {
 	int				pid;
 	int				status;
 	t_instruction	*inst;
+	int				fd;
 
 	status = 1;
+	fd = 0;
 	while (command_table)
 	{
 		inst = (t_instruction *) command_table->content;
