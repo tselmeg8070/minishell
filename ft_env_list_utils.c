@@ -1,57 +1,71 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_env_list_utils.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: galtange <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/08 15:22:33 by galtange          #+#    #+#             */
+/*   Updated: 2023/05/08 15:24:41 by galtange         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_env_list	*ft_env_lstnew(char *path)
 {
 	t_env_list	*newnode;
-    int i;
+	int			i;
 
-    i = 0;
+	i = 0;
 	newnode = (t_env_list *)malloc(sizeof(t_env_list));
 	if (!newnode)
 		return (NULL);
-    while (path[i] != '=')
-        i++;
+	while (path[i] != '=' && path[i])
+		i++;
 	newnode->key = ft_substr(path, 0, i);
-    if (!newnode->key)
-        return (NULL);
+	if (!newnode->key)
+		return (NULL);
 	newnode->val = ft_strdup(path + (i + 1));
-    if (!newnode->val)
-        return (NULL);
-    newnode->next = NULL;
+	if (!newnode->val)
+		return (NULL);
+	newnode->next = NULL;
 	return (newnode);
 }
 
-t_env_list  *ft_create_envlist(char **paths)
+t_env_list	*ft_create_envlist(char **paths)
 {
-    int i;
-    t_env_list  *env_list;
+	int			i;
+	t_env_list	*env_list;
 
-    i = 0;
-    while (paths[i])
-        i++;
-    while (--i >= 0)
-    {
-        if (ft_add2list(&env_list, ft_env_lstnew(paths[i])))
-            return (NULL);
-    }
-    if (!env_list)
-        return (NULL);
-    return (env_list);
+	i = 0;
+	while (paths[i])
+		i++;
+	if (ft_add2list(&env_list, ft_env_lstnew("_exitcode=0")))
+		return (NULL);
+	while (--i >= 0)
+	{
+		if (ft_add2list(&env_list, ft_env_lstnew(paths[i])))
+			return (NULL);
+	}
+	if (!env_list)
+		return (NULL);
+	return (env_list);
 }
 
-void    ft_printlist(t_env_list **list)
-{
-    t_env_list  *tmp;
+// void	ft_printlist(t_env_list **list)
+// {	
+// 	t_env_list	*tmp;
 
-    if (!list || !*list)
-    {
-        printf ("list empty!\n");
-        return;
-    }
-    tmp = *list;
-    while (tmp != NULL)
-    {
-        printf("%s=%s\n", tmp->key, tmp->val);
-        tmp = tmp->next;
-    }
-}
+//     if (!list || !*list)
+//     {
+//         printf ("list empty!\n");
+//         return;
+//     }
+//     tmp = *list;
+//     while (tmp != NULL)
+//     {
+//         printf("%s=%s\n", tmp->key, tmp->val);
+//         tmp = tmp->next;
+//     }
+// }
