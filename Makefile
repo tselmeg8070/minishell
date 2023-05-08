@@ -6,7 +6,7 @@
 #    By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/05 16:51:42 by tadiyamu          #+#    #+#              #
-#    Updated: 2023/05/07 23:46:28 by tadiyamu         ###   ########.fr        #
+#    Updated: 2023/05/08 17:39:42 by tadiyamu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ FILES = minishell \
 		ft_redirection\
 		get_next_line/get_next_line\
 		get_next_line/get_next_line_utils\
+		command_execution/ft_command_builtin\
 		command_execution/ft_command_execution\
 		command_execution/ft_command_call\
 		command_execution/ft_command_permission\

@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:00:39 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/08 00:38:31 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:34:28 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ void	ft_handle_memory_error(int *res)
 	*res = 1;
 }
 
-int	ft_command_parse(t_list	*command_table, t_env_list *env)
+int	ft_command_parse(t_list	*command_table, t_env_list **env)
 {
 	int	res;
 
 	res = 0;
 	if (!ft_handle_instruction_redirection(command_table))
 		ft_handle_memory_error(&res);
-	if (res == 0 && !ft_handle_env_command(command_table, env))
+	if (res == 0 && !ft_handle_env_command(command_table, *env))
 		ft_handle_memory_error(&res);
-	if (res == 0 && !ft_handle_env_redirection(command_table, env))
+	if (res == 0 && !ft_handle_env_redirection(command_table, *env))
 		ft_handle_memory_error(&res);
 	if (res == 0 && !ft_generate_char_list_traverse(command_table))
 		ft_handle_memory_error(&res);
@@ -39,7 +39,7 @@ int	ft_command_parse(t_list	*command_table, t_env_list *env)
 	return (res);
 }
 
-int	ft_lexa_parse(char *line, t_env_list *env)
+int	ft_lexa_parse(char *line, t_env_list **env)
 {
 	t_list	*list;
 	t_list	*command_table;
@@ -83,7 +83,7 @@ int	main(int argc, char **argv, char **paths)
 		printf("err\n");
 		return (1);
 	}
-	ft_init_sig(&sa);
+	// ft_init_sig(&sa);
 	while (1)
 	{
 		line = readline("minishell>");
@@ -93,7 +93,7 @@ int	main(int argc, char **argv, char **paths)
 			if (ft_quote_check(line) == 0)
 				write(2, "Unclosed quotation mark\n", 25);
 			else
-				ft_lexa_parse(line, env);
+				ft_lexa_parse(line, &env);
 			free(line);
 		}
 		else

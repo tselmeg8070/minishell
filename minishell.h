@@ -136,7 +136,7 @@ int		ft_quote_strip(t_instruction *inst);
 
 int		ft_quote_strip_traverse(t_list *table);
 
-int		ft_execute_loop(char **paths, t_list *command_table, int *link, t_env_list *env);
+int		ft_execute_loop(char **paths, t_list *command_table, int *link, t_env_list **env);
 
 int		ft_check_ambiguous(t_instruction *inst, t_redirection *red);
 
@@ -146,7 +146,7 @@ int		ft_command_redirection(t_instruction *inst);
 
 int		ft_check_red_permission(t_instruction *inst, t_redirection *red);
 
-int		ft_call_execution(t_list *command_table, t_env_list *env);
+int		ft_call_execution(t_list *command_table, t_env_list **env);
 
 int		ft_check_access(char **paths, char *arr);
 
@@ -155,5 +155,7 @@ void	ft_write_result(int out, int fd);
 void	ft_history(char *line);
 
 void	ft_init_sig(struct sigaction *sa);
+
+int		ft_builtin_caller(char **args, t_env_list **env_list);
 
 #endif
