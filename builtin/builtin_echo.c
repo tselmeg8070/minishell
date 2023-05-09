@@ -29,12 +29,9 @@ int	ft_echo(char **strs)
 {
 	int	flag_n;
 
-	if (!strs || !*strs)
-	{
-		write(1, "\n", 1);
-		return (0);
-	}
 	flag_n = 1;
+	if (*strs && !ft_strcmp(*strs, "echo"))
+		strs++;
 	if (*strs && !ft_strcmp(*strs, "-n"))
 	{
 		flag_n = 0;
