@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:24:40 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/08 20:31:26 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:07:35 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,28 +48,27 @@ static void	ft_here_doc(t_instruction *inst, t_redirection *red)
 	char	*line;
 
 	fd = open(".tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	while (1)
+	while (true)
 	{
-		line = readline(">");
+		line = readline("> ");
 		if (line)
 		{
-			if (ft_strcmp(line, red->filename) != 0)
+			if (ft_strcmp(line, red->filename) == 0)
 			{
-				write(fd, line, ft_strlen(line));
-				write(fd, "\n", 1);
+				free(line);
+				break ;
 			}
-			else
-				break;
+			write(fd, line, ft_strlen(line));
+			write(fd, "\n", 1);
 			free(line);
 		}
 		else
-			break;
+			break ;
 	}
 	close(fd);
 	if (inst->in != 0)
 		close(inst->in);
-	fd = open(".tmp", O_RDONLY);
-	inst->in = fd;
+	inst->in = open(".tmp", O_RDONLY);
 }
 
 void	ft_redirection_file(t_instruction *inst, t_redirection *red)

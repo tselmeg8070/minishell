@@ -166,4 +166,6 @@ int		ft_echo(char **strs);
 
 int		ft_pwd(char **strs);
 
+int		ft_env(t_env_list **envs);
+
 #endif
