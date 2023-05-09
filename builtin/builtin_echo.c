@@ -6,11 +6,24 @@
 /*   By: galtange <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 17:07:02 by galtange          #+#    #+#             */
-/*   Updated: 2023/05/08 17:28:18 by galtange         ###   ########.fr       */
+/*   Updated: 2023/05/09 14:48:39 by galtange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	print_echo(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		write (1, &str[i], 1);
+		i++;
+	}
+	return (i);
+}
 
 int	ft_echo(char **strs)
 {
@@ -30,10 +43,11 @@ int	ft_echo(char **strs)
 	}
 	while (*strs != NULL)
 	{
-		write (1, *strs, ft_strlen(*strs));
+		if (print_echo(*str) != 0 && (strs + 1) != NULL)
+			write (1, " ", 1);
 		strs++;
 	}
 	if (flag_n)
-		printf("\n");
+		write(1, "\n", 1);
 	return (0);
 }
