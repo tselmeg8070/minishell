@@ -27,7 +27,7 @@ int	print_echo(char *str)
 
 int	ft_echo(char **strs)
 {
-	int		flag_n;
+	int	flag_n;
 
 	if (!strs || !*strs)
 	{
@@ -41,13 +41,15 @@ int	ft_echo(char **strs)
 		if (strs + 1)
 			strs++;
 	}
-	while (*strs != NULL)
+	if (strs != NULL)
+		print_echo(*strs++);
+	while (*strs)
 	{
-		if (print_echo(*strs) != 0 && (strs + 1) != NULL)
-			write (1, " ", 1);
+		write (1, " ", 1);
+		print_echo(*strs);
 		strs++;
 	}
-	if (flag_n)
+	if (flag_n != 0)
 		write(1, "\n", 1);
 	return (0);
 }
