@@ -46,11 +46,11 @@ int	ft_pwd(char **strs)
 		else
 		{
 			if (i == EACCES)
-				write (1, "minishell: pwd: Permission denied", 34);
+				write (2, "minishell> pwd: Permission denied", 34);
 			else if (i == EFAULT)
-				write (1, "minishell: pwd: Bad address", 28);
+				write (2, "minishell> pwd: Bad address", 28);
 			else if (i == ENOENT)
-				write (1, "minishell: pwd: No such file or directory", 42);
+				write (2, "minishell> pwd: No such file or directory", 42);
 			write(1, "\n", 1);
 			return (i);
 		}
