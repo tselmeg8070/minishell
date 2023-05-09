@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/08 21:50:35 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/09 14:53:26 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	ft_execute(char **paths, t_instruction *inst, t_env_list **env)
 
 	if (inst->in >= 0)
 	{
-		printf("IN: %d, OUT: %d\n", inst->in, inst->out);
 		if (inst->in != 0)
 		{
 			dup2(inst->in, STDIN_FILENO);
@@ -64,8 +63,8 @@ int	ft_execute(char **paths, t_instruction *inst, t_env_list **env)
 			dup2(inst->out, STDOUT_FILENO);
 			close(inst->out);
 		}
-		if (ft_strcmp(inst->val[0], "echo") == 0)
-			return (ft_builtin_echo(inst->val));
+		if (ft_builtin_check(inst->val))
+			return (ft_builtin_caller(inst->val, env));
 		perm_err = ft_check_access(paths, inst->val[0]);
 		if (perm_err == 1)
 			ft_try_every_path(paths, inst->val);
@@ -101,7 +100,7 @@ int	ft_execute_loop(char **paths, t_list *command_table, int *link,
 	fd = 0;
 	while (command_table)
 	{
-		inst = (t_instruction *)command_table->content;
+		inst = (t_instruction *) command_table->content;
 		pipe(link);
 		if (ft_command_redirection(inst) != -1 && inst->err_code == 0)
 		{

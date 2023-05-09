@@ -14,6 +14,8 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <signal.h>
+# include <curses.h>
+# include <term.h>
 
 /*
 	0 - ''
@@ -156,6 +158,12 @@ void	ft_history(char *line);
 
 void	ft_init_sig(struct sigaction *sa);
 
+int		ft_builtin_check(char **vals);
+
 int		ft_builtin_caller(char **args, t_env_list **env_list);
+
+int		ft_echo(char **strs);
+
+int		ft_pwd(char **strs);
 
 #endif

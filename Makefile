@@ -6,13 +6,14 @@
 #    By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/05 16:51:42 by tadiyamu          #+#    #+#              #
-#    Updated: 2023/05/08 17:39:42 by tadiyamu         ###   ########.fr        #
+#    Updated: 2023/05/09 14:42:20 by tadiyamu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGSDD = -Wall -Wextra -Werror
+LDFLAGS = -ltermcap -ltinfo
+CFLAGSD = -Wall -Wextra -Werror
 LIBFT = ./libft/libft.a
 FILES = minishell \
 		minishell_utils \
@@ -38,6 +39,8 @@ FILES = minishell \
 		command_redirection/ft_redirection_file\
 		command_redirection/ft_redirection_loop\
 		command_redirection/ft_redirection_permission\
+		builtin/builtin_echo\
+		builtin/builtin_pwd\
 		signal/ft_signal\
 		ft_env_list_utils
 
@@ -48,7 +51,7 @@ OBJS = $(addsuffix .o, $(FILES))
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAME) $^ -L./libft -lft -Lreadline -lreadline
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(NAME) $^ -L./libft -lft -Lreadline -lreadline
 
 $(LIBFT):
 	make -C libft

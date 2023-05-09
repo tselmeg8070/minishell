@@ -6,11 +6,39 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 14:35:13 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/08 18:50:00 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/09 14:54:56 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+/*
+Check if command is built-in or not
+Result:
+	(1) - Yep
+	(0) - No
+*/
+int	ft_builtin_check(char **args)
+{
+	if (ft_strcmp(args[0], "export") == 0)
+		return (1);
+	else if (ft_strcmp(args[0], "clear") == 0)
+		return (1);
+	else if (ft_strcmp(args[0], "exit") == 0)
+		return (1);
+	else if (ft_strcmp(args[0], "echo") == 0)
+		return (1);
+	else if (ft_strcmp(args[0], "cd") == 0)
+		return (1);
+	else if (ft_strcmp(args[0], "pwd") == 0)
+		return (1);
+	else if (ft_strcmp(args[0], "unset") == 0)
+		return (1);
+	else if (ft_strcmp(args[0], "env") == 0)
+		return (1);
+	else
+		return (0);
+}
 
 /*
 Built in caller
@@ -19,14 +47,11 @@ Return:
 Fallback:
 	(-1) - if command is not built in
 */
-int	ft_builtin_caller(char **vals, t_env_list **env_list)
+int	ft_builtin_caller(char **args, t_env_list **env_list)
 {
-	if (ft_strcmp(vals[0], "builtin") == 0)
-	{
-		write(1, "Calling builtin\n", 17);
-		return (0);
-	}
-	// if (ft_strcmp(args[0], "export") == 0)
+	if (ft_strcmp(args[0], "echo") == 0)
+		return (ft_echo(args));
+	// else if (ft_strcmp(args[0], "export") == 0)
 	// 	return (ft_export_test(args, env_list));
 	// else if (ft_strcmp(args[0], "exit") == 0)
 	// 	return (ft_export_test(args, env_list));
@@ -34,12 +59,12 @@ int	ft_builtin_caller(char **vals, t_env_list **env_list)
 	// 	return (ft_export_test(args, env_list));
 	// else if (ft_strcmp(args[0], "cd") == 0)
 	// 	return (ft_export_test(args, env_list));
-	// else if (ft_strcmp(args[0], "pwd") == 0)
-	// 	return (ft_export_test(args, env_list));
+	else if (ft_strcmp(args[0], "pwd") == 0)
+		return (ft_pwd(args));
 	// else if (ft_strcmp(args[0], "unset") == 0)
 	// 	return (ft_export_test(args, env_list));
 	// else if (ft_strcmp(args[0], "env") == 0)
 	// 	return (ft_export_test(args, env_list));
-	// else
-		return (-1);
+	else
+		return (1);
 }

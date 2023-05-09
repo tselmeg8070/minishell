@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: galtange <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 17:07:02 by galtange          #+#    #+#             */
-/*   Updated: 2023/05/09 14:48:39 by galtange         ###   ########.fr       */
+/*   Updated: 2023/05/09 14:55:45 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	print_echo(char *str)
 {
@@ -43,7 +43,7 @@ int	ft_echo(char **strs)
 	}
 	while (*strs != NULL)
 	{
-		if (print_echo(*str) != 0 && (strs + 1) != NULL)
+		if (print_echo(*strs) != 0 && (strs + 1) != NULL)
 			write (1, " ", 1);
 		strs++;
 	}
