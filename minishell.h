@@ -74,6 +74,10 @@ void	ft_delete_elm(t_env_list **list, char *key);
 
 int		ft_free_envlst(t_env_list **list);
 
+t_env_list	*ft_env_lstnew(char *path);
+
+void	ft_del_node(t_env_list *elm);
+
 void	ft_split_free(char ***res);
 
 int		ft_quote_check(char *str);
@@ -167,5 +171,7 @@ int		ft_echo(char **strs);
 int		ft_pwd(char **strs);
 
 int		ft_env(t_env_list **envs);
+
+int		ft_export(char **str, t_env_list **envs);
 
 #endif

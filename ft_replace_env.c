@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:03:40 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/06 19:03:40 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:26:03 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_string_creation(char *str, char **res, int i, t_env_list *env)
 
 	i = i + 1;
 	l = i;
-	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
+	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '?'))
 		i++;
 	if (i - l >= 1)
 	{
@@ -67,7 +67,7 @@ char	*ft_replace_env(char *str, t_env_list *env)
 	{
 		quote = ft_quoter(str[i], quote);
 		if ((quote == 0 || quote == 2) && str[i] == '$'
-			&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_'))
+			&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_' || str[i] == '?'))
 		{
 			s = ft_string_creation(str, &res, i, env);
 			if (s == -1)

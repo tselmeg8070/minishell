@@ -6,11 +6,11 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:01:14 by galtange          #+#    #+#             */
-/*   Updated: 2023/05/08 00:38:26 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:30:32 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	ft_print_envlist(t_env_list **env)
 {

@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 20:35:27 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/06 19:03:34 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:29:17 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ int		ft_check_quote(char const *strp, int index)
 	char	*substr;
 	int		res;
 
-	substr = 0;
 	substr = ft_substr(strp, 0, index);
-	//TODO: Check allocation;
+	if (!substr)
+		return (0);
 	res = ft_quote_check(substr);
 	free(substr);
 	return (res);
