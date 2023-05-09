@@ -89,16 +89,46 @@ void	ft_add2list_back(t_env_list **envs, t_env_list *new)
 	envs = &head;
 }
 
-int	ft_export_env(t_env_list **envs, char *str)
+// int	ft_export_env(t_env_list **envs, char *str)
+// {
+// 	t_env_list	*tmp;
+// 	t_env_list	*new;
+// 	int			existed;
+
+// 	tmp = *envs;
+// 	new = ft_envcreate(str);
+// 	if (!new)
+// 		return (1);
+// 	existed = 0;
+// 	while(tmp)
+// 	{
+// 		if (!ft_strcmp(tmp->key, new->key))
+// 		{
+// 			if (new->val != NULL)
+// 			{
+// 				tmp->val = ft_strdup(new->val);
+// 				if (!tmp->val)
+// 					return (1);
+// 			}
+// 			existed++;
+// 		}
+// 		tmp = tmp->next;
+// 	}
+// 	if (existed == 0)
+// 		ft_add2list(envs, ft_envcreate(str));
+// 	ft_del_node(new);
+// 	return (0);
+// }
+
+int	ft_exportenv(t_env_list **envs, t_env_list *new)
 {
 	t_env_list	*tmp;
-	t_env_list	*new;
 	int			existed;
 
 	tmp = *envs;
-	new = ft_envcreate(str);
-	if (!new)
-		return (1);
+	// new = ft_envcreate(str);
+	// if (!new)
+	// 	return (1);
 	existed = 0;
 	while(tmp)
 	{
@@ -115,7 +145,7 @@ int	ft_export_env(t_env_list **envs, char *str)
 		tmp = tmp->next;
 	}
 	if (existed == 0)
-		ft_add2list(envs, ft_envcreate(str));
+		ft_add2list(envs, new);
 	ft_del_node(new);
 	return (0);
 }
@@ -123,7 +153,11 @@ int	ft_export_env(t_env_list **envs, char *str)
 int	ft_export(char **str, t_env_list **envs)
 {
 	int			i;
+	t_env_list	*new;
 
+	new = ft_envcreate(str);
+	if (!new)
+		return (1);
 	if (!envs || !*envs)
 	{
 		write(2, "minishell: export: No such file or directory\n", 46);
@@ -137,7 +171,7 @@ int	ft_export(char **str, t_env_list **envs)
 		if (ft_name_notvalid(*str) != 0)
 			i = 1;
 		else
-			ft_export_env(envs, *str);
+			ft_exportenv(envs, new);
 		str++;
 	}
 	return (i);

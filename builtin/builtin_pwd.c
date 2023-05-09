@@ -18,47 +18,42 @@ int	ft_getcwd(int size)
 
 	buffer = malloc(sizeof(char) * size);
 	if (!buffer)
-		return (-1);
+		return (1);
 	if (getcwd(buffer, size) == NULL)
 	{
 		if (buffer)
 			free(buffer);
-		if (errno == ERANGE)
-			return (0);
-		else if (errno == EACCES)
-			return (-2);
-		else if (errno == EFAULT)
-			return (-3);
-		else if (errno == ENOENT)
-			return (-4);
+		return (errno);
 	}
-	printf("%s\n", buffer);
+	write (1, buffer, ft_strlen(buffer));
 	free (buffer);
-	return (1);
+	return (0);
 }
 
-void	ft_pwd(char **strs)
+int	ft_pwd(char **strs)
 {
 	int	buff_size;
 	int	i;
 
 	(void) strs;
 	buff_size = 42;
-	i = 0;
-	while (i <= 0)
+	i = 1;
+	while (i > 0)
 	{
 		i = ft_getcwd(buff_size);
-		if (i == 0)
+		if (i == ERANGE)
 			buff_size++;
-		else if (i < 0)
+		else
 		{
-			if (i == -2)
-				printf("Permission to read\n");
-			else if (i == -3)
-				printf("buf points to a bad address\n");
-			else if (i == -4)
-				printf("The current working directory has been unlinked\n");
-			break ;
+			if (i == EACCES)
+				write (1, "minishell: pwd: Permission denied", 34);
+			else if (i == EFAULT)
+				write (1, "minishell: pwd: Bad address", 28);
+			else if (i == ENOENT)
+				write (1, "minishell: pwd: No such file or directory", 42);
+			write(1, "\n", 1);
+			return (i);
 		}
 	}
+	return (0);
 }
