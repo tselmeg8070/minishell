@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/09 14:53:26 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:42:16 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,11 @@ void	ft_try_every_path(char **paths, char **arr)
 	execve(arr[0], arr, (char **){NULL});
 }
 
-int	ft_builtin_echo(char **args)
-{
-	int	i;
-
-	i = 1;
-	while (args[i])
-	{
-		write(1, args[i], ft_strlen(args[i]));
-		if (args[i + 1])
-			write(1, " ", 1);
-		i++;
-	}
-	write(1, "\n", 1);
-	return (0);
-}
-
-int	ft_execute(char **paths, t_instruction *inst, t_env_list **env)
+int	ft_execute(char **paths, t_instruction *inst, t_env_list **env, int *link)
 {
 	int	perm_err;
 
+	close(link[0]);
 	if (inst->in >= 0)
 	{
 		if (inst->in != 0)
@@ -64,14 +49,14 @@ int	ft_execute(char **paths, t_instruction *inst, t_env_list **env)
 			close(inst->out);
 		}
 		if (ft_builtin_check(inst->val))
-			return (ft_builtin_caller(inst->val, env));
+			exit (ft_builtin_caller(inst->val, env));
 		perm_err = ft_check_access(paths, inst->val[0]);
 		if (perm_err == 1)
 			ft_try_every_path(paths, inst->val);
 		else
-			return (perm_err);
+			exit (perm_err);
 	}
-	return (EXIT_FAILURE);
+	exit (EXIT_FAILURE);
 }
 
 static int	ft_execution_out_child(int pid, int *link, int *status)
@@ -79,6 +64,15 @@ static int	ft_execution_out_child(int pid, int *link, int *status)
 	waitpid(pid, status, 0);
 	close(link[1]);
 	return (link[0]);
+}
+
+static void	ft_handle_inputs(t_instruction *inst, t_list *cmd, int *link,
+				int fd)
+{
+	if (inst->in == 0)
+		inst->in = fd;
+	if (cmd->next && inst->out == 1)
+		inst->out = link[1];
 }
 
 /*
@@ -104,23 +98,12 @@ int	ft_execute_loop(char **paths, t_list *command_table, int *link,
 		pipe(link);
 		if (ft_command_redirection(inst) != -1 && inst->err_code == 0)
 		{
-			if (inst->in == 0)
-				inst->in = fd;
-			if (command_table->next && inst->out == 1)
-				inst->out = link[1];
+			ft_handle_inputs(inst, command_table, link, fd);
 			pid = fork();
 			if (pid == 0)
-			{
-				close(link[0]);
-				status = (ft_execute(paths, inst, env));
-				exit(status);
-			}
+				return (ft_execute(paths, inst, env, link));
 			else
-			{
-				waitpid(pid, &status, 0);
-				close(link[1]);
-				fd = (link[0]);
-			}
+				fd = ft_execution_out_child(pid, link, &status);
 		}
 		else
 			printf("minishell: %s", inst->err_msg);

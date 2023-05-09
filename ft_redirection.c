@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:03:47 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/06 19:03:48 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:03:57 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	ft_red_filename(char *str, int type, t_list **list)
 		return (0);
 	}
 	redirection->type = type;
+	redirection->original = 0;
 	node = ft_lstnew(redirection);
 	if (node)
 		ft_lstadd_back(list, node);
