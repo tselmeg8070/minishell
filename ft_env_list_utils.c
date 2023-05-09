@@ -53,6 +53,23 @@ t_env_list	*ft_create_envlist(char **paths)
 	return (env_list);
 }
 
+void	ft_exitstatus(int exit_status, t_env_list **envs)
+{
+	t_env_list	*tmp;
+	
+	tmp = *envs;
+	while(tmp)
+	{
+		if (!ft_strchr(tmp->key, "$?"))
+		{
+			tmp->val = ft_itoa(exit_status);
+			break ;
+		}
+		tmp = tmp->next;
+	}
+
+}
+
 // void	ft_printlist(t_env_list **list)
 // {	
 // 	t_env_list	*tmp;
