@@ -18,7 +18,7 @@ int	ft_env(t_env_list **envs)
 
 	if (!envs || !*envs)
 	{
-		write(1, "minishell: env: No such file or directory\n", 43);
+		write(2, "minishell: env: No such file or directory\n", 43);
 		return (127);
 	}
 	tmp = *envs;
@@ -26,9 +26,16 @@ int	ft_env(t_env_list **envs)
 	{
 		if (ft_strcmp(tmp->key, "$?"))
 			tmp = tmp->next;
-		if (tmp->val != NULL)
-			printf("%s=%s\n", tmp->key, tmp->val);
-		tmp = tmp->next;
+		else
+		{
+			if (tmp->val != NULL)
+			{
+				write (1, tmp->key, ft_strlen(tmp->key));
+				write (1, "=", 1);
+				write (1, tmp->val, ft_strlen(tmp->val));
+			}
+			tmp = tmp->next;
+		}
 	}
 	return (0);
 }
