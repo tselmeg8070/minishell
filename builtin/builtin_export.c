@@ -19,21 +19,16 @@ int	ft_print_envlist(t_env_list **env)
 	tmp = *env;
 	while (tmp != NULL)
 	{
-		if (!ft_strcmp(tmp->key, "$?"))
-			tmp = tmp->next;
-		else
+		write (1, "declare -x ", 12);
+		write (1, tmp->key, ft_strlen(tmp->key));
+		if (tmp->val != NULL)
 		{
-			write (1, "declare -x ", 12);
-			write (1, tmp->key, ft_strlen(tmp->key));
-			if (tmp->val != NULL)
-			{
-				write (1, "=\"", 2);
-				write (1, tmp->val, ft_strlen(tmp->val));
-				write (1, "\"", 1);
-			}
-			write (1, "\n", 1);
-			tmp = tmp->next;
+			write (1, "=\"", 2);
+			write (1, tmp->val, ft_strlen(tmp->val));
+			write (1, "\"", 1);
 		}
+		write (1, "\n", 1);
+		tmp = tmp->next;
 	}
 	return (0);
 }
@@ -80,91 +75,31 @@ t_env_list	*ft_envcreate(char *path)
 	return (new);
 }
 
-// int	ft_export_env(t_env_list **envs, char *str)
-// {
-// 	t_env_list	*tmp;
-// 	t_env_list	*new;
-
-// 	tmp = *envs;
-// 	new = ft_envcreate(str);
-// 	if (!new)
-// 		return (1);
-// 	while (tmp)
-// 	{
-// 		if (!ft_strcmp(tmp->key, new->key))
-// 		{
-// 			if (new->val != NULL)
-// 			{
-// 				tmp->val = ft_strdup(new->val);
-// 				if (!tmp->val)
-// 					return (1);
-// 			}
-// 			return (0);
-// 		}
-// 		tmp = tmp->next;
-// 	}
-// 	ft_add2list(envs, ft_envcreate(str));
-// 	ft_del_node(new);
-// 	return (0);
-// }
-
-int	ft_add_envback(t_env_list **envs, t_env_list *new)
-{
-	t_env_list	*newnode;
-	t_env_list	*head;
-	
-	if (!envs || !*envs || !new)
-		return (1);
-	newnode = (t_env_list *)malloc(sizeof(t_env_list));
-	if (!newnode)
-		return (1);
-	newnode->key = ft_strdup(new->key);
-	if (!newnode->key)
-		return (1);
-	if (new->val)
-	{
-		newnode->val = ft_strdup(new->val);
-		if (!newnode->val)
-			return (1);
-	}
-	head = newnode;
-	newnode->next = *envs;
-	envs = &head;
-	ft_putstr_fd("here", 1);
-	return (0);
-}
-
 int	ft_export_env(t_env_list **envs, char *str)
 {
 	t_env_list	*tmp;
 	t_env_list	*new;
 
+	tmp = *envs;
 	new = ft_envcreate(str);
 	if (!new)
 		return (1);
-	tmp = *envs;
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->key, new->key))
 		{
 			if (new->val != NULL)
 			{
-				ft_putstr_fd(tmp->key, 1);
-				ft_putstr_fd("iig solih ystoi draan hiine", 1);
+				tmp->val = ft_strdup(new->val);
+				if (!tmp->val)
+					return (1);
 			}
 			return (0);
 		}
 		tmp = tmp->next;
 	}
-	if (ft_add_envback(envs, new))
-		return (1);
+	ft_add2list(envs, ft_envcreate(str));
 	ft_del_node(new);
-	// ft_putstr_fd(new->key, 1);
-	// if (new->val)
-	// {
-	// 	write(1, "=", 1);
-	// 	ft_putstr_fd(new->val, 1);
-	// }
 	return (0);
 }
 
@@ -174,7 +109,7 @@ int	ft_export(char **str, t_env_list **envs)
 
 	if (!envs || !*envs)
 	{
-		write(2, "minishell> export: No such file or directory\n", 46);
+		write(2, "minishell: export: No such file or directory\n", 46);
 		return (127);
 	}
 	if (str && !ft_strcmp(*str, "export"))
@@ -188,40 +123,10 @@ int	ft_export(char **str, t_env_list **envs)
 			i = 1;
 		else
 		{
-			ft_add2list(envs, ft_env_lstnew(*str));
-			// if (ft_export_env(envs, *str) != 0)
-			// 	return (1);
+			if (ft_export_env(envs, *str))
+				return (1);
 		}
 		str++;
 	}
 	return (i);
 }
-
-
-// int	ft_export(char **str, t_env_list **envs)
-// {
-// 	int	i;
-
-// 	if (!envs || !*envs)
-// 	{
-// 		write(2, "minishell: export: No such file or directory\n", 46);
-// 		return (127);
-// 	}
-// 	if (str && !ft_strcmp(*str, "export"))
-// 		str++;
-// 	if (!*str)
-// 		return (ft_print_envlist(envs));
-// 	i = 0;
-// 	while (*str)
-// 	{
-// 		if (ft_name_notvalid(*str) != 0)
-// 			i = 1;
-// 		else
-// 		{
-// 			if (ft_export_env(envs, *str))
-// 				return (1);
-// 		}
-// 		str++;
-// 	}
-// 	return (i);
-// }
