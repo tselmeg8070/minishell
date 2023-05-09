@@ -75,62 +75,16 @@ t_env_list	*ft_envcreate(char *path)
 	return (new);
 }
 
-void	ft_add2list_back(t_env_list **envs, t_env_list *new)
-{
-	t_env_list	*head;
-	t_env_list	*tmp;
-
-	head = *envs;
-	tmp = *envs;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = new;
-	new->next = NULL;
-	envs = &head;
-}
-
-// int	ft_export_env(t_env_list **envs, char *str)
-// {
-// 	t_env_list	*tmp;
-// 	t_env_list	*new;
-// 	int			existed;
-
-// 	tmp = *envs;
-// 	new = ft_envcreate(str);
-// 	if (!new)
-// 		return (1);
-// 	existed = 0;
-// 	while(tmp)
-// 	{
-// 		if (!ft_strcmp(tmp->key, new->key))
-// 		{
-// 			if (new->val != NULL)
-// 			{
-// 				tmp->val = ft_strdup(new->val);
-// 				if (!tmp->val)
-// 					return (1);
-// 			}
-// 			existed++;
-// 		}
-// 		tmp = tmp->next;
-// 	}
-// 	if (existed == 0)
-// 		ft_add2list(envs, ft_envcreate(str));
-// 	ft_del_node(new);
-// 	return (0);
-// }
-
-int	ft_exportenv(t_env_list **envs, t_env_list *new)
+int	ft_export_env(t_env_list **envs, char *str)
 {
 	t_env_list	*tmp;
-	int			existed;
+	t_env_list	*new;
 
 	tmp = *envs;
-	// new = ft_envcreate(str);
-	// if (!new)
-	// 	return (1);
-	existed = 0;
-	while(tmp)
+	new = ft_envcreate(str);
+	if (!new)
+		return (1);
+	while (tmp)
 	{
 		if (!ft_strcmp(tmp->key, new->key))
 		{
@@ -140,30 +94,27 @@ int	ft_exportenv(t_env_list **envs, t_env_list *new)
 				if (!tmp->val)
 					return (1);
 			}
-			existed++;
+			return (0);
 		}
 		tmp = tmp->next;
 	}
-	if (existed == 0)
-		ft_add2list(envs, new);
+	ft_add2list(envs, ft_envcreate(str));
 	ft_del_node(new);
 	return (0);
 }
 
 int	ft_export(char **str, t_env_list **envs)
 {
-	int			i;
-	t_env_list	*new;
+	int	i;
 
-	new = ft_envcreate(str);
-	if (!new)
-		return (1);
 	if (!envs || !*envs)
 	{
 		write(2, "minishell: export: No such file or directory\n", 46);
 		return (127);
 	}
-	if (!str || !*str)
+	if (str && !ft_strcmp(*str, "export"))
+		str++;
+	if (!*str)
 		return (ft_print_envlist(envs));
 	i = 0;
 	while (*str)
@@ -171,7 +122,10 @@ int	ft_export(char **str, t_env_list **envs)
 		if (ft_name_notvalid(*str) != 0)
 			i = 1;
 		else
-			ft_exportenv(envs, new);
+		{
+			if (ft_export_env(envs, *str))
+				return (1);
+		}
 		str++;
 	}
 	return (i);
