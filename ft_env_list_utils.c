@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_list_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: galtange <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 15:22:33 by galtange          #+#    #+#             */
-/*   Updated: 2023/05/08 15:24:41 by galtange         ###   ########.fr       */
+/*   Updated: 2023/05/09 23:22:12 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_env_list	*ft_env_lstnew(char *path)
 	int			i;
 
 	i = 0;
-	newnode = (t_env_list *)malloc(sizeof(t_env_list));
+	newnode = (t_env_list *) malloc(sizeof(t_env_list));
 	if (!newnode)
 		return (NULL);
 	while (path[i] != '=' && path[i])
@@ -41,7 +41,7 @@ t_env_list	*ft_create_envlist(char **paths)
 	i = 0;
 	while (paths[i])
 		i++;
-	if (ft_add2list(&env_list, ft_env_lstnew("$?=0")))
+	if (ft_add2list(&env_list, ft_env_lstnew("?=0")))
 		return (NULL);
 	while (--i >= 0)
 	{
@@ -53,16 +53,19 @@ t_env_list	*ft_create_envlist(char **paths)
 	return (env_list);
 }
 
-void	ft_exitstatus(int exit_status, t_env_list **envs)
+void	ft_exit_status(int exit_status, t_env_list **envs)
 {
 	t_env_list	*tmp;
-	
+	char		*str;
+
 	tmp = *envs;
 	while(tmp)
 	{
-		if (!ft_strchr(tmp->key, "$?"))
+		if (ft_strcmp(tmp->key, "?") == 0)
 		{
+			str = tmp->val;
 			tmp->val = ft_itoa(exit_status);
+			free(str);
 			break ;
 		}
 		tmp = tmp->next;
@@ -71,7 +74,7 @@ void	ft_exitstatus(int exit_status, t_env_list **envs)
 }
 
 // void	ft_printlist(t_env_list **list)
-// {	
+// {
 // 	t_env_list	*tmp;
 
 //     if (!list || !*list)

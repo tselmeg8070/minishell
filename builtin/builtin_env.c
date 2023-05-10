@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 19:26:44 by galtange          #+#    #+#             */
-/*   Updated: 2023/05/09 17:17:23 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/09 23:17:13 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_env(t_env_list **envs)
 	tmp = *envs;
 	while (tmp->next)
 	{
-		if (!ft_strcmp(tmp->key, "$?"))
+		if (!ft_strcmp(tmp->key, "?"))
 			tmp = tmp->next;
 		else
 		{

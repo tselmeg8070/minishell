@@ -174,4 +174,8 @@ int		ft_env(t_env_list **envs);
 
 int		ft_export(char **str, t_env_list **envs);
 
+int		ft_cd(char **str);
+
+void	ft_exit_status(int exit_status, t_env_list **envs);
+
 #endif

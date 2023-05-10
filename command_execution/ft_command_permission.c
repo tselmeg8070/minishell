@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:56 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/07 23:12:20 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/09 23:29:19 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ int	ft_print_error(int err, char *name)
 	return (1);
 }
 
+/*
+Checks commands access
+Return:
+	(1) - No error
+Fallback:
+	(127) - command not found
+	(126) - permission denied
+*/
 int	ft_check_access(char **paths, char *arr)
 {
 	int		i;

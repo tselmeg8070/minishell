@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:00:39 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/09 14:18:47 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/09 23:33:19 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	ft_lexa_parse(char *line, t_env_list **env)
 		}
 	}
 	ft_lstclear(&list, free);
+	ft_exit_status(res, env);
 	if (res == -1)
 		ft_handle_memory_error(&res);
 	return (res);
