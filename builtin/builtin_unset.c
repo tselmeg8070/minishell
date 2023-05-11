@@ -38,7 +38,7 @@ int	ft_unset(char **str, t_env_list **envs)
 	i = 0;
 	if (!envs || !*envs)
 	{
-		write(1, "minishell: unset: No such file or directory\n", 45);
+		write(1, "minishell> unset: No such file or directory\n", 45);
 		return (127);
 	}
 	else
