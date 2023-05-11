@@ -30,14 +30,23 @@ void	ft_history(char *line)
 	rl_redisplay ();
 }
 
-void	exit_from_child(int status, char *bltin, char *cmd, char *msg)
+int	ft_aff_msg(int fd, char *str, int exit_val)
 {
-	printf("status = %d\n", status);
-	if (bltin)
-		printf("%s: ", bltin);
-	if (cmd)
-		printf("`%s': ", cmd);
-	if (msg)
-		printf("%s\n", msg);
-	return ;
+	if (fd < 0)
+		return (1);
+	if (str)
+		ft_putstr_fd(str, fd);
+	return (exit_val);
 }
+
+// void	exit_from_child(int status, char *bltin, char *cmd, char *msg)
+// {
+// 	printf("status = %d\n", status);
+// 	if (bltin)
+// 		printf("%s: ", bltin);
+// 	if (cmd)
+// 		printf("`%s': ", cmd);
+// 	if (msg)
+// 		printf("%s\n", msg);
+// 	return ;
+// }

@@ -80,11 +80,10 @@ int	main(int argc, char **argv, char **paths)
 
 	env = ft_create_envlist(paths);
 	if (!env)
-	{
-		printf("err\n");
-		return (1);
-	}
+		return (ft_aff_msg(2, "Err\n", 1));
 	ft_init_sig(&sa);
+	if (argc != 1 || argv[1])
+		return (ft_aff_msg(2, "Err: Minishell don't accept args\n", 1));
 	while (1)
 	{
 		line = readline("minishell>");
