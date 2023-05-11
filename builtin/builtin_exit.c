@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 18:09:30 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/11 23:17:47 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/12 00:57:12 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	ft_exit_bt(char	**str)
 {
 	int	exit_val;
 
+	exit_val = 0;
 	if (!str || !*str)
 		return (1);
 	if (str && !ft_strcmp(*str, "exit"))

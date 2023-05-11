@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:00:39 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/12 00:11:04 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/12 00:44:16 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	main(int argc, char **argv, char **paths)
 	res = 0;
 	ft_init_env(&env, paths);
 	ft_init_sig(&sa);
-	if (argc != 1)
+	if (argc != 1 && argv[0])
 		return (ft_aff_msg(2, "Err: Minishell don't accept args\n", 1));
 	ft_line_loop(&res, &env);
 	rl_clear_history();

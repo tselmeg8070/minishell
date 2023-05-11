@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:03:47 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/11 21:16:03 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/12 00:47:37 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ Fallback:
 */
 int	ft_red_filename(char *str, int type, t_list **list)
 {
-	int				i;
 	t_redirection	*redirection;
 	t_list			*node;
 

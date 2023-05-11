@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:01:14 by galtange          #+#    #+#             */
-/*   Updated: 2023/05/09 22:38:44 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/12 00:55:56 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_env_list	*ft_envcreate(char *path)
 		return (NULL);
 	while (path[i] != '\0' && path[i] != '=')
 		i++;
-	if (i == ft_strlen(path))
+	if (i == (int) ft_strlen(path))
 		new->val = NULL;
 	return (new);
 }

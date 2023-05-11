@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:03:40 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/11 21:13:56 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/12 00:52:31 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ int	ft_string_creation(char *str, char **res, int i, t_env_list *env)
 			if (*res)
 				free(*res);
 			*res = temp;
+			if (val != 0 && *res == 0)
+				return (-1);
 		}
 		free(key);
-		if (val != 0 && *res == 0)
-			return (-1);
 	}
 	return (i);
 }

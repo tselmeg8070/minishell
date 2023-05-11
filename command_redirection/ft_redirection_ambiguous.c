@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:24:30 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/06 19:24:32 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/12 01:12:26 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	ft_gen_error_msg(t_instruction *inst, char	*name)
 	inst->err_msg = ft_strjoin(name, ": ambiguous redirect\n");
 	if (!inst->err_msg)
 		return (-1);
-	return (0);
+	return (1);
 }
 
 /*
