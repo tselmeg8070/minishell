@@ -16,14 +16,14 @@ int	ft_print_error(int err, char *name)
 {
 	if (err == 0)
 	{
-		write(2, "minishell: command not found: ", 30);
+		write(2, "minishell> command not found: ", 30);
 		write(2, name, ft_strlen(name));
 		write(2, "\n", 1);
 		return (127);
 	}
 	else if (err == 1 || name == 0)
 	{
-		write(2, "minishell: permission denied: ", 30);
+		write(2, "minishell> permission denied: ", 30);
 		write(2, name, ft_strlen(name));
 		write(2, "\n", 1);
 		return (126);

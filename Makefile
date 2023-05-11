@@ -43,6 +43,8 @@ FILES = minishell \
 		builtin/builtin_pwd\
 		builtin/builtin_env\
 		builtin/builtin_export\
+		builtin/builtin_unset\
+		builtin/builtin_cd\
 		signal/ft_signal\
 		ft_env_list_utils
 

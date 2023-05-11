@@ -55,12 +55,12 @@ int	ft_builtin_caller(char **args, t_env_list **env_list)
 	// 	return (ft_export_test(args, env_list));
 	// else if (ft_strcmp(args[0], "echo") == 0)
 	// 	return (ft_export_test(args, env_list));
-	// else if (ft_strcmp(args[0], "cd") == 0)
-	// 	return (ft_export_test(args, env_list));
+	else if (ft_strcmp(args[0], "cd") == 0)
+		return (ft_cd(args));
 	else if (ft_strcmp(args[0], "pwd") == 0)
 		return (ft_pwd(args));
-	// else if (ft_strcmp(args[0], "unset") == 0)
-	// 	return (ft_export_test(args, env_list));
+	else if (ft_strcmp(args[0], "unset") == 0)
+		return (ft_unset(args, env_list));
 	else if (ft_strcmp(args[0], "env") == 0)
 		return (ft_env(env_list));
 	else
