@@ -148,6 +148,8 @@ int		ft_check_ambiguous(t_instruction *inst, t_redirection *red);
 
 void	ft_redirection_file(t_instruction *inst, t_redirection *red);
 
+int		ft_handle_redirection_err(t_instruction *inst, int *link);
+
 int		ft_command_redirection(t_instruction *inst);
 
 int		ft_check_red_permission(t_instruction *inst, t_redirection *red);

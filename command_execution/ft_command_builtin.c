@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 14:35:13 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/11 18:05:17 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/11 21:14:53 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	ft_builtin_caller(char **args, t_env_list **env_list)
 		return (ft_echo(args));
 	else if (ft_strcmp(args[0], "export") == 0)
 		return (ft_export(args, env_list));
-	// else if (ft_strcmp(args[0], "exit") == 0)
-	// 	return (ft_export_test(args, env_list));
+	else if (ft_strcmp(args[0], "exit") == 0)
+		return (ft_exit_bt(args));
 	else if (ft_strcmp(args[0], "cd") == 0)
 		return (ft_cd(args));
 	else if (ft_strcmp(args[0], "pwd") == 0)

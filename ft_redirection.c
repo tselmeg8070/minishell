@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:03:47 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/09 17:03:57 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/11 21:16:03 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ int	ft_handle_redirection_command(t_instruction *inst)
 		else if ((!pre || (pre && ft_red_token_id(pre) == 0))
 			&& ft_red_token_id(token) == 0)
 		{
-			if (!ft_lstadd_back_safe(&inst->commands, ft_strdup(token->content)))
+			if (!ft_lstadd_back_safe(&inst->commands,
+					ft_strdup(token->content)))
 				return (0);
 		}
 		pre = token;

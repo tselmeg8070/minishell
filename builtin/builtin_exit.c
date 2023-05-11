@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 18:09:30 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/11 20:32:22 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/11 21:22:16 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,50 @@ int	ft_all_digits(char **str)
 	return (1);
 }
 
-int	ft_exit_bt(char **str)
+//exit: bash: exit: too many arguments - dont exit
+int	ft_exit_bt(char	**str)
 {
 	int	exit_val;
 
-	write(2, "exit\n", 5);
-	if (str && !ft_all_digits(str))
-		return (2);
+	if (!str || !*str)
+		return (1);
+	if (str && !ft_strcmp(*str, "exit"))
+		str++;
+	if (!*str)
+	{
+		write (1, "exit\n", 5);
+		return (0);
+	}
 	else if (str && ft_count_strs(str) > 1)
 	{
+		write (1, "exit\n", 5);
 		write(2, "minishell: exit: too many arguments\n", 37);
 		return (1);
 	}
-	else if (!str || !*str)
-	{
-		return (0);
-	}
-	else
+	else if (str && !ft_all_digits(str))
+		return (2);
+	else if (str && ft_all_digits(str) == 1)
 		exit_val = ft_atoi(*str) % 256;
 	return (exit_val);
 }
+
+// int	ft_exit_bt(char **str)
+// {
+// 	int	exit_val;
+
+// 	write(2, "exit\n", 5);
+// 	if (str && !ft_all_digits(str))
+// 		return (2);
+// 	else if (str && ft_count_strs(str) > 1)
+// 	{
+// 		write(2, "minishell: exit: too many arguments\n", 37);
+// 		return (1);
+// 	}
+// 	else if (!str || !*str)
+// 	{
+// 		return (0);
+// 	}
+// 	else
+// 		exit_val = ft_atoi(*str) % 256;
+// 	return (exit_val);
+// }

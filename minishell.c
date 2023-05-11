@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:00:39 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/11 20:45:30 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/11 21:23:52 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,4 +111,5 @@ int	main(int argc, char **argv, char **paths)
 	}
 	rl_clear_history();
 	ft_free_envlst(&env);
+	return (res);
 }

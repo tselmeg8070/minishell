@@ -6,7 +6,7 @@
 #    By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/05 16:51:42 by tadiyamu          #+#    #+#              #
-#    Updated: 2023/05/11 20:41:52 by tadiyamu         ###   ########.fr        #
+#    Updated: 2023/05/11 21:29:09 by tadiyamu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ FILES = minishell \
 		ft_tokenize\
 		ft_token_check\
 		ft_instruction\
+		ft_instruction_free\
 		ft_create_command\
 		ft_generate_char_list\
 		ft_quote_strip\
@@ -33,6 +34,7 @@ FILES = minishell \
 		get_next_line/get_next_line_utils\
 		command_execution/ft_command_builtin\
 		command_execution/ft_command_execution\
+		command_execution/ft_command_execution_utils\
 		command_execution/ft_command_call\
 		command_execution/ft_command_permission\
 		command_execution/ft_command_utils\

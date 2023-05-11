@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 20:35:27 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/09 17:29:17 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/11 21:15:23 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static char	**ft_malloc(int arr_c)
 	return (result);
 }
 
-int		ft_check_quote(char const *strp, int index)
+int	ft_check_quote(char const *strp, int index)
 {
 	char	*substr;
 	int		res;
