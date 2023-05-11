@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: galtange <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 19:29:55 by galtange          #+#    #+#             */
-/*   Updated: 2023/04/14 19:32:43 by galtange         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:00:04 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,6 @@ void	ft_chdir_errmsg(char *str, int errn)
 int	ft_change_dir(char *str)
 {
 	int	i;
-
-	ft_putstr_fd(str, 1);
-	ft_putstr_fd("<<chdir\n", 1);
 
 	i = chdir(str);
 	if (i)

@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/09 15:42:16 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/09 23:32:40 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,5 @@ int	ft_execute_loop(char **paths, t_list *command_table, int *link,
 			printf("minishell: %s", inst->err_msg);
 		command_table = command_table->next;
 	}
-	return (status);
+	return (status % 255);
 }

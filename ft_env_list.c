@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: galtange <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 18:25:02 by galtange          #+#    #+#             */
-/*   Updated: 2023/03/18 18:33:14 by galtange         ###   ########.fr       */
+/*   Updated: 2023/05/09 23:21:02 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_find_elm(t_env_list **list, char *key)
 	if (!list || !*list)
 		return (NULL);
 	tmp = *list;
-	while (tmp->next != NULL)
+	while (tmp)
 	{
 		if (ft_strcmp(tmp->key, key) == 0)
 			return (tmp->val);
