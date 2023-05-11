@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:00:39 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/11 17:11:00 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/11 20:32:54 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,13 @@ int	ft_lstadd_back_safe(t_list **list, void *content)
 	}
 	ft_lstadd_back(list, node);
 	return (1);
+}
+
+int	ft_aff_msg(int fd, char *str, int exit_val)
+{
+	if (fd < 0)
+		return (1);
+	if (str)
+		ft_putstr_fd(str, fd);
+	return (exit_val);
 }

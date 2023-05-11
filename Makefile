@@ -6,18 +6,19 @@
 #    By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/05 16:51:42 by tadiyamu          #+#    #+#              #
-#    Updated: 2023/05/11 18:13:20 by tadiyamu         ###   ########.fr        #
+#    Updated: 2023/05/11 20:41:52 by tadiyamu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
 LDFLAGS = -ltermcap -ltinfo
-CFLAGS = -Wall -Wextra -Werror
+CFLAGSD = -Wall -Wextra -Werror
 LIBFT = ./libft/libft.a
 FILES = minishell \
 		minishell_utils \
 		minishell_utils2 \
+		minishell_utils3 \
 		ft_replace_env \
 		ft_split_pipe\
 		ft_env_list\
@@ -45,7 +46,7 @@ FILES = minishell \
 		builtin/builtin_export\
 		builtin/builtin_unset\
 		builtin/builtin_cd\
-		builtin/builtin_unset\
+		builtin/builtin_exit\
 		signal/ft_signal\
 		ft_env_list_utils
 

@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 18:09:30 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/11 18:10:38 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/11 20:32:22 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_all_digits(char **str)
 	return (1);
 }
 
-int	ft_exit_bt(char **str, t_env_list **envs, ...)
+int	ft_exit_bt(char **str)
 {
 	int	exit_val;
 

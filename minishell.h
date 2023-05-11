@@ -160,6 +160,8 @@ void	ft_write_result(int out, int fd);
 
 void	ft_history(char *line);
 
+int		ft_aff_msg(int fd, char *str, int exit_val);
+
 void	ft_init_sig(struct sigaction *sa);
 
 int		ft_builtin_check(char **vals);
@@ -179,5 +181,9 @@ int		ft_unset(char **str, t_env_list **envs);
 int		ft_cd(char **str);
 
 void	ft_exit_status(int exit_status, t_env_list **envs);
+
+int		ft_exit_bt(char **str);
+
+int		ft_count_strs(char **str);
 
 #endif

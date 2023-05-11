@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:00:39 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/09 23:33:19 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/11 20:45:30 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,9 @@ int	main(int argc, char **argv, char **paths)
 	char				*line;
 	t_env_list			*env;
 	struct sigaction	sa;
+	int					res;
 
+	res = 0;
 	env = ft_create_envlist(paths);
 	if (!env)
 		return (ft_aff_msg(2, "Err\n", 1));
@@ -93,14 +95,20 @@ int	main(int argc, char **argv, char **paths)
 			if (ft_quote_check(line) == 0)
 				write(2, "Unclosed quotation mark\n", 25);
 			else
-				ft_lexa_parse(line, &env);
+			{
+				res = ft_lexa_parse(line, &env);
+				if (res <= -5)
+				{
+					res = (res + 5) * -1;
+					free(line);
+					break;
+				}
+			}
 			free(line);
 		}
 		else
-		{
-			rl_clear_history();
-			ft_free_envlst(&env);
-			return (0);
-		}
+			break;
 	}
+	rl_clear_history();
+	ft_free_envlst(&env);
 }
