@@ -6,7 +6,7 @@
 #    By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/05 16:51:42 by tadiyamu          #+#    #+#              #
-#    Updated: 2023/05/09 21:49:11 by tadiyamu         ###   ########.fr        #
+#    Updated: 2023/05/11 15:56:56 by tadiyamu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ FILES = minishell \
 		builtin/builtin_env\
 		builtin/builtin_export\
 		builtin/builtin_cd\
+		builtin/builtin_unset\
 		signal/ft_signal\
 		ft_env_list_utils
 
