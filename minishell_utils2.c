@@ -103,3 +103,12 @@ int	ft_lstadd_back_safe(t_list **list, void *content)
 	ft_lstadd_back(list, node);
 	return (1);
 }
+
+int	ft_aff_msg(int fd, char *str, int exit_val)
+{
+	if (fd < 0)
+		return (1);
+	if (str)
+		ft_putstr_fd(str, fd);
+	return (exit_val);
+}
