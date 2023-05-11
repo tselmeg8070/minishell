@@ -109,7 +109,7 @@ int	ft_export(char **str, t_env_list **envs)
 
 	if (!envs || !*envs)
 	{
-		write(2, "minishell: export: No such file or directory\n", 46);
+		write(2, "minishell> export: No such file or directory\n", 46);
 		return (127);
 	}
 	if (str && !ft_strcmp(*str, "export"))
