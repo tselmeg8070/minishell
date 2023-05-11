@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 18:09:30 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/11 21:22:16 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/11 23:17:47 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,16 @@ int	ft_exit_bt(char	**str)
 	if (!*str)
 	{
 		write (1, "exit\n", 5);
-		return (0);
+		return (0 + 256);
 	}
 	else if (str && ft_count_strs(str) > 1)
 	{
 		write (1, "exit\n", 5);
 		write(2, "minishell: exit: too many arguments\n", 37);
-		return (1);
+		return (1 + 256);
 	}
 	else if (str && !ft_all_digits(str))
-		return (2);
+		return (2 + 256);
 	else if (str && ft_all_digits(str) == 1)
 		exit_val = ft_atoi(*str) % 256;
 	return (exit_val);

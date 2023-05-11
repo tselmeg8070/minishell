@@ -6,109 +6,81 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:00:39 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/11 21:23:52 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/12 00:11:04 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_handle_memory_error(int *res)
+int	ft_minishell_exit_result(int *res, char *line, t_env_list **env)
 {
-	write(2, "minishell: Error: Not enough memory available.", 46);
-	*res = 1;
-}
-
-int	ft_command_parse(t_list	*command_table, t_env_list **env)
-{
-	int	res;
-
-	res = 0;
-	if (!ft_handle_instruction_redirection(command_table))
-		ft_handle_memory_error(&res);
-	if (res == 0 && !ft_handle_env_command(command_table, *env))
-		ft_handle_memory_error(&res);
-	if (res == 0 && !ft_handle_env_redirection(command_table, *env))
-		ft_handle_memory_error(&res);
-	if (res == 0 && !ft_generate_char_list_traverse(command_table))
-		ft_handle_memory_error(&res);
-	if (res == 0 && !ft_quote_strip_traverse(command_table))
-		ft_handle_memory_error(&res);
-	if (res == 0)
-		res = ft_call_execution(command_table, env);
-	ft_lstclear(&command_table, ft_free_instruction);
-	return (res);
-}
-
-int	ft_lexa_parse(char *line, t_env_list **env)
-{
-	t_list	*list;
-	t_list	*command_table;
-	int		res;
-
-	list = 0;
-	res = 0;
-	if (ft_tokenize(line, &list))
+	*res = ft_lexa_parse(line, env);
+	if (*res <= -5)
 	{
-		if (ft_token_check(list))
+		if ((*res + 5) * -1 != 257)
 		{
-			command_table = ft_token_seperation(list);
-			if (command_table)
-				res = ft_command_parse(command_table, env);
-			else
-				ft_handle_memory_error(&res);
+			*res = (*res + 5) * -1 % 256;
+			free(line);
+			return (1);
+		}
+		else
+		{
+			*res = (*res + 5) * -1 % 256;
+			ft_exit_status(*res, env);
 		}
 	}
-	ft_lstclear(&list, free);
-	ft_exit_status(res, env);
-	if (res == -1)
-		ft_handle_memory_error(&res);
-	return (res);
+	return (0);
 }
 
-void	ft_history(char *line)
+void	ft_quotation_error(t_env_list **env)
 {
-	if (line && ft_strncmp(line, "", 1))
-		add_history(line);
-	rl_redisplay();
+	write(2, "Unclosed quotation mark\n", 25);
+	ft_exit_status(1, env);
 }
 
-int	main(int argc, char **argv, char **paths)
+void	ft_init_env(t_env_list **env, char **paths)
 {
-	char				*line;
-	t_env_list			*env;
-	struct sigaction	sa;
-	int					res;
+	*env = ft_create_envlist(paths);
+	if (*env == 0)
+		exit(ft_aff_msg(2, "Err\n", 1));
+}
 
-	res = 0;
-	env = ft_create_envlist(paths);
-	if (!env)
-		return (ft_aff_msg(2, "Err\n", 1));
-	ft_init_sig(&sa);
-	if (argc != 1 || argv[1])
-		return (ft_aff_msg(2, "Err: Minishell don't accept args\n", 1));
+void	ft_line_loop(int *res, t_env_list **env)
+{
+	char	*line;
+
 	while (1)
 	{
 		line = readline("minishell>");
 		if (line)
 		{
-			ft_history(line);
-			if (ft_quote_check(line) == 0)
-				write(2, "Unclosed quotation mark\n", 25);
-			else
+			if (ft_strlen(line) != 0)
 			{
-				res = ft_lexa_parse(line, &env);
-				if (res <= -5)
-				{
-					res = (res + 5) * -1;
-					free(line);
-					break;
-				}
+				ft_history(line);
+				if (ft_quote_check(line) == 0)
+					ft_quotation_error(env);
+				else if (ft_minishell_exit_result(res, line, env))
+					break ;
 			}
 			free(line);
 		}
 		else
-			break;
+			break ;
 	}
+}
+
+int	main(int argc, char **argv, char **paths)
+{
+	t_env_list			*env;
+	struct sigaction	sa;
+	int					res;
+
+	res = 0;
+	ft_init_env(&env, paths);
+	ft_init_sig(&sa);
+	if (argc != 1)
+		return (ft_aff_msg(2, "Err: Minishell don't accept args\n", 1));
+	ft_line_loop(&res, &env);
 	rl_clear_history();
 	ft_free_envlst(&env);
 	return (res);

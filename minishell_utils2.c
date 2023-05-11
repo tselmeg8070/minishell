@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:00:39 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/11 20:32:52 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/11 23:44:21 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,11 @@ int	ft_concat_char_protected(char **token, char c)
 	if (token == 0)
 		return (0);
 	return (1);
+}
+
+void	ft_history(char *line)
+{
+	if (line && ft_strncmp(line, "", 1))
+		add_history(line);
+	rl_redisplay();
 }

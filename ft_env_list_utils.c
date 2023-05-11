@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 15:22:33 by galtange          #+#    #+#             */
-/*   Updated: 2023/05/09 23:22:12 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/12 00:15:28 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_exit_status(int exit_status, t_env_list **envs)
 	char		*str;
 
 	tmp = *envs;
-	while(tmp)
+	while (tmp)
 	{
 		if (ft_strcmp(tmp->key, "?") == 0)
 		{
@@ -71,22 +71,4 @@ void	ft_exit_status(int exit_status, t_env_list **envs)
 		}
 		tmp = tmp->next;
 	}
-
 }
-
-// void	ft_printlist(t_env_list **list)
-// {
-// 	t_env_list	*tmp;
-
-//     if (!list || !*list)
-//     {
-//         printf ("list empty!\n");
-//         return;
-//     }
-//     tmp = *list;
-//     while (tmp != NULL)
-//     {
-//         printf("%s=%s\n", tmp->key, tmp->val);
-//         tmp = tmp->next;
-//     }
-// }
