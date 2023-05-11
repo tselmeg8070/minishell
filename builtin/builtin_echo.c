@@ -29,16 +29,18 @@ int	ft_echo(char **strs)
 {
 	int	flag_n;
 
-	flag_n = 1;
-	if (*strs && !ft_strcmp(*strs, "echo"))
+	if (strs && !ft_strcmp(*strs, "echo"))
 		strs++;
-	if (*strs && !ft_strcmp(*strs, "-n"))
+	if (!*strs)
+		return (ft_aff_msg(1, "\n", 0));
+	flag_n = 1;
+	if (strs && !ft_strcmp(*strs, "-n"))
 	{
 		flag_n = 0;
 		if (strs + 1)
 			strs++;
 	}
-	if (strs != NULL)
+	if (*strs)
 		print_echo(*strs++);
 	while (*strs)
 	{

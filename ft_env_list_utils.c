@@ -38,18 +38,19 @@ t_env_list	*ft_create_envlist(char **paths)
 	int			i;
 	t_env_list	*env_list;
 
+	if (!paths || !*paths)
+		return (NULL);
+	env_list = ft_env_lstnew("?=0");
+	if (!env_list)
+		return (NULL);
 	i = 0;
 	while (paths[i])
 		i++;
-	if (ft_add2list(&env_list, ft_env_lstnew("?=0")))
-		return (NULL);
 	while (--i >= 0)
 	{
 		if (ft_add2list(&env_list, ft_env_lstnew(paths[i])))
 			return (NULL);
 	}
-	if (!env_list)
-		return (NULL);
 	return (env_list);
 }
 

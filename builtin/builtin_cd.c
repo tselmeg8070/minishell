@@ -80,6 +80,8 @@ int	ft_cd(char **str)
 	}
 	else if (i == 0 || !ft_strcmp(*str, "~"))
 		path = ft_strdup(getenv("HOME"));
+	else if (!ft_strcmp(*str, "-"))
+		path = ft_strdup(getenv("OLDPWD"));
 	else
 		path = ft_strdup(*str);
 	if (!path)
