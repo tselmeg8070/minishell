@@ -37,23 +37,50 @@ int	ft_all_digits(char **str)
 	return (1);
 }
 
-int	ft_exit_bt(char **str)
+//exit: bash: exit: too many arguments - dont exit
+int	ft_exit_bf(char	**str)
 {
 	int	exit_val;
 
-	write(2, "exit\n", 5);
-	if (str && !ft_all_digits(str))
-		return (2);
+	if (!str || !*str)
+		return (1);
+	if (str && !ft_strcmp(*str, "exit"))
+		str++;
+	if (!*str)
+	{
+		write (1, "exit\n", 5);
+		return (0);
+	}
 	else if (str && ft_count_strs(str) > 1)
 	{
+		write (1, "exit\n", 5);
 		write(2, "minishell: exit: too many arguments\n", 37);
 		return (1);
 	}
-	else if (!str || !*str)
-	{
-		return (0);
-	}
-	else
+	else if (str && !ft_all_digits(str))
+		return (2);
+	else if (str && ft_all_digits(str) == 1)
 		exit_val = ft_atoi(*str) % 256;
 	return (exit_val);
 }
+
+// int	ft_exit_bt(char **str)
+// {
+// 	int	exit_val;
+
+// 	write(2, "exit\n", 5);
+// 	if (str && !ft_all_digits(str))
+// 		return (2);
+// 	else if (str && ft_count_strs(str) > 1)
+// 	{
+// 		write(2, "minishell: exit: too many arguments\n", 37);
+// 		return (1);
+// 	}
+// 	else if (!str || !*str)
+// 	{
+// 		return (0);
+// 	}
+// 	else
+// 		exit_val = ft_atoi(*str) % 256;
+// 	return (exit_val);
+// }
