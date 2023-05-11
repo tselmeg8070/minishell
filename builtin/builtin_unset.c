@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: galtange <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 21:53:31 by galtange          #+#    #+#             */
-/*   Updated: 2023/05/01 21:56:19 by galtange         ###   ########.fr       */
+/*   Updated: 2023/05/11 14:20:44 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,15 @@ int	ft_unset(char **str, t_env_list **envs)
 	i = 0;
 	if (!envs || !*envs)
 	{
-		write(1, "minishell: unset: No such file or directory\n", 45);
+		write(2, "minishell: unset: No such file or directory\n", 45);
 		return (127);
 	}
 	else
 	{
 		while (str[i] != NULL)
 		{
-			ft_var_unset(envs, str[i]);
+			if (ft_strcmp(str[i], "$?"))
+				ft_var_unset(envs, str[i]);
 			i++;
 		}
 	}
