@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:00:39 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/12 04:08:35 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/12 11:47:24 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static int	g_status = 0;
 
 int	ft_minishell_exit_result(int *res, char *line, t_env_list **env)
 {
-	ft_exit_status(g_status, env);
 	*res = ft_lexa_parse(line, env);
 	if (*res <= -5)
 	{
@@ -76,13 +75,15 @@ int	main(int argc, char **argv, char **paths)
 {
 	t_env_list			*env;
 	struct sigaction	sa;
+	int					res;
 
+	res = 0;
 	ft_init_env(&env, paths);
 	ft_init_sig(&sa);
 	if (argc != 1 && argv[0])
 		return (ft_aff_msg(2, "Err: Minishell don't accept args\n", 1));
-	ft_line_loop(&g_status, &env);
+	ft_line_loop(&res, &env);
 	rl_clear_history();
 	ft_free_envlst(&env);
-	return (g_status);
+	return (res);
 }

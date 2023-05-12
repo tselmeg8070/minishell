@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:03:58 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/12 02:54:10 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/12 10:47:45 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,15 @@ t_instruction	*ft_init_instruction(void)
 	inst = malloc(sizeof(t_instruction));
 	if (inst)
 	{
+		inst->pid = 0;
 		inst->val = 0;
 		inst->valc = 0;
 		inst->in = 0;
 		inst->out = 1;
-		inst->in_file = 0;
-		inst->out_file = 0;
+		inst->pipe[0] = 0;
+		inst->pipe[1] = 0;
+		inst->redirection[0] = 0;
+		inst->redirection[1] = 1;
 		inst->err_msg = 0;
 		inst->err_code = 0;
 		inst->commands = 0;

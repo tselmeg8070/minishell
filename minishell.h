@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 00:15:45 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/12 04:00:51 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/12 10:52:46 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,11 @@ typedef struct s_redirection
 
 typedef struct s_instruction
 {
+	int					pid;
 	int					in;
 	int					out;
-	char				*in_file;
-	char				*out_file;
+	int					pipe[2];
+	int					redirection[2];
 	int					err_code;
 	char				*err_msg;
 	char				**val;
@@ -127,11 +128,11 @@ int						ft_lstadd_back_safe(t_list **list, void *content);
 
 int						ft_handle_instruction_redirection(t_list *inst);
 
-int						ft_handle_env_command(t_list *inst_table,
+int	ft_handle_env_command(t_list *inst_table,
 							t_env_list *env);
 
-int						ft_handle_env_redirection(t_list *inst_table,
-							t_env_list *env);
+int	ft_handle_env_redirection(t_list *inst_table,
+								t_env_list *env);
 
 int						ft_lstlen(t_list *head);
 
@@ -146,22 +147,21 @@ int						ft_quote_strip_traverse(t_list *table);
 int						ft_execute_loop(char **paths, t_list *command_table,
 							int *link, t_env_list **env);
 
-int						ft_check_ambiguous(t_instruction *inst,
+int	ft_check_ambiguous(t_instruction *inst,
+						t_redirection *red);
+
+void	ft_redirection_file(t_instruction *inst,
 							t_redirection *red);
 
-void					ft_redirection_file(t_instruction *inst,
-							t_redirection *red);
-
-int						ft_handle_redirection_err(t_instruction *inst,
-							int *link);
+int	ft_handle_redirection_err(t_instruction *inst);
 
 int						ft_command_redirection(t_instruction *inst);
 
-int						ft_check_red_permission(t_instruction *inst,
+int	ft_check_red_permission(t_instruction *inst,
 							t_redirection *red);
 
-int						ft_call_execution(t_list *command_table,
-							t_env_list **env);
+int	ft_call_execution(t_list *command_table,
+						t_env_list **env);
 
 int						ft_check_access(char **paths, char *arr);
 
