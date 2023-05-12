@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 19:26:44 by galtange          #+#    #+#             */
-/*   Updated: 2023/05/09 23:17:13 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/12 03:04:05 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,43 @@ int	ft_env(t_env_list **envs)
 		}
 	}
 	return (0);
+}
+
+int	ft_env_list_size(t_env_list *env)
+{
+	int	i;
+
+	i = 0;
+	while (env)
+	{
+		i++;
+		env = env->next;
+	}
+	return (i);
+}
+
+char	**ft_env_convert_original(t_env_list *env)
+{
+	char	**res;
+	int		size;
+	char	*temp;
+	int		i;
+
+	size = ft_env_list_size(env);
+	i = 0;
+	res = malloc(sizeof(char *) * (size + 1));
+	res[size] = 0;
+	while (res && env)
+	{
+		res[i] = ft_strdup(env->key);
+		temp = res[i];
+		res[i] = ft_strjoin(res[i], "=");
+		free(temp);
+		temp = res[i];
+		res[i] = ft_strjoin(res[i], env->val);
+		free(temp);
+		env = env->next;
+		i++;
+	}
+	return (res);
 }

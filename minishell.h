@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 00:15:45 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/12 00:16:42 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/12 02:54:47 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,5 +196,7 @@ int						ft_exit_bt(char **str);
 int						ft_count_strs(char **str);
 
 int						ft_lexa_parse(char *line, t_env_list **env);
+
+char					**ft_env_convert_original(t_env_list *env);
 
 #endif

@@ -6,29 +6,32 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/11 21:28:14 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/12 03:01:44 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_try_every_path(char **paths, char **arr)
+void	ft_try_every_path(char **paths, char **arr, t_env_list **env)
 {
 	char	*str;
 	char	*joined;
+	char	**envs;
 	int		i;
 
 	i = 0;
+	envs = ft_env_convert_original(*env);
 	while (arr && paths[i])
 	{
 		str = ft_strjoin(paths[i], "/");
 		joined = ft_strjoin(str, arr[0]);
 		free(str);
-		execve(joined, arr, (char **){NULL});
+		execve(joined, arr, envs);
 		free(joined);
 		i++;
 	}
-	execve(arr[0], arr, (char **){NULL});
+	execve(arr[0], arr, envs);
+	ft_split_free(&envs);
 }
 
 int	ft_execute(char **paths, t_instruction *inst, t_env_list **env, int *link)
@@ -52,7 +55,7 @@ int	ft_execute(char **paths, t_instruction *inst, t_env_list **env, int *link)
 			exit (ft_builtin_caller(inst->val, env));
 		perm_err = ft_check_access(paths, inst->val[0]);
 		if (perm_err == 1)
-			ft_try_every_path(paths, inst->val);
+			ft_try_every_path(paths, inst->val, env);
 		else
 			exit (perm_err);
 	}
