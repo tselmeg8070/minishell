@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:03:27 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/14 18:28:08 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/14 20:21:53 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	ft_token_check_pipe(t_list *list)
 		token = (char *) list->content;
 		if (ft_is_token(token[0]))
 		{
-			if (pipe)
+			if (pipe && token[0] == '|')
 				return (ft_msg_token(token));
 			else if (token[0] == '|')
 				pipe = 1;
