@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:14:30 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/14 18:28:41 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/14 20:37:01 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_call_single_builtin(t_list *command_table, t_env_list **env)
 	if (ft_lstlen(command_table) == 1)
 	{
 		inst = (t_instruction *) command_table->content;
-		if (ft_builtin_check_parent(inst->val[0]))
+		if (inst->val[0] && ft_builtin_check_parent(inst->val[0]))
 		{
 			if (ft_strcmp(inst->val[0], "exit") == 0)
 				return ((ft_exit_bt(inst->val) + 5) * -1);
