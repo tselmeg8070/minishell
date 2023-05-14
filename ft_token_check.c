@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:03:27 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/06 19:03:28 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/14 18:28:08 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int	ft_msg_token(char *token)
 {
-	printf("Unexpected token: %s\n", token);
+	write(2, "Unexpected token: ", 18);
+	write(2, token, ft_strlen(token));
+	write(2, "\n", 1);
 	return (0);
 }
 

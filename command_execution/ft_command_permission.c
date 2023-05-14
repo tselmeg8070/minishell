@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:56 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/14 17:22:23 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/14 18:25:51 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,12 @@ int	ft_print_error(int err, char *name)
 	return (1);
 }
 
-int	ft_check_access_helper(char *path, int err)
+void	ft_check_access_helper(char *path, int *err)
 {
 	if (access(path, F_OK) == 0)
-		return (1);
+		*err = 1;
 	if (access(path, F_OK) == 0 && access(path, X_OK) == 0)
-		return (2);
-	return (err);
+		*err = 2;
 }
 
 /*
@@ -57,17 +56,15 @@ int	ft_check_access(char **paths, char *arr)
 
 	err = 0;
 	i = 0;
-	if (arr)
-		err = ft_check_access_helper(arr, err);
-	while (arr && paths && paths[i++])
+	ft_check_access_helper(arr, &err);
+	while (err != 2 && paths && paths[i++] && arr)
 	{
 		str = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(str, arr);
 		free(str);
-		err = ft_check_access_helper(path, err);
+		ft_check_access_helper(path, &err);
 		free(path);
 	}
-	printf("Permission: %d\n", err);
 	err = ft_print_error(err, arr);
 	if (err == 2)
 		return (1);

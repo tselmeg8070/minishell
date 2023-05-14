@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:14:30 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/14 17:04:26 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/14 18:28:41 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	ft_call_execution(t_list *command_table, t_env_list **env)
 	if (path)
 		paths = ft_split(path, ':');
 	res = ft_call_single_builtin(command_table, env);
-	printf("ft_call_execution: %p\n", paths);
 	if (res == -1)
 	{
 		res = ft_execute_loop(paths, command_table, link, env);
