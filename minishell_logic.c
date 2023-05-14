@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 00:07:28 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/12 02:54:19 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/14 14:41:59 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_handle_memory_error(int *res)
 {
-	write(2, "minishell: Error: Not enough memory available.", 46);
+	write(2, "minishell: Error: Not enough memory available.\n", 47);
 	*res = 1;
 }
 
@@ -49,7 +49,7 @@ int	ft_lexa_parse(char *line, t_env_list **env)
 	res = 0;
 	if (ft_tokenize(line, &list))
 	{
-		if (ft_token_check(list))
+		if (list && ft_token_check(list))
 		{
 			command_table = ft_token_seperation(list);
 			if (command_table)

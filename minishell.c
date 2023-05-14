@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:00:39 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/12 11:47:24 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/14 14:47:33 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_line_loop(int *res, t_env_list **env)
 		line = readline("minishell>");
 		if (line)
 		{
-			if (ft_strlen(line) != 0)
+			if (ft_strlen(line) != 0 && !ft_only_spaces(line))
 			{
 				ft_history(line);
 				if (ft_quote_check(line) == 0)

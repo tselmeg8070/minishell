@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:00:39 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/11 23:44:21 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/14 14:48:25 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,18 @@ void	ft_history(char *line)
 	if (line && ft_strncmp(line, "", 1))
 		add_history(line);
 	rl_redisplay();
+}
+
+int	ft_only_spaces(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (!(line[i] == ' ' || line[i] == '\t'))
+			return (0);
+		i++;
+	}
+	return (1);
 }

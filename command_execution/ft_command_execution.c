@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/12 11:50:08 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/14 17:10:15 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ void	ft_try_every_path(char **paths, char **arr, t_env_list **env)
 	int		i;
 
 	i = 0;
+	printf("ft_try_every_path: %p\n", paths);
 	envs = ft_env_convert_original(*env);
-	while (arr && paths[i])
+	while (arr && paths && paths[i])
 	{
 		str = ft_strjoin(paths[i], "/");
 		joined = ft_strjoin(str, arr[0]);
@@ -40,6 +41,7 @@ int	ft_execute(char **paths, t_instruction *inst, t_env_list **env, int *link)
 
 	if (inst->redirection[0] >= 0)
 	{
+		printf("ft_execute: %p\n", paths);
 		if (inst->redirection[0] != 0)
 			dup2(inst->redirection[0], STDIN_FILENO);
 		if (inst->redirection[1] != 1)
