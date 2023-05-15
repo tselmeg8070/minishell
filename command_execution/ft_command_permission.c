@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:56 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/14 18:25:51 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/15 21:05:20 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	ft_check_access(char **paths, char *arr)
 
 	err = 0;
 	i = 0;
+	if (arr && ft_strlen(arr) == 0)
+		return (ft_print_error(0, arr));
 	ft_check_access_helper(arr, &err);
 	while (err != 2 && paths && paths[i++] && arr)
 	{
