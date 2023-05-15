@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:14:30 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/15 20:56:21 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/15 21:47:14 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,44 @@ static int	ft_builtin_check_parent(char *str)
 
 int	ft_call_single_builtin(t_list *command_table, t_env_list **env)
 {
+	int	res;
 	t_instruction	*inst;
+	int	in;
+	int	out;
 
+	res = -1;
+	in = dup(0);
+	out = dup(1);
 	if (ft_lstlen(command_table) == 1)
 	{
 		inst = (t_instruction *) command_table->content;
 		if (inst->val[0] && ft_builtin_check_parent(inst->val[0]))
 		{
-			if (ft_strcmp(inst->val[0], "exit") == 0)
-				return ((ft_exit_bt(inst->val) + 5) * -1);
-			return (ft_builtin_caller(inst->val, env));
+			if (ft_command_redirection(inst) != -1 && inst->err_code == 0)
+			{
+				if (inst->in != 0)
+					dup2(inst->in, 0);
+				if (inst->out != 0)
+					dup2(inst->out, 1);
+				if (ft_strcmp(inst->val[0], "exit") == 0)
+					res = ((ft_exit_bt(inst->val) + 5) * -1);
+				res = (ft_builtin_caller(inst->val, env));
+				if (inst->in != 0)
+				{
+					close(inst->in);
+					dup2(in, 0);
+					close(in);
+				}
+				if (inst->out != 0)
+				{
+					close(inst->out);
+					dup2(out, 1);
+					close(out);
+				}
+			}
 		}
 	}
-	return (-1);
+	return (res);
 }
 
 int	ft_call_execution(t_data **data)
