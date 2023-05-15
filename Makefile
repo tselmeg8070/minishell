@@ -6,7 +6,7 @@
 #    By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/05 16:51:42 by tadiyamu          #+#    #+#              #
-#    Updated: 2023/05/12 06:38:46 by tadiyamu         ###   ########.fr        #
+#    Updated: 2023/05/15 18:03:05 by tadiyamu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,9 @@ $(LIBFT):
 clean:
 	make clean -C libft
 	rm -f $(OBJS) $(OBJS_B)
+
+valgrind:
+	valgrind --suppressions=valgrind_readline_leaks_ignore.supp --leak-check=full --show-leak-kinds=all ./minishell
 
 fclean: clean
 	make fclean -C libft
