@@ -6,7 +6,7 @@
 #    By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/05 16:51:42 by tadiyamu          #+#    #+#              #
-#    Updated: 2023/05/15 18:03:05 by tadiyamu         ###   ########.fr        #
+#    Updated: 2023/05/15 19:29:04 by tadiyamu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ FILES = minishell \
 		minishell_utils2 \
 		minishell_utils3 \
 		minishell_logic \
+		ft_data_utils \
 		ft_replace_env \
 		ft_split_pipe\
 		ft_env_list\

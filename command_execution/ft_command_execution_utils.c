@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/14 21:56:01 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/15 20:25:32 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_try_every_path(char **paths, char **arr, t_env_list **env)
 	ft_split_free(&envs);
 }
 
-int	ft_execute(char **paths, t_instruction *inst, t_env_list **env, int *link)
+int	ft_action(char **paths, t_instruction *inst, t_env_list **env, int *link)
 {
 	int	perm_err;
 
@@ -63,12 +63,22 @@ int	ft_execute(char **paths, t_instruction *inst, t_env_list **env, int *link)
 		if (inst->out != 1)
 			close(inst->out);
 		if (ft_builtin_check(inst->val))
-			exit (ft_builtin_caller(inst->val, env));
+			return (ft_builtin_caller(inst->val, env));
 		perm_err = ft_check_access(paths, inst->val[0]);
 		if (perm_err == 1)
 			ft_try_every_path(paths, inst->val, env);
 		else
-			exit (perm_err);
+			return (perm_err);
 	}
-	exit (EXIT_FAILURE);
+	return (EXIT_FAILURE);
+}
+
+int	ft_execute(char **paths, t_instruction *inst, t_data **data, int *link)
+{
+	int	res;
+
+	res = ft_action(paths, inst, &(*data)->env, link);
+	ft_free_data(data);
+	ft_split_free(&paths);
+	exit (res);
 }
