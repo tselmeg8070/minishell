@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:14:30 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/14 20:37:01 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/15 20:00:40 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_call_single_builtin(t_list *command_table, t_env_list **env)
 	return (-1);
 }
 
-int	ft_call_execution(t_list *command_table, t_env_list **env)
+int	ft_call_execution(t_data **data)
 {
 	char	*path;
 	char	**paths;
@@ -50,13 +50,13 @@ int	ft_call_execution(t_list *command_table, t_env_list **env)
 	int		res;
 
 	paths = 0;
-	path = ft_find_elm(env, "PATH");
+	path = ft_find_elm(&(*data)->env, "PATH");
 	if (path)
 		paths = ft_split(path, ':');
-	res = ft_call_single_builtin(command_table, env);
+	res = ft_call_single_builtin((*data)->command_table, &(*data)->env);
 	if (res == -1)
 	{
-		res = ft_execute_loop(paths, command_table, link, env);
+		res = ft_execute_loop(paths, data, link);
 		close(link[0]);
 	}
 	if (path)

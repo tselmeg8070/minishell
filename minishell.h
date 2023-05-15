@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 00:15:45 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/14 22:33:04 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/15 20:19:31 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@ typedef struct s_redirection
 	char				*filename;
 	char				*original;
 }						t_redirection;
+
+typedef struct s_data
+{
+	t_list		*tokens;
+	t_list		*command_table;
+	char		*line;
+	t_env_list	*env;
+}						t_data;
 
 typedef struct s_instruction
 {
@@ -144,8 +152,8 @@ int						ft_quote_strip(t_instruction *inst);
 
 int						ft_quote_strip_traverse(t_list *table);
 
-int						ft_execute_loop(char **paths, t_list *command_table,
-							int *link, t_env_list **env);
+int						ft_execute_loop(char **paths, t_data **data,
+							int *link);
 
 int						ft_check_ambiguous(t_instruction *inst,
 							t_redirection *red);
@@ -160,8 +168,7 @@ int						ft_command_redirection(t_instruction *inst);
 int						ft_check_red_permission(t_instruction *inst,
 							t_redirection *red);
 
-int						ft_call_execution(t_list *command_table,
-							t_env_list **env);
+int						ft_call_execution(t_data **data);
 
 int						ft_check_access(char **paths, char *arr);
 
@@ -195,13 +202,17 @@ int						ft_exit_bt(char **str);
 
 int						ft_count_strs(char **str);
 
-int						ft_lexa_parse(char *line, t_env_list **env);
+int						ft_lexa_parse(t_data **data);
 
 char					**ft_env_convert_original(t_env_list *env);
 
 int						ft_only_spaces(char *line);
 
 int						ft_execute(char **paths, t_instruction *inst,
-							t_env_list **env, int *link);
+							t_data **data, int *link);
+
+t_data					*ft_init_data(void);
+
+void					ft_free_data(t_data **data);
 
 #endif
