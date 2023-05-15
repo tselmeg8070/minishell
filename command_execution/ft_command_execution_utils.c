@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/15 20:25:32 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/15 21:06:03 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_try_every_path(char **paths, char **arr, t_env_list **env)
 
 	i = 0;
 	envs = ft_env_convert_original(*env);
-	while (arr && paths && paths[i])
+	while (arr && arr[0] && paths && paths[i])
 	{
 		str = ft_strjoin(paths[i], "/");
 		joined = ft_strjoin(str, arr[0]);
@@ -42,7 +42,8 @@ void	ft_try_every_path(char **paths, char **arr, t_env_list **env)
 		free(joined);
 		i++;
 	}
-	execve(arr[0], arr, envs);
+	if (arr && arr[0])
+		execve(arr[0], arr, envs);
 	ft_split_free(&envs);
 }
 
@@ -77,7 +78,9 @@ int	ft_execute(char **paths, t_instruction *inst, t_data **data, int *link)
 {
 	int	res;
 
-	res = ft_action(paths, inst, &(*data)->env, link);
+	res = 0;
+	if (inst->val && inst->val[0])
+		res = ft_action(paths, inst, &(*data)->env, link);
 	ft_free_data(data);
 	ft_split_free(&paths);
 	exit (res);
