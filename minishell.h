@@ -29,6 +29,8 @@
 # include <term.h>
 # include <unistd.h>
 
+static int	g_status;
+
 typedef struct s_env_list
 {
 	char				*key;
@@ -203,5 +205,9 @@ int						ft_only_spaces(char *line);
 
 int						ft_execute(char **paths, t_instruction *inst,
 							t_env_list **env, int *link);
+
+void					ft_init_signals(void);
+
+void					ft_sig_from_child(int sig);
 
 #endif

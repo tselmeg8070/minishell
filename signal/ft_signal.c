@@ -16,23 +16,23 @@ void	handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(2, "\n", 1);
+		write(2, "\n", 2);
 		rl_replace_line("", 0);
 		rl_on_new_line();
-		ft_history("");
-	}
-	if (sig == SIGQUIT)
-	{
-		rl_on_new_line();
-		ft_history("");
+		rl_redisplay();
+		g_status = 130;
 	}
 }
 
 void	ft_init_sig(struct sigaction *sa)
 {
 	sigemptyset(&sa->sa_mask);
-	sa->sa_flags = SA_SIGINFO;
-	sa->sa_handler = &handler;
-	sigaction(SIGINT, sa, NULL);
-	sigaction(SIGQUIT, sa, NULL);
+	sa->sa_flags = SA_RESTART;
+	sa->sa_handler = handler;
+	if (sigaction(SIGINT, sa, NULL) == -1)
+	{
+		ft_putstr_fd("Sigaction error!\n", 2);
+		exit(1);
+	}
+	signal(SIGQUIT, SIG_IGN);
 }
