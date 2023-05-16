@@ -29,6 +29,8 @@
 # include <term.h>
 # include <unistd.h>
 
+static int	g_status;
+
 typedef struct s_env_list
 {
 	char				*key;
@@ -225,4 +227,5 @@ void					ft_free_data(t_data **data);
 
 void					ft_wait_execution(t_list *cmd_table, int *status);
 
+int						ft_del_return(t_env_list *node, int ret);
 #endif
