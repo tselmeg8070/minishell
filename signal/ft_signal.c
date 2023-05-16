@@ -39,8 +39,8 @@ void	ft_init_sig(struct sigaction *sa)
 
 void ft_sig_from_child(int sig)
 {
-	// ft_putstr_fd("Quit: ", STDERR_FILENO);
-	// ft_putnbr_fd(sig, STDERR_FILENO);
-	// ft_putchar_fd('\n', STDERR_FILENO);
+	ft_putstr_fd("Quit: ", STDERR_FILENO);
+	ft_putnbr_fd(sig, STDERR_FILENO);
+	ft_putchar_fd('\n', STDERR_FILENO);
 	exit(131);
 }
