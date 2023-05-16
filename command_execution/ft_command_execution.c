@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/15 20:59:08 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:17:48 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	ft_execute_loop_call(char **paths, t_list *command_table,
 			ft_define_redirections(inst, command_table, fd);
 			pid = fork();
 			if (pid == 0)
-				exit (ft_execute(paths, inst, data, link));
+				exit (ft_execute(paths, inst, data));
 			else
 				ft_execute_end_child(inst, pid, fd);
 		}

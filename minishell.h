@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 00:15:45 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/15 20:19:31 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:17:53 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,7 @@ char					**ft_env_convert_original(t_env_list *env);
 int						ft_only_spaces(char *line);
 
 int						ft_execute(char **paths, t_instruction *inst,
-							t_data **data, int *link);
+							t_data **data);
 
 t_data					*ft_init_data(void);
 

@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/15 21:06:03 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:17:39 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_try_every_path(char **paths, char **arr, t_env_list **env)
 	ft_split_free(&envs);
 }
 
-int	ft_action(char **paths, t_instruction *inst, t_env_list **env, int *link)
+int	ft_action(char **paths, t_instruction *inst, t_env_list **env)
 {
 	int	perm_err;
 
@@ -74,13 +74,13 @@ int	ft_action(char **paths, t_instruction *inst, t_env_list **env, int *link)
 	return (EXIT_FAILURE);
 }
 
-int	ft_execute(char **paths, t_instruction *inst, t_data **data, int *link)
+int	ft_execute(char **paths, t_instruction *inst, t_data **data)
 {
 	int	res;
 
 	res = 0;
 	if (inst->val && inst->val[0])
-		res = ft_action(paths, inst, &(*data)->env, link);
+		res = ft_action(paths, inst, &(*data)->env);
 	ft_free_data(data);
 	ft_split_free(&paths);
 	exit (res);

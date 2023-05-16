@@ -6,13 +6,11 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:00:39 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/15 20:23:36 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:16:26 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	g_status = 0;
 
 int	ft_minishell_exit_result(int *res, t_data **data)
 {
@@ -51,8 +49,6 @@ void	ft_init_env(t_data *data, char **paths)
 
 void	ft_line_loop(int *res, t_data **data)
 {
-	char	*line;
-
 	while (1)
 	{
 		(*data)->line = readline("minishell>");
@@ -76,7 +72,6 @@ void	ft_line_loop(int *res, t_data **data)
 
 int	main(int argc, char **argv, char **paths)
 {
-	t_env_list			*env;
 	t_data				*data;
 	struct sigaction	sa;
 	int					res;
