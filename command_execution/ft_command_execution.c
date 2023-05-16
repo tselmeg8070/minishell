@@ -66,9 +66,12 @@ static void	ft_execute_loop_call(char **paths, t_list *command_table,
 		if (ft_command_redirection(inst) != -1 && inst->err_code == 0)
 		{
 			ft_define_redirections(inst, command_table, fd);
+			ft_putnbr_fd(g_status, 1);
 			pid = fork();
 			if (pid == 0)
+			{
 				exit (ft_execute(paths, inst, data));
+			}
 			else
 				ft_execute_end_child(inst, pid, fd, red);
 		}

@@ -86,6 +86,34 @@ int	ft_execute(char **paths, t_instruction *inst, t_data **data)
 	exit (res);
 }
 
+
+// static void	exec_child(int child, int *status, t_data *data)
+// {
+// 	struct sigaction	child_sigquit;
+
+// 	ft_memset(&child_sigquit, 0, sizeof(struct sigaction));
+// 	if (!child)
+// 	{
+// 		child_sigquit.sa_handler = &child_sigquit_handler;
+// 		sigaction(SIGQUIT, &child_sigquit, NULL);
+// 		close_redirection_fds(data);
+// 		if (data->process[0].params)
+// 		{
+// 			if (execve(data->process[0].params[0],
+// 					data->process[0].params, data->my_envp) == -1)
+// 				error_fct(data, "minishell: Execve failure", 7);
+// 		}
+// 		free_data(data);
+// 		exit(g_exit_status);
+// 	}
+// 	data->sigint.sa_handler = SIG_IGN;
+// 	sigaction(SIGINT, &data->sigint, NULL);
+// 	waitpid(child, status, 0);
+// 	data->sigint.sa_handler = &main_sigint_handler;
+// 	sigaction(SIGINT, &data->sigint, NULL);
+// }
+
+
 void	ft_wait_execution(t_list *cmd_table, int *status)
 {
 	t_instruction	*inst;

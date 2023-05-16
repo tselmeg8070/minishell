@@ -29,6 +29,8 @@
 # include <term.h>
 # include <unistd.h>
 
+static int	g_status;
+
 typedef struct s_env_list
 {
 	char				*key;
@@ -216,5 +218,9 @@ t_data					*ft_init_data(void);
 void					ft_free_data(t_data **data);
 
 void					ft_wait_execution(t_list *cmd_table, int *status);
+
+void					ft_sig_from_child(int sig);
+
+void	ft_sigint_child(int sig);
 
 #endif

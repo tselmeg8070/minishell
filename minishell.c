@@ -77,6 +77,7 @@ int	main(int argc, char **argv, char **paths)
 	int					res;
 
 	res = 0;
+	g_status = 0;
 	if (argc != 1 && argv[0])
 		return (ft_aff_msg(2, "minishell: doesn't accept args\n", 1));
 	data = ft_init_data();

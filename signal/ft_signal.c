@@ -14,25 +14,38 @@
 
 void	handler(int sig)
 {
-	if (sig == SIGINT)
+	(void) sig;
+	if (getpid() == 0)
 	{
-		write(2, "\n", 1);
+		write(1, "test", 4);
+		exit (130);
+	}
+	else
+	{
+		write(2, "\n", 2);
 		rl_replace_line("", 0);
 		rl_on_new_line();
-		ft_history("");
-	}
-	if (sig == SIGQUIT)
-	{
-		rl_on_new_line();
-		ft_history("");
+		rl_redisplay();
+		ft_putnbr_fd(g_status, 1);
+		g_status = 130;
 	}
 }
 
 void	ft_init_sig(struct sigaction *sa)
 {
 	sigemptyset(&sa->sa_mask);
-	sa->sa_flags = SA_SIGINFO;
-	sa->sa_handler = &handler;
-	sigaction(SIGINT, sa, NULL);
-	sigaction(SIGQUIT, sa, NULL);
+	sa->sa_flags = SA_RESTART;
+	sa->sa_handler = handler;
+	if (sigaction(SIGINT, sa, NULL) == -1)
+	{
+		ft_putstr_fd("Sigaction error!\n", 2);
+		exit(1);
+	}
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	ft_sigint_child(int sig)
+{
+	signal(sig, SIG_IGN);
+	exit(130);
 }
