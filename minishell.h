@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 00:15:45 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/16 15:17:53 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:51:28 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,5 +214,7 @@ int						ft_execute(char **paths, t_instruction *inst,
 t_data					*ft_init_data(void);
 
 void					ft_free_data(t_data **data);
+
+void					ft_wait_execution(t_list *cmd_table, int *status);
 
 #endif

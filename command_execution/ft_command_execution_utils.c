@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/16 15:17:39 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:51:03 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,19 @@ int	ft_execute(char **paths, t_instruction *inst, t_data **data)
 	ft_free_data(data);
 	ft_split_free(&paths);
 	exit (res);
+}
+
+void	ft_wait_execution(t_list *cmd_table, int *status)
+{
+	t_instruction	*inst;
+
+	while (cmd_table)
+	{
+		inst = (t_instruction *) cmd_table->content;
+		if (inst->pid != 0 && inst->err_code == 0)
+			waitpid(inst->pid, status, 0);
+		else
+			*status = ft_handle_redirection_err(inst);
+		cmd_table = cmd_table->next;
+	}
 }
