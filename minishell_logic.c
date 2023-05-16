@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 00:07:28 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/14 20:32:00 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/15 19:57:14 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,48 +18,47 @@ void	ft_handle_memory_error(int *res)
 	*res = 1;
 }
 
-int	ft_command_parse(t_list	*command_table, t_env_list **env)
+int	ft_command_parse(t_data **data)
 {
 	int	res;
 
 	res = 0;
-	if (!ft_handle_instruction_redirection(command_table))
+	if (!ft_handle_instruction_redirection((*data)->command_table))
 		ft_handle_memory_error(&res);
-	if (res == 0 && !ft_handle_env_command(command_table, *env))
+	if (res == 0
+		&& !ft_handle_env_command((*data)->command_table, (*data)->env))
 		ft_handle_memory_error(&res);
-	if (res == 0 && !ft_handle_env_redirection(command_table, *env))
+	if (res == 0
+		&& !ft_handle_env_redirection((*data)->command_table, (*data)->env))
 		ft_handle_memory_error(&res);
-	if (res == 0 && !ft_generate_char_list_traverse(command_table))
+	if (res == 0 && !ft_generate_char_list_traverse((*data)->command_table))
 		ft_handle_memory_error(&res);
-	if (res == 0 && !ft_quote_strip_traverse(command_table))
+	if (res == 0 && !ft_quote_strip_traverse((*data)->command_table))
 		ft_handle_memory_error(&res);
 	if (res == 0)
-		res = ft_call_execution(command_table, env);
-	ft_lstclear(&command_table, ft_free_instruction);
+		res = ft_call_execution(data);
+	ft_lstclear(&(*data)->command_table, ft_free_instruction);
 	return (res);
 }
 
-int	ft_lexa_parse(char *line, t_env_list **env)
+int	ft_lexa_parse(t_data **data)
 {
-	t_list	*list;
-	t_list	*command_table;
 	int		res;
 
-	list = 0;
 	res = 0;
-	if (ft_tokenize(line, &list))
+	if (ft_tokenize((*data)->line, &(*data)->tokens))
 	{
-		if (list && ft_token_check(list))
+		if ((*data)->tokens && ft_token_check((*data)->tokens))
 		{
-			command_table = ft_token_seperation(list);
-			if (command_table)
-				res = ft_command_parse(command_table, env);
+			(*data)->command_table = ft_token_seperation((*data)->tokens);
+			if ((*data)->command_table)
+				res = ft_command_parse(data);
 			else
 				ft_handle_memory_error(&res);
 		}
 	}
-	ft_lstclear(&list, free);
-	ft_exit_status(res, env);
+	ft_lstclear(&(*data)->tokens, free);
+	ft_exit_status(res, &(*data)->env);
 	unlink(".tmp");
 	if (res == -1)
 		ft_handle_memory_error(&res);

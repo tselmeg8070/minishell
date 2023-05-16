@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/14 21:56:01 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:51:03 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_try_every_path(char **paths, char **arr, t_env_list **env)
 
 	i = 0;
 	envs = ft_env_convert_original(*env);
-	while (arr && paths && paths[i])
+	while (arr && arr[0] && paths && paths[i])
 	{
 		str = ft_strjoin(paths[i], "/");
 		joined = ft_strjoin(str, arr[0]);
@@ -42,11 +42,12 @@ void	ft_try_every_path(char **paths, char **arr, t_env_list **env)
 		free(joined);
 		i++;
 	}
-	execve(arr[0], arr, envs);
+	if (arr && arr[0])
+		execve(arr[0], arr, envs);
 	ft_split_free(&envs);
 }
 
-int	ft_execute(char **paths, t_instruction *inst, t_env_list **env, int *link)
+int	ft_action(char **paths, t_instruction *inst, t_env_list **env)
 {
 	int	perm_err;
 
@@ -63,12 +64,39 @@ int	ft_execute(char **paths, t_instruction *inst, t_env_list **env, int *link)
 		if (inst->out != 1)
 			close(inst->out);
 		if (ft_builtin_check(inst->val))
-			exit (ft_builtin_caller(inst->val, env));
+			return (ft_builtin_caller(inst->val, env));
 		perm_err = ft_check_access(paths, inst->val[0]);
 		if (perm_err == 1)
 			ft_try_every_path(paths, inst->val, env);
 		else
-			exit (perm_err);
+			return (perm_err);
 	}
-	exit (EXIT_FAILURE);
+	return (EXIT_FAILURE);
+}
+
+int	ft_execute(char **paths, t_instruction *inst, t_data **data)
+{
+	int	res;
+
+	res = 0;
+	if (inst->val && inst->val[0])
+		res = ft_action(paths, inst, &(*data)->env);
+	ft_free_data(data);
+	ft_split_free(&paths);
+	exit (res);
+}
+
+void	ft_wait_execution(t_list *cmd_table, int *status)
+{
+	t_instruction	*inst;
+
+	while (cmd_table)
+	{
+		inst = (t_instruction *) cmd_table->content;
+		if (inst->pid != 0 && inst->err_code == 0)
+			waitpid(inst->pid, status, 0);
+		else
+			*status = ft_handle_redirection_err(inst);
+		cmd_table = cmd_table->next;
+	}
 }

@@ -6,20 +6,21 @@
 #    By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/05 16:51:42 by tadiyamu          #+#    #+#              #
-#    Updated: 2023/05/15 18:03:05 by tadiyamu         ###   ########.fr        #
+#    Updated: 2023/05/16 15:15:49 by tadiyamu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
 LDFLAGS = -ltermcap -ltinfo
-CFLAGSD = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 LIBFT = ./libft/libft.a
 FILES = minishell \
 		minishell_utils \
 		minishell_utils2 \
 		minishell_utils3 \
 		minishell_logic \
+		ft_data_utils \
 		ft_replace_env \
 		ft_split_pipe\
 		ft_env_list\

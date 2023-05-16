@@ -6,29 +6,26 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 17:00:39 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/14 14:47:33 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:16:26 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	g_status = 0;
-
-int	ft_minishell_exit_result(int *res, char *line, t_env_list **env)
+int	ft_minishell_exit_result(int *res, t_data **data)
 {
-	*res = ft_lexa_parse(line, env);
+	*res = ft_lexa_parse(data);
 	if (*res <= -5)
 	{
 		if ((*res + 5) * -1 != 257)
 		{
 			*res = (*res + 5) * -1 % 256;
-			free(line);
 			return (1);
 		}
 		else
 		{
 			*res = (*res + 5) * -1 % 256;
-			ft_exit_status(*res, env);
+			ft_exit_status(*res, &(*data)->env);
 		}
 	}
 	return (0);
@@ -40,31 +37,33 @@ void	ft_quotation_error(t_env_list **env)
 	ft_exit_status(1, env);
 }
 
-void	ft_init_env(t_env_list **env, char **paths)
+void	ft_init_env(t_data *data, char **paths)
 {
-	*env = ft_create_envlist(paths);
-	if (*env == 0)
+	data->env = ft_create_envlist(paths);
+	if (data->env == 0)
+	{
+		free(data);
 		exit(ft_aff_msg(2, "Err\n", 1));
+	}
 }
 
-void	ft_line_loop(int *res, t_env_list **env)
+void	ft_line_loop(int *res, t_data **data)
 {
-	char	*line;
-
 	while (1)
 	{
-		line = readline("minishell>");
-		if (line)
+		(*data)->line = readline("minishell>");
+		if ((*data)->line)
 		{
-			if (ft_strlen(line) != 0 && !ft_only_spaces(line))
+			if (ft_strlen((*data)->line) != 0 && !ft_only_spaces((*data)->line))
 			{
-				ft_history(line);
-				if (ft_quote_check(line) == 0)
-					ft_quotation_error(env);
-				else if (ft_minishell_exit_result(res, line, env))
+				ft_history((*data)->line);
+				if (ft_quote_check((*data)->line) == 0)
+					ft_quotation_error(&(*data)->env);
+				else if (ft_minishell_exit_result(res, data))
 					break ;
 			}
-			free(line);
+			free((*data)->line);
+			(*data)->line = 0;
 		}
 		else
 			break ;
@@ -73,17 +72,20 @@ void	ft_line_loop(int *res, t_env_list **env)
 
 int	main(int argc, char **argv, char **paths)
 {
-	t_env_list			*env;
+	t_data				*data;
 	struct sigaction	sa;
 	int					res;
 
 	res = 0;
-	ft_init_env(&env, paths);
-	ft_init_sig(&sa);
 	if (argc != 1 && argv[0])
-		return (ft_aff_msg(2, "Err: Minishell don't accept args\n", 1));
-	ft_line_loop(&res, &env);
+		return (ft_aff_msg(2, "minishell: doesn't accept args\n", 1));
+	data = ft_init_data();
+	if (!data)
+		return (ft_aff_msg(2, "minishell: not enough space to start\n", 1));
+	ft_init_env(data, paths);
+	ft_init_sig(&sa);
+	ft_line_loop(&res, &data);
 	rl_clear_history();
-	ft_free_envlst(&env);
+	ft_free_data(&data);
 	return (res);
 }
