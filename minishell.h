@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 00:15:45 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/16 15:51:28 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:03:15 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,14 @@ typedef struct s_instruction
 	t_list				*tokens;
 	t_list				*files;
 }						t_instruction;
+
+void					ft_quotation_error(t_env_list **env);
+
+void					ft_ensure_pipe_error(t_data **data);
+
+void					ft_ensure_pipe_mem_error(t_data **data);
+
+void					ft_line_loop(int *res, t_data **data);
 
 int						ft_add2list(t_env_list **list, t_env_list *n_elm);
 
