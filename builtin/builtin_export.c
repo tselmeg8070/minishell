@@ -19,16 +19,21 @@ int	ft_print_envlist(t_env_list **env)
 	tmp = *env;
 	while (tmp != NULL)
 	{
-		write (1, "declare -x ", 12);
-		write (1, tmp->key, ft_strlen(tmp->key));
-		if (tmp->val != NULL)
+		if (!ft_strcmp(tmp->key, "?"))
+			tmp = tmp->next;
+		else
 		{
-			write (1, "=\"", 2);
-			write (1, tmp->val, ft_strlen(tmp->val));
-			write (1, "\"", 1);
+			write (1, "declare -x ", 12);
+			write (1, tmp->key, ft_strlen(tmp->key));
+			if (tmp->val != NULL)
+			{
+				write (1, "=\"", 2);
+				write (1, tmp->val, ft_strlen(tmp->val));
+				write (1, "\"", 1);
+			}
+			write (1, "\n", 1);
+			tmp = tmp->next;
 		}
-		write (1, "\n", 1);
-		tmp = tmp->next;
 	}
 	return (0);
 }
@@ -81,7 +86,10 @@ t_env_list	*ft_envcreate(char *path)
 		new->val = NULL;
 	}
 	else
+	{
+		free (new);
 		new = ft_env_lstnew(path);
+	}
 	return (new);
 }
 
@@ -100,12 +108,12 @@ int	ft_export_env(t_env_list **envs, char *str)
 		{
 			if (new->val != NULL)
 			{
+				free(tmp->val);
 				tmp->val = ft_strdup(new->val);
 				if (!tmp->val)
 					return (ft_del_return(new, 1));
 			}
-			ft_del_node(new);
-			return (0);
+			return (ft_del_return(new, 0));
 		}
 		tmp = tmp->next;
 	}
