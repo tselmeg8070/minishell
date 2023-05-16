@@ -40,12 +40,12 @@ void	ft_chdir_errmsg(char *str, int errn)
 		ft_putstr_fd("Too many levels of symbolic links", 2);
 	else if (errn == 36)
 		ft_putstr_fd("File name too long", 2);
-	else if (errn == 2)
-		ft_putstr_fd("No such file or directory", 2);
 	else if (errn == 12)
 		ft_putstr_fd("Cannot allocate memory", 2);
 	else if (errn == 20)
 		ft_putstr_fd("Not a directory", 2);
+	else if (errn == 2)
+		ft_putstr_fd("No such file or directory", 2);
 	printf("\n");
 }
 
@@ -57,7 +57,7 @@ int	ft_change_dir(char *str)
 	if (i)
 	{
 		ft_chdir_errmsg(str, errno);
-		return (errno);
+		return (1);
 	}
 	return (0);
 }
