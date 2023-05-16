@@ -6,7 +6,7 @@
 #    By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/05 16:51:42 by tadiyamu          #+#    #+#              #
-#    Updated: 2023/05/16 18:06:00 by tadiyamu         ###   ########.fr        #
+#    Updated: 2023/05/16 18:43:02 by tadiyamu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,7 @@ clean:
 	rm -f $(OBJS) $(OBJS_B)
 
 valgrind:
-	valgrind --suppressions=valgrind_readline_leaks_ignore.supp --leak-check=full --show-leak-kinds=all ./minishell
+	valgrind --suppressions=valgrind_readline_leaks_ignore.supp --track-origins=yes --leak-check=full --show-leak-kinds=all ./minishell
 
 fclean: clean
 	make fclean -C libft
