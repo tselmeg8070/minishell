@@ -227,5 +227,12 @@ void					ft_free_data(t_data **data);
 
 void					ft_wait_execution(t_list *cmd_table, int *status);
 
+void					ft_init_signals(void);
+
+void					ft_sig_from_child(int sig);
+
+void					ft_child_sigint(void);
+
 int						ft_del_return(t_env_list *node, int ret);
+
 #endif
