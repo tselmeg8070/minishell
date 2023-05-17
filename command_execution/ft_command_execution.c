@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/16 21:16:10 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/17 22:27:55 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,15 @@ static void	ft_execute_loop_call(char **paths, t_list *command_table,
 			pid = fork();
 			if (pid == 0)
 			{
-				signal(SIGINT, SIG_IGN);
-				signal(SIGQUIT, ft_sig_from_child);
+				// signal(SIGINT, SIG_IGN);
+				// signal(SIGQUIT, ft_sig_from_child);
 				exit (ft_execute(paths, inst, data));
 			}
 			else
 				ft_execute_end_child(inst, pid, fd, red);
 		}
+		else
+			ft_execute_end_child(inst, pid, fd, red);
 		fd = link[0];
 		command_table = command_table->next;
 	}
