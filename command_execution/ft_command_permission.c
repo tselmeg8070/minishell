@@ -6,11 +6,20 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:56 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/15 21:05:20 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/17 15:54:39 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	is_directory(const char *path)
+{
+	struct stat	path_stat;
+
+	if (stat(path, &path_stat) != 0)
+		return (0);
+	return (S_ISDIR(path_stat.st_mode));
+}
 
 int	ft_print_error(int err, char *name)
 {
@@ -20,6 +29,13 @@ int	ft_print_error(int err, char *name)
 		write(2, name, ft_strlen(name));
 		write(2, "\n", 1);
 		return (127);
+	}
+	if (err == 2)
+	{
+		write(2, "minishell: is directrory: ", 26);
+		write(2, name, ft_strlen(name));
+		write(2, "\n", 1);
+		return (126);
 	}
 	else if (err == 1 || name == 0)
 	{
@@ -35,7 +51,9 @@ void	ft_check_access_helper(char *path, int *err)
 {
 	if (access(path, F_OK) == 0)
 		*err = 1;
-	if (access(path, F_OK) == 0 && access(path, X_OK) == 0)
+	if (access(path, X_OK) == 0)
+		*err = 3;
+	if (is_directory(path))
 		*err = 2;
 }
 
@@ -55,11 +73,11 @@ int	ft_check_access(char **paths, char *arr)
 	int		err;
 
 	err = 0;
-	i = 0;
+	i = -1;
 	if (arr && ft_strlen(arr) == 0)
 		return (ft_print_error(0, arr));
 	ft_check_access_helper(arr, &err);
-	while (err != 2 && paths && paths[i++] && arr)
+	while (err != 3 && paths && paths[++i] && arr)
 	{
 		str = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(str, arr);
@@ -68,7 +86,7 @@ int	ft_check_access(char **paths, char *arr)
 		free(path);
 	}
 	err = ft_print_error(err, arr);
-	if (err == 2)
+	if (err == 3)
 		return (1);
 	return (err);
 }
