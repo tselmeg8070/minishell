@@ -6,11 +6,21 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:03:40 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/12 00:52:31 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/16 20:38:05 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	ft_size_of_key(char *str, int i)
+{
+	if (str[i] == '?')
+		i++;
+	else
+		while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
+			i++;
+	return (i);
+}
 
 /*
 Finds string based on key from env list and concats it to result.
@@ -28,8 +38,7 @@ int	ft_string_creation(char *str, char **res, int i, t_env_list *env)
 
 	i = i + 1;
 	l = i;
-	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '?'))
-		i++;
+	i = ft_size_of_key(str, i);
 	if (i - l >= 1)
 	{
 		key = ft_substr(str, l, i - l);

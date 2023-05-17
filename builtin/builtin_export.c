@@ -65,13 +65,23 @@ t_env_list	*ft_envcreate(char *path)
 	int			i;
 
 	i = 0;
-	new = ft_env_lstnew(path);
+	new = (t_env_list *) malloc(sizeof(t_env_list));
 	if (!new)
 		return (NULL);
 	while (path[i] != '\0' && path[i] != '=')
 		i++;
 	if (i == (int) ft_strlen(path))
+	{
+		new->key = ft_strdup(path);
+		if (!new->key)
+		{
+			free (new);
+			return (NULL);
+		}
 		new->val = NULL;
+	}
+	else
+		new = ft_env_lstnew(path);
 	return (new);
 }
 
@@ -92,8 +102,9 @@ int	ft_export_env(t_env_list **envs, char *str)
 			{
 				tmp->val = ft_strdup(new->val);
 				if (!tmp->val)
-					return (1);
+					return (ft_del_return(new, 1));
 			}
+			ft_del_node(new);
 			return (0);
 		}
 		tmp = tmp->next;

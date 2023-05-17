@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 20:35:27 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/11 21:15:23 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/16 19:20:49 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,17 @@ static int	ft_count_split(char *str, char charset)
 static char	**ft_malloc(int arr_c)
 {
 	char	**result;
+	int		i;
 
 	result = (char **) malloc(sizeof(char *) * (arr_c + 1));
 	if (result == 0)
 		return (0);
+	i = 0;
+	while (i < arr_c)
+	{
+		result[i] = 0;
+		i++;
+	}
 	result[arr_c] = 0;
 	return (result);
 }

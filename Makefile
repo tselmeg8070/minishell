@@ -6,7 +6,7 @@
 #    By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/05 16:51:42 by tadiyamu          #+#    #+#              #
-#    Updated: 2023/05/16 15:15:49 by tadiyamu         ###   ########.fr        #
+#    Updated: 2023/05/16 18:43:02 by tadiyamu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ FILES = minishell \
 		minishell_utils2 \
 		minishell_utils3 \
 		minishell_logic \
+		ft_line_handler \
+		ft_line_handler_utils \
 		ft_data_utils \
 		ft_replace_env \
 		ft_split_pipe\
@@ -75,7 +77,7 @@ clean:
 	rm -f $(OBJS) $(OBJS_B)
 
 valgrind:
-	valgrind --suppressions=valgrind_readline_leaks_ignore.supp --leak-check=full --show-leak-kinds=all ./minishell
+	valgrind --suppressions=valgrind_readline_leaks_ignore.supp --track-origins=yes --leak-check=full --show-leak-kinds=all ./minishell
 
 fclean: clean
 	make fclean -C libft

@@ -72,3 +72,10 @@ void	ft_exit_status(int exit_status, t_env_list **envs)
 		tmp = tmp->next;
 	}
 }
+
+int	ft_del_return(t_env_list *node, int ret)
+{
+	if (node)
+		ft_del_node(node);
+	return (ret);
+}
