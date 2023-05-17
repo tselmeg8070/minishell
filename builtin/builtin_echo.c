@@ -25,20 +25,36 @@ int	print_echo(char *str)
 	return (i);
 }
 
+int	ft_flag_n(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	if (str[i] == '-')
+		i++;
+	else
+		return (0);
+	while (str[i] != '\0' && str[i] == 'n')
+		i++;
+	if (i == ft_strlen(str))
+		return (1);
+	return (0);
+}
+
 int	ft_echo(char **strs)
 {
 	int	flag_n;
 
 	if (strs && !ft_strcmp(*strs, "echo"))
 		strs++;
-	if (!*strs)
-		return (ft_aff_msg(1, "\n", 0));
 	flag_n = 1;
-	if (strs && !ft_strcmp(*strs, "-n"))
+	while (*strs)
 	{
-		flag_n = 0;
-		if (strs + 1)
-			strs++;
+		if (ft_flag_n(*strs))
+			flag_n = 0;
+		else
+			break ;
+		strs++;
 	}
 	if (*strs)
 		print_echo(*strs++);
