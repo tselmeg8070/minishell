@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:01:14 by galtange          #+#    #+#             */
-/*   Updated: 2023/05/12 00:55:56 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/17 16:08:57 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_print_envlist(t_env_list **env)
 	tmp = *env;
 	while (tmp != NULL)
 	{
-		write (1, "declare -x ", 12);
+		write (1, "declare -x ", 11);
 		write (1, tmp->key, ft_strlen(tmp->key));
 		if (tmp->val != NULL)
 		{
