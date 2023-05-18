@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 16:47:33 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/16 18:05:32 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/18 15:58:24 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static int	ft_check_pipe(char *line)
 	{
 		if (line[i] != ' ' && line[i] != '\t')
 		{
+			if (line[i] == '|' && c == 1)
+				return (0);
 			if (line[i] == '|')
 				c = 1;
 			else
@@ -50,6 +52,27 @@ static int	ft_check_pipe(char *line)
 		i++;
 	}
 	return (c);
+}
+
+static int	ft_check_start_pipe(char *line)
+{
+	int	i;
+	int	c;
+
+	i = 0;
+	c = 0;
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '\t')
+		{
+			if (line[i] == '|' && c == 0)
+				return (1);
+			else
+				c++;
+		}
+		i++;
+	}
+	return (0);
 }
 
 int	ft_ensure_pipe_close(t_data **data)
@@ -87,7 +110,9 @@ void	ft_line_loop(int *res, t_data **data)
 		{
 			if (ft_strlen((*data)->line) != 0 && !ft_only_spaces((*data)->line))
 			{
-				if (ft_ensure_pipe_close(data) == 1)
+				if (ft_check_start_pipe((*data)->line))
+					ft_start_pipe_error(data);
+				else
 				{
 					ft_history((*data)->line);
 					if (ft_quote_check((*data)->line) == 0)

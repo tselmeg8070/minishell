@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 00:15:45 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/17 22:30:48 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/18 16:44:14 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,5 +234,10 @@ void					ft_sig_from_child(int sig);
 void					ft_child_sigint(void);
 
 int						ft_del_return(t_env_list *node, int ret);
+
+void					ft_start_pipe_error(t_data **data);
+
+int						ft_gen_error_msg(t_instruction *inst, char *name,
+							int id);
 
 #endif
