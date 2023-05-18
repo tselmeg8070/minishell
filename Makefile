@@ -53,6 +53,7 @@ FILES = minishell \
 		builtin/builtin_export\
 		builtin/builtin_unset\
 		builtin/builtin_cd\
+		builtin/builtin_cd_utils\
 		builtin/builtin_exit\
 		signal/ft_signal\
 		ft_env_list_utils
