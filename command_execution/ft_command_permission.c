@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:56 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/18 16:04:54 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:12:07 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int	ft_check_access(char **paths, char *arr)
 	i = -1;
 	if (arr && ft_strlen(arr) == 0)
 		return (ft_print_error(0, arr));
-	ft_check_access_helper(arr, &err);
 	while (err != 3 && paths && paths[++i] && arr)
 	{
 		str = ft_strjoin(paths[i], "/");
@@ -85,6 +84,10 @@ int	ft_check_access(char **paths, char *arr)
 		ft_check_access_helper(path, &err);
 		free(path);
 	}
+	if (arr && arr[0] == '/')
+		ft_check_access_helper(arr, &err);
+	if (arr && ft_strncmp(arr, "./", 2) == 0)
+		ft_check_access_helper(arr, &err);
 	err = ft_print_error(err, arr);
 	if (err == 3)
 		return (1);
