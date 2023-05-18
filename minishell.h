@@ -242,6 +242,6 @@ int						ft_gen_error_msg(t_instruction *inst, char *name,
 
 void					ft_var_unset(t_env_list **envs, char *str);
 
-int 					ft_set_pwds(t_env_list **envs);
+int						ft_set_pwds(t_env_list **envs);
 
 #endif

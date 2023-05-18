@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 18:25:02 by galtange          #+#    #+#             */
-/*   Updated: 2023/05/09 23:21:02 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/19 00:11:42 by galtange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_delete_elm(t_env_list **list, char *key)
 		return ;
 	}
 	tmp = (*list)->next;
-	while (ft_strcmp(tmp->key, key)	&& (*list)->next != NULL)
+	while (ft_strcmp(tmp->key, key) && (*list)->next != NULL)
 	{
 		*list = (*list)->next;
 		tmp = tmp->next;
