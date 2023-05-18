@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/17 22:27:55 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:43:24 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,13 @@ static void	ft_execute_loop_call(char **paths, t_list *command_table,
 	{
 		inst = (t_instruction *) command_table->content;
 		pipe(link);
-		inst->pipe[0] = link[0];
-		inst->pipe[1] = link[1];
+		ft_pipe_to_link(inst, link);
 		if (ft_command_redirection(inst) != -1 && inst->err_code == 0)
 		{
 			ft_define_redirections(inst, command_table, fd);
 			pid = fork();
 			if (pid == 0)
-			{
-				// signal(SIGINT, SIG_IGN);
-				// signal(SIGQUIT, ft_sig_from_child);
 				exit (ft_execute(paths, inst, data));
-			}
 			else
 				ft_execute_end_child(inst, pid, fd, red);
 		}
@@ -95,7 +90,9 @@ int	ft_execute_loop(char **paths, t_data **data, int *link)
 	int				status;
 
 	status = 1;
+	g_status[1] = 1;
 	ft_execute_loop_call(paths, (*data)->command_table, data, link);
 	ft_wait_execution((*data)->command_table, &status);
+	g_status[1] = 0;
 	return (status % 255);
 }
