@@ -6,7 +6,7 @@
 #    By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/05 16:51:42 by tadiyamu          #+#    #+#              #
-#    Updated: 2023/05/16 18:43:02 by tadiyamu         ###   ########.fr        #
+#    Updated: 2023/05/18 16:44:42 by tadiyamu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ FILES = minishell \
 		command_redirection/ft_redirection_file\
 		command_redirection/ft_redirection_loop\
 		command_redirection/ft_redirection_permission\
+		command_redirection/ft_redirection_permission_utils\
 		builtin/builtin_echo\
 		builtin/builtin_pwd\
 		builtin/builtin_env\
