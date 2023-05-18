@@ -240,4 +240,8 @@ void					ft_start_pipe_error(t_data **data);
 int						ft_gen_error_msg(t_instruction *inst, char *name,
 							int id);
 
+void					ft_var_unset(t_env_list **envs, char *str);
+
+int 					ft_set_pwds(t_env_list **envs);
+
 #endif

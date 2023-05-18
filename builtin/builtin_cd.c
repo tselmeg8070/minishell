@@ -39,57 +39,6 @@ void	ft_chdir_errmsg(char *str, int errn)
 	printf("\n");
 }
 
-int	ft_set_oldpwd(t_env_list **envs)
-{
-	t_env_list	*tmp;
-	char		*old_pwd;
-
-	old_pwd = ft_find_elm(envs, "PWD");
-	if (!old_pwd)
-		return (1);
-	tmp = *envs;
-	while (tmp)
-	{
-		if (!ft_strcmp(tmp->key, "OLDPWD"))
-		{
-			free(tmp->val);
-			tmp->val = ft_strdup(old_pwd);
-			if (!tmp->val)
-				return (1);
-		}
-		tmp = tmp->next;
-	}
-	return (0);
-}
-
-int	ft_set_newpwd(t_env_list **envs)
-{
-	int			buff_size;
-	char		*buffer;
-	t_env_list	*tmp;
-
-	buff_size = 4096;
-	buffer = malloc(sizeof(char) * buff_size);
-	if (!buffer)
-		return (1);
-	if (getcwd(buffer, buff_size) == NULL)
-		return (1);
-	tmp = *envs;
-	while (tmp)
-	{
-		if (!ft_strcmp(tmp->key, "PWD"))
-		{
-			free(tmp->val);
-			tmp->val = ft_strdup(buffer);
-			if (!tmp->val)
-				return (1);
-		}
-		tmp = tmp->next;
-	}
-	free (buffer);
-	return (0);
-}
-
 int	ft_change_dir(char *str, t_env_list **envs)
 {
 	int	i;
@@ -101,11 +50,37 @@ int	ft_change_dir(char *str, t_env_list **envs)
 		ft_chdir_errmsg(str, errno);
 		return (1);
 	}
-	if (ft_set_oldpwd(envs))
-		return (1);
-	if (ft_set_newpwd(envs))
-		return (1);
+	ft_set_pwds(envs);
 	return (0);
+}
+
+char	*ft_get_path(char *str, int argc, t_env_list **envs)
+{
+	char	*path;
+
+	if (argc == 0)
+	{
+		path = ft_find_elm(envs, "HOME");
+		if (!path)
+		{
+			ft_putstr_fd("minishell> cd: HOME not set\n", 2);
+			return (NULL);
+		}
+	}
+	else if (!ft_strcmp(str, "~"))
+		path = getenv("HOME");
+	else if (!ft_strcmp(str, "-"))
+	{
+		path = ft_find_elm(envs, "OLDPWD");
+		if (!path)
+		{
+			ft_putstr_fd("minishell> cd: OLDPWD not set\n", 2);
+			return (NULL);
+		}
+	}
+	else
+		path = str;
+	return (path);
 }
 
 int	ft_cd(char **str, t_env_list **envs)
@@ -118,21 +93,11 @@ int	ft_cd(char **str, t_env_list **envs)
 	if (!ft_strcmp(*str, "cd"))
 		str++;
 	i = ft_count_strs(str);
-	path = NULL;
 	if (i > 1)
-	{
-		ft_putstr_fd("minishell> cd: too many arguments\n", 2);
-		return (1);
-	}
-	else if (i == 0 || !ft_strcmp(*str, "~"))
-		path = ft_strdup(ft_find_elm(envs, "HOME"));
-	else if (!ft_strcmp(*str, "-"))
-		path = ft_strdup(ft_find_elm(envs, "OLDPWD"));
-	else
-		path = ft_strdup(*str);
+		return (ft_aff_msg(2, "minishell> cd: too many arguments\n", 1));
+	path = ft_get_path(*str, i, envs);
 	if (!path)
 		return (1);
 	i = ft_change_dir(path, envs);
-	free (path);
 	return (i);
 }
