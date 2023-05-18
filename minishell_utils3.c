@@ -71,3 +71,13 @@ int	ft_aff_msg(int fd, char *str, int exit_val)
 		ft_putstr_fd(str, fd);
 	return (exit_val);
 }
+
+int	ft_count_strs(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}

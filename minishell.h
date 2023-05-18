@@ -204,7 +204,7 @@ int						ft_export(char **str, t_env_list **envs);
 
 int						ft_unset(char **str, t_env_list **envs);
 
-int						ft_cd(char **str);
+int						ft_cd(char **str, t_env_list **envs);
 
 void					ft_exit_status(int exit_status, t_env_list **envs);
 
