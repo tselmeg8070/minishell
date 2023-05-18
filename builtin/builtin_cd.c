@@ -12,16 +12,6 @@
 
 #include "../minishell.h"
 
-int	ft_count_strs(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
 void	ft_chdir_errmsg(char *str, int errn)
 {
 	ft_putstr_fd("minishell> cd: ", 2);
@@ -49,20 +39,76 @@ void	ft_chdir_errmsg(char *str, int errn)
 	printf("\n");
 }
 
-int	ft_change_dir(char *str)
+int	ft_set_oldpwd(t_env_list **envs)
+{
+	t_env_list	*tmp;
+	char		*old_pwd;
+
+	old_pwd = ft_find_elm(envs, "PWD");
+	if (!old_pwd)
+		return (1);
+	tmp = *envs;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->key, "OLDPWD"))
+		{
+			free(tmp->val);
+			tmp->val = ft_strdup(old_pwd);
+			if (!tmp->val)
+				return (1);
+		}
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
+int	ft_set_newpwd(t_env_list **envs)
+{
+	int			buff_size;
+	char		*buffer;
+	t_env_list	*tmp;
+
+	buff_size = 4096;
+	buffer = malloc(sizeof(char) * buff_size);
+	if (!buffer)
+		return (1);
+	if (getcwd(buffer, buff_size) == NULL)
+		return (1);
+	tmp = *envs;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->key, "PWD"))
+		{
+			free(tmp->val);
+			tmp->val = ft_strdup(buffer);
+			if (!tmp->val)
+				return (1);
+		}
+		tmp = tmp->next;
+	}
+	free (buffer);
+	return (0);
+}
+
+int	ft_change_dir(char *str, t_env_list **envs)
 {
 	int	i;
 
+	(void) envs;
 	i = chdir(str);
 	if (i)
 	{
 		ft_chdir_errmsg(str, errno);
 		return (1);
 	}
+	if (ft_set_oldpwd(envs))
+		return (1);
+	if (ft_set_newpwd(envs))
+		return (1);
 	return (0);
 }
 
-int	ft_cd(char **str)
+int	ft_cd(char **str, t_env_list **envs)
 {
 	int		i;
 	char	*path;
@@ -79,23 +125,14 @@ int	ft_cd(char **str)
 		return (1);
 	}
 	else if (i == 0 || !ft_strcmp(*str, "~"))
-		path = ft_strdup(getenv("HOME"));
+		path = ft_strdup(ft_find_elm(envs, "HOME"));
 	else if (!ft_strcmp(*str, "-"))
-		path = ft_strdup(getenv("OLDPWD"));
+		path = ft_strdup(ft_find_elm(envs, "OLDPWD"));
 	else
 		path = ft_strdup(*str);
 	if (!path)
 		return (1);
-	i = ft_change_dir(path);
+	i = ft_change_dir(path, envs);
 	free (path);
 	return (i);
 }
-
-	// ft_putstr_fd(path, 1);
-	// write(1, "\n", 1);
-
-	// else if (i == 0 || !ft_strcmp(*str, "~"))
-	// {
-	// 	ft_putstr_fd("chdir to home\n", 1);
-	// 	path = ft_strdup(getenv("HOME"));
-	// }

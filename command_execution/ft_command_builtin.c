@@ -54,7 +54,7 @@ int	ft_builtin_caller(char **args, t_env_list **env_list)
 	else if (ft_strcmp(args[0], "exit") == 0)
 		return (ft_exit_bt(args));
 	else if (ft_strcmp(args[0], "cd") == 0)
-		return (ft_cd(args));
+		return (ft_cd(args, env_list));
 	else if (ft_strcmp(args[0], "pwd") == 0)
 		return (ft_pwd(args));
 	else if (ft_strcmp(args[0], "unset") == 0)
