@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 16:47:33 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/18 15:58:24 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:35:49 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	ft_minishell_exit_result(int *res, t_data **data)
 		if ((*res + 5) * -1 != 257)
 		{
 			*res = (*res + 5) * -1 % 256;
+			g_status[0] = *res;
 			return (1);
 		}
 		else

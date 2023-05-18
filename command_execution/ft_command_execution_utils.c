@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/17 22:28:13 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:30:56 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,52 +86,23 @@ int	ft_execute(char **paths, t_instruction *inst, t_data **data)
 	exit (res);
 }
 
-
-// static void	exec_child(int child, int *status, t_data *data)
-// {
-// 	struct sigaction	child_sigquit;
-
-// 	ft_memset(&child_sigquit, 0, sizeof(struct sigaction));
-// 	if (!child)
-// 	{
-// 		child_sigquit.sa_handler = &child_sigquit_handler;
-// 		sigaction(SIGQUIT, &child_sigquit, NULL);
-// 		close_redirection_fds(data);
-// 		if (data->process[0].params)
-// 		{
-// 			if (execve(data->process[0].params[0],
-// 					data->process[0].params, data->my_envp) == -1)
-// 				error_fct(data, "minishell: Execve failure", 7);
-// 		}
-// 		free_data(data);
-// 		exit(g_exit_status);
-// 	}
-// 	data->sigint.sa_handler = SIG_IGN;
-// 	sigaction(SIGINT, &data->sigint, NULL);
-// 	waitpid(child, status, 0);
-// 	data->sigint.sa_handler = &main_sigint_handler;
-// 	sigaction(SIGINT, &data->sigint, NULL);
-// }
-
-
 void	ft_wait_execution(t_list *cmd_table, int *status)
 {
 	t_instruction	*inst;
+	int				local;
 
+	local = 0;
 	while (cmd_table)
 	{
 		inst = (t_instruction *) cmd_table->content;
 		if (inst->pid != 0 && inst->err_code == 0)
-		{
-			// struct sigaction sa_ch;
-			// sa_ch.sa_handler = &child_handler;
-			// sigaction(SIGINT, &sa_ch, NULL);
-			waitpid(inst->pid, status, 0);
-			// sa_ch.sa_handler = &parent_handler;
-			// sigaction(SIGINT, &sa_ch, NULL);
-		}
+			waitpid(inst->pid, &local, 0);
 		else
-			*status = ft_handle_redirection_err(inst);
+			local = ft_handle_redirection_err(inst);
 		cmd_table = cmd_table->next;
 	}
+	if (g_status[0] == 130)
+		*status = 130;
+	else
+		*status = local;
 }

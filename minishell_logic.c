@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 00:07:28 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/18 15:50:02 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:10:38 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	ft_lexa_parse(t_data **data)
 	int		res;
 
 	res = 0;
+	ft_exit_status(g_status[0], &(*data)->env);
+	g_status[0] = 0;
 	if (ft_tokenize((*data)->line, &(*data)->tokens))
 	{
 		if ((*data)->tokens && ft_token_check((*data)->tokens))

@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 00:15:45 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/18 16:44:14 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:43:42 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include <term.h>
 # include <unistd.h>
 
-static int	g_status;
+extern int	g_status[2];
 
 typedef struct s_env_list
 {
@@ -96,6 +96,8 @@ t_env_list				*ft_env_lstnew(char *path);
 void					ft_del_node(t_env_list *elm);
 
 void					ft_split_free(char ***res);
+
+void					ft_pipe_to_link(t_instruction *inst, int *link);
 
 int						ft_quote_check(char *str);
 

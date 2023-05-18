@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 20:35:50 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/07 17:43:45 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:43:03 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,10 @@ void	ft_write_result(int out, int fd)
 		}
 	}
 	close(out);
+}
+
+void	ft_pipe_to_link(t_instruction *inst, int *link)
+{
+	inst->pipe[0] = link[0];
+	inst->pipe[1] = link[1];
 }

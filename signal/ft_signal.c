@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 17:32:22 by galtange          #+#    #+#             */
-/*   Updated: 2023/05/07 23:46:40 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:16:21 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,18 @@ void	handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(2, "\n", 2);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-		g_status = 130;
+		g_status[0] = 130;
+		if (g_status[1] == 0)
+		{
+			write(1, "\n", 1);
+			rl_replace_line("", 0);
+			rl_on_new_line();
+			rl_redisplay();
+		}
+		else
+		{
+			write(1, "\n", 1);
+		}
 	}
 }
 
@@ -37,7 +44,7 @@ void	ft_init_sig(struct sigaction *sa)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void ft_sig_from_child(int sig)
+void	ft_sig_from_child(int sig)
 {
 	ft_putstr_fd("Quit: ", STDERR_FILENO);
 	ft_putnbr_fd(sig, STDERR_FILENO);
