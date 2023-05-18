@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:24:30 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/12 01:12:26 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/18 16:52:15 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ Generates error message and assigns that into instruction data structure
 Fallback:
 	(-1) - memory fails
 */
-static int	ft_gen_error_msg(t_instruction *inst, char	*name)
+static int	ft_gen_error(t_instruction *inst, char	*name)
 {
 	inst->err_code = 1;
 	inst->err_msg = ft_strjoin(name, ": ambiguous redirect\n");
@@ -49,6 +49,6 @@ int	ft_check_ambiguous(t_instruction *inst, t_redirection *red)
 		i++;
 	ft_split_free(&result);
 	if (i != 1)
-		return (ft_gen_error_msg(inst, red->original));
+		return (ft_gen_error(inst, red->original));
 	return (0);
 }
