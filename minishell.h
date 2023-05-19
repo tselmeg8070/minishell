@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 00:15:45 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/18 22:43:42 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/19 21:51:16 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,5 +245,7 @@ int						ft_gen_error_msg(t_instruction *inst, char *name,
 void					ft_var_unset(t_env_list **envs, char *str);
 
 int						ft_set_pwds(t_env_list **envs);
+
+void					ft_here_doc(t_instruction *inst, t_redirection *red);
 
 #endif

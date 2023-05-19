@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 17:32:22 by galtange          #+#    #+#             */
-/*   Updated: 2023/05/18 22:16:21 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/19 21:20:01 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,13 @@ void	handler(int sig)
 			rl_on_new_line();
 			rl_redisplay();
 		}
-		else
-		{
+		else if (g_status[1] == 1)
 			write(1, "\n", 1);
+		else if (g_status[1] == 2)
+		{
+			g_status[1] = 0;
+			write(1, "\n", 1);
+			close(0);
 		}
 	}
 }

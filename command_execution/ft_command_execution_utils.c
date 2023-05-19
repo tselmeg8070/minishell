@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/18 22:30:56 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/19 20:31:55 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	ft_execute(char **paths, t_instruction *inst, t_data **data)
 	int	res;
 
 	res = 0;
-	if (inst->val && inst->val[0])
+	if (inst->val && inst->val[0] && g_status[0] != 130)
 		res = ft_action(paths, inst, &(*data)->env);
 	ft_free_data(data);
 	ft_split_free(&paths);
