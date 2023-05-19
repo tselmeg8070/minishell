@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 17:32:22 by galtange          #+#    #+#             */
-/*   Updated: 2023/05/18 22:16:21 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/19 22:10:30 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,8 @@ void	ft_init_sig(struct sigaction *sa)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	ft_sig_from_child(int sig)
+void	ft_sigquit_handler(int sig)
 {
-	ft_putstr_fd("Quit: ", STDERR_FILENO);
-	ft_putnbr_fd(sig, STDERR_FILENO);
-	ft_putchar_fd('\n', STDERR_FILENO);
-	exit(131);
+	write(2, "Quit (core dumped)\n", 19);
+	g_status[0] = sig + 130;
 }
