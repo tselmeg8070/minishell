@@ -48,6 +48,7 @@ static void	ft_here_doc(t_instruction *inst, t_redirection *red)
 	char	*line;
 
 	fd = open(".tmp", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	g_status[1] = 2;
 	while (true)
 	{
 		line = readline("> ");
@@ -66,6 +67,7 @@ static void	ft_here_doc(t_instruction *inst, t_redirection *red)
 			break ;
 	}
 	close(fd);
+	g_status[1] = 0;
 	if (inst->in != 0)
 		close(inst->in);
 	inst->in = open(".tmp", O_RDONLY);
