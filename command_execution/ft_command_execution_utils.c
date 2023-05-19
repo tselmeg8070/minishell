@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/19 22:08:59 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/19 22:59:18 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,16 @@
 
 int	ft_handle_redirection_err(t_instruction *inst)
 {
-	close(inst->pipe[1]);
-	if (inst->in != 0)
-		close(inst->in);
-	if (inst->out != 1)
-		close(inst->out);
-	write(2, "minishell: ", 11);
-	write(2, inst->err_msg, ft_strlen(inst->err_msg));
+	if (inst->err_code != 130)
+	{
+		close(inst->pipe[1]);
+		if (inst->in != 0)
+			close(inst->in);
+		if (inst->out != 1)
+			close(inst->out);
+		write(2, "minishell: ", 11);
+		write(2, inst->err_msg, ft_strlen(inst->err_msg));
+	}
 	return (inst->err_code);
 }
 
@@ -79,9 +82,11 @@ int	ft_execute(char **paths, t_instruction *inst, t_data **data)
 	int	res;
 
 	res = 0;
-  signal(SIGQUIT, ft_sigquit_handler);
+	signal(SIGQUIT, ft_sigquit_handler);
 	if (inst->val && inst->val[0] && g_status[0] != 130)
 		res = ft_action(paths, inst, &(*data)->env);
+	if (g_status[0] == 130)
+		res = 130;
 	ft_free_data(data);
 	ft_split_free(&paths);
 	exit (res);
@@ -102,7 +107,7 @@ void	ft_wait_execution(t_list *cmd_table, int *status)
 			local = ft_handle_redirection_err(inst);
 		cmd_table = cmd_table->next;
 	}
-	if (g_status[0] == 130)
+	if (local == 2 && g_status[0] == 130)
 		*status = 130;
 	else
 		*status = local;

@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 21:51:00 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/19 21:59:59 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/19 23:09:41 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static int	ft_here_doc_init(t_instruction *inst, int *fd)
 
 static void	ft_here_doc_close(t_instruction *inst, int in, int fd)
 {
+	if (g_status[1] != 2)
+		inst->err_code = 130;
 	dup2(in, 0);
 	close(in);
 	g_status[1] = 0;
