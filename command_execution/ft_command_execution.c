@@ -93,6 +93,8 @@ int	ft_execute_loop(char **paths, t_data **data, int *link)
 	g_status[1] = 1;
 	ft_execute_loop_call(paths, (*data)->command_table, data, link);
 	ft_wait_execution((*data)->command_table, &status);
+	if (status == 131)
+		ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
 	g_status[1] = 0;
 	return (status % 255);
 }

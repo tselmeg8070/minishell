@@ -246,4 +246,6 @@ void					ft_var_unset(t_env_list **envs, char *str);
 
 int						ft_set_pwds(t_env_list **envs);
 
+void					ft_sigquit_handler(int sig);
+
 #endif

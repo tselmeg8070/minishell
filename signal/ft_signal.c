@@ -42,12 +42,12 @@ void	ft_init_sig(struct sigaction *sa)
 		exit(1);
 	}
 	signal(SIGQUIT, SIG_IGN);
+	if (g_status[1] != 0)
+		ft_putstr_fd("test\n", 1);
 }
 
-void	ft_sig_from_child(int sig)
+void	ft_sigquit_handler(int sig)
 {
-	ft_putstr_fd("Quit: ", STDERR_FILENO);
-	ft_putnbr_fd(sig, STDERR_FILENO);
-	ft_putchar_fd('\n', STDERR_FILENO);
-	exit(131);
+	write(2, "Quit (core dumped)\n", 20);
+	g_status[0] = sig + 130;
 }

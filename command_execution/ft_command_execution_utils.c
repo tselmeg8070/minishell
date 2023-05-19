@@ -79,6 +79,7 @@ int	ft_execute(char **paths, t_instruction *inst, t_data **data)
 	int	res;
 
 	res = 0;
+	signal(SIGQUIT, ft_sigquit_handler);
 	if (inst->val && inst->val[0])
 		res = ft_action(paths, inst, &(*data)->env);
 	ft_free_data(data);
