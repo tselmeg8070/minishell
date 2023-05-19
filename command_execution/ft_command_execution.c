@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/19 21:47:45 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/19 22:08:49 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int	ft_execute_loop(char **paths, t_data **data, int *link)
 	ft_execute_loop_call(paths, (*data)->command_table, data, link);
 	if (g_status[0] != 130)
 		ft_wait_execution((*data)->command_table, &status);
+	if (status == 131)
+		ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
 	g_status[1] = 0;
 	if (g_status[0] == 130)
 		return (130);
