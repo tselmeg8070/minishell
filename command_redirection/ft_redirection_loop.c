@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:24:49 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/17 22:27:42 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/19 23:30:25 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_command_redirection(t_instruction *inst)
 	int				res;
 
 	files = inst->files;
-	while (files)
+	while (files && inst->err_code == 0)
 	{
 		red = (t_redirection *) files->content;
 		res = ft_check_ambiguous(inst, red);
