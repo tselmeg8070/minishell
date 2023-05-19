@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 17:32:22 by galtange          #+#    #+#             */
-/*   Updated: 2023/05/19 22:10:30 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/19 22:17:48 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,5 @@ void	ft_init_sig(struct sigaction *sa)
 
 void	ft_sigquit_handler(int sig)
 {
-	write(2, "Quit (core dumped)\n", 19);
 	g_status[0] = sig + 130;
 }
