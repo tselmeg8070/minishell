@@ -24,9 +24,13 @@ void	handler(int sig)
 			rl_on_new_line();
 			rl_redisplay();
 		}
-		else
-		{
+		else if (g_status[1] == 1)
 			write(1, "\n", 1);
+		else if (g_status[1] == 2)
+		{
+			g_status[1] = 0;
+			write(1, "\n", 1);
+			close(0);
 		}
 	}
 }

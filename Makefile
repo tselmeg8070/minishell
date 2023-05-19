@@ -6,7 +6,7 @@
 #    By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/05 16:51:42 by tadiyamu          #+#    #+#              #
-#    Updated: 2023/05/18 16:44:42 by tadiyamu         ###   ########.fr        #
+#    Updated: 2023/05/19 21:51:46 by tadiyamu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ FILES = minishell \
 		command_execution/ft_command_permission\
 		command_execution/ft_command_utils\
 		command_redirection/ft_redirection_ambiguous\
+		command_redirection/ft_redirection_heredoc\
 		command_redirection/ft_redirection_file\
 		command_redirection/ft_redirection_loop\
 		command_redirection/ft_redirection_permission\

@@ -57,7 +57,7 @@ static void	ft_execute_loop_call(char **paths, t_list *command_table,
 	int				red[2];
 
 	ft_execute_loop_call_init(&pid, &fd, red);
-	while (command_table)
+	while (command_table && g_status[0] != 130)
 	{
 		inst = (t_instruction *) command_table->content;
 		pipe(link);
@@ -92,9 +92,12 @@ int	ft_execute_loop(char **paths, t_data **data, int *link)
 	status = 1;
 	g_status[1] = 1;
 	ft_execute_loop_call(paths, (*data)->command_table, data, link);
-	ft_wait_execution((*data)->command_table, &status);
+	if (g_status[0] != 130)
+		ft_wait_execution((*data)->command_table, &status);
 	if (status == 131)
 		ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
 	g_status[1] = 0;
+	if (g_status[0] == 130)
+		return (130);
 	return (status % 255);
 }
