@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/22 14:29:11 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/22 16:53:33 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,17 @@ static void	ft_execute_end_child(t_instruction *inst, int pid, int fd,
 {
 	dup2(red[0], 0);
 	dup2(red[1], 1);
-	inst->pid = pid;
-	if (fd != 0)
-		close(fd);
 	close(inst->pipe[1]);
-	if (inst->in != 0)
-		close(inst->in);
-	if (inst->out != 1)
-		close(inst->out);
+	if (inst->err_code == 0)
+	{
+		if (fd != 0 && fd >= 0)
+			close(fd);
+		inst->pid = pid;
+		if (inst->in != 0 && inst->in >= 0)
+			close(inst->in);
+		if (inst->out != 1 && inst->out >= 0)
+			close(inst->out);
+	}
 }
 
 static void	ft_execute_loop_call_init(int *pid, int *fd, int *red)
