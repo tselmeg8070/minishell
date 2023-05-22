@@ -23,9 +23,16 @@ int	ft_getcwd(int size)
 	{
 		if (buffer)
 			free(buffer);
+		if (errno == ENOENT)
+		{
+			ft_putstr_fd("pwd: error retrieving current directory: ", 2);
+			ft_putstr_fd("getcwd: cannot access parent directories: ", 2);
+			ft_putstr_fd("No such file or directory\n", 2);
+		}
 		return (errno);
 	}
 	write (1, buffer, ft_strlen(buffer));
+	write (1, "\n", 1);
 	free (buffer);
 	return (0);
 }
@@ -46,13 +53,10 @@ int	ft_pwd(char **strs)
 		else
 		{
 			if (i == EACCES)
-				write (2, "minishell: pwd: Permission denied", 34);
+				ft_putstr_fd("minishell: pwd: Permission denied\n", 2);
 			else if (i == EFAULT)
-				write (2, "minishell: pwd: Bad address", 28);
-			else if (i == ENOENT)
-				write (2, "minishell: pwd: No such file or directory", 42);
-			write(1, "\n", 1);
-			return (i);
+				ft_putstr_fd ("minishell: pwd: Bad address\n", 2);
+			return (1);
 		}
 	}
 	return (0);

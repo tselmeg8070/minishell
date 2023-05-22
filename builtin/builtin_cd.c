@@ -34,7 +34,7 @@ void	ft_chdir_errmsg(char *str, int errn)
 		ft_putstr_fd("Cannot allocate memory", 2);
 	else if (errn == 20)
 		ft_putstr_fd("Not a directory", 2);
-	else if (errn == 2)
+	else
 		ft_putstr_fd("No such file or directory", 2);
 	printf("\n");
 }
