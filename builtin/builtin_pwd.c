@@ -53,10 +53,12 @@ int	ft_pwd(char **strs)
 		else
 		{
 			if (i == EACCES)
-				ft_putstr_fd("minishell: pwd: Permission denied\n", 2);
+				return (ft_aff_msg(2, "minishell: pwd: Permission denied\n", 1));
 			else if (i == EFAULT)
-				ft_putstr_fd ("minishell: pwd: Bad address\n", 2);
-			return (1);
+				return (ft_aff_msg(2, "minishell: pwd: Bad address\n", 1));
+			else if (i == ENOENT)
+				return (1);
+			return (0);
 		}
 	}
 	return (0);
