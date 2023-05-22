@@ -45,7 +45,7 @@ int	ft_name_notvalid(char *str)
 	i = 0;
 	if (!ft_isalpha(str[i]) && str[i] != '_')
 	{
-		write (2, "export: `", 10);
+		write (2, "minishell: export: `", 21);
 		write (2, str, ft_strlen(str));
 		write (2, "': not a valid identifier\n", 27);
 		return (1);
@@ -54,7 +54,7 @@ int	ft_name_notvalid(char *str)
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
 		{
-			write (2, "export: `", 10);
+			write (2, "minishell: export: `",21);
 			write (2, str, ft_strlen(str));
 			write (2, "': not a valid identifier\n", 27);
 			return (1);
