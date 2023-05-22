@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:01:14 by galtange          #+#    #+#             */
-/*   Updated: 2023/05/22 13:57:56 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:56:35 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	ft_name_notvalid(char *str)
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
 		{
-			write (2, "minishell: export: `",21);
+			write (2, "minishell: export: `", 21);
 			write (2, str, ft_strlen(str));
 			write (2, "': not a valid identifier\n", 27);
 			return (1);
