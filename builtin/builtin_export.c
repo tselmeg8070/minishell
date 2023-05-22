@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:01:14 by galtange          #+#    #+#             */
-/*   Updated: 2023/05/17 16:43:17 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:57:56 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int	ft_export(char **str, t_env_list **envs)
 
 	if (!envs || !*envs)
 	{
-		write(2, "minishell> export: No such file or directory\n", 46);
+		write(2, "minishell: export: No such file or directory\n", 46);
 		return (127);
 	}
 	if (str && !ft_strcmp(*str, "export"))

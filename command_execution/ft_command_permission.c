@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:56 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/18 20:12:07 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:11:15 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	ft_print_error(int err, char *name)
 {
 	if (err == 0)
 	{
-		write(2, "minishell: command not found: ", 30);
+		write(2, "minishell: ", 12);
 		write(2, name, ft_strlen(name));
-		write(2, "\n", 1);
+		write(2, "command not found\n", 18);
 		return (127);
 	}
 	if (err == 2)

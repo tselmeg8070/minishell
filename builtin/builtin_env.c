@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 19:26:44 by galtange          #+#    #+#             */
-/*   Updated: 2023/05/12 03:04:05 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:57:51 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_env(t_env_list **envs)
 
 	if (!envs || !*envs)
 	{
-		write(2, "minishell> env: No such file or directory\n", 43);
+		write(2, "minishell: env: No such file or directory\n", 43);
 		return (127);
 	}
 	tmp = *envs;
