@@ -43,12 +43,14 @@ int	ft_change_dir(char *str, t_env_list **envs)
 {
 	int	i;
 
-	(void) envs;
-	i = chdir(str);
-	if (i)
+	if (ft_strcmp(str, ""))
 	{
-		ft_chdir_errmsg(str, errno);
-		return (1);
+		i = chdir(str);
+		if (i)
+		{
+			ft_chdir_errmsg(str, errno);
+			return (1);
+		}
 	}
 	ft_set_pwds(envs);
 	return (0);
