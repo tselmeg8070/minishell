@@ -12,18 +12,10 @@
 
 #include "../minishell.h"
 
-int	ft_set_newpwd(t_env_list **envs)
+int	ft_set_str_newpwd(t_env_list **envs, char *str)
 {
-	int			buff_size;
-	char		*buffer;
 	t_env_list	*tmp;
 
-	buff_size = 4096;
-	buffer = malloc(sizeof(char) * buff_size);
-	if (!buffer)
-		return (1);
-	if (getcwd(buffer, buff_size) == NULL)
-		return (1);
 	tmp = *envs;
 	while (tmp)
 	{
@@ -31,11 +23,33 @@ int	ft_set_newpwd(t_env_list **envs)
 		{
 			if (tmp->val)
 				free(tmp->val);
-			tmp->val = ft_strdup(buffer);
+			tmp->val = ft_strdup(str);
 			if (!tmp->val)
 				return (1);
 		}
 		tmp = tmp->next;
+	}
+	return (0);
+}
+
+int	ft_set_newpwd(t_env_list **envs)
+{
+	int			buff_size;
+	char		*buffer;
+
+	buff_size = 4096;
+	buffer = malloc(sizeof(char) * buff_size);
+	if (!buffer)
+		return (1);
+	if (getcwd(buffer, buff_size) == NULL)
+	{
+		free(buffer);
+		return (1);
+	}
+	if (ft_set_str_newpwd(envs, buffer))
+	{
+		free (buffer);
+		return (1);
 	}
 	free (buffer);
 	return (0);
