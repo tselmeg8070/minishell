@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:02:42 by tadiyamu          #+#    #+#             */
-/*   Updated: 2023/05/19 22:59:18 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:28:15 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	ft_execute(char **paths, t_instruction *inst, t_data **data)
 	int	res;
 
 	res = 0;
+	signal(SIGPIPE, SIG_IGN);
 	signal(SIGQUIT, ft_sigquit_handler);
 	if (inst->val && inst->val[0] && g_status[0] != 130)
 		res = ft_action(paths, inst, &(*data)->env);

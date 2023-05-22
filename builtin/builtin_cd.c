@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 19:29:55 by galtange          #+#    #+#             */
-/*   Updated: 2023/05/09 22:00:04 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:57:42 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_chdir_errmsg(char *str, int errn)
 {
-	ft_putstr_fd("minishell> cd: ", 2);
+	ft_putstr_fd("minishell: cd: ", 2);
 	if (str)
 	{
 		ft_putstr_fd(str, 2);
@@ -63,7 +63,7 @@ char	*ft_get_path(char *str, int argc, t_env_list **envs)
 		path = ft_find_elm(envs, "HOME");
 		if (!path)
 		{
-			ft_putstr_fd("minishell> cd: HOME not set\n", 2);
+			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
 			return (NULL);
 		}
 	}
@@ -74,7 +74,7 @@ char	*ft_get_path(char *str, int argc, t_env_list **envs)
 		path = ft_find_elm(envs, "OLDPWD");
 		if (!path)
 		{
-			ft_putstr_fd("minishell> cd: OLDPWD not set\n", 2);
+			ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
 			return (NULL);
 		}
 	}
@@ -94,7 +94,7 @@ int	ft_cd(char **str, t_env_list **envs)
 		str++;
 	i = ft_count_strs(str);
 	if (i > 1)
-		return (ft_aff_msg(2, "minishell> cd: too many arguments\n", 1));
+		return (ft_aff_msg(2, "minishell: cd: too many arguments\n", 1));
 	path = ft_get_path(*str, i, envs);
 	if (!path)
 		return (1);

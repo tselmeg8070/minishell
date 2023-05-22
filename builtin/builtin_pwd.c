@@ -6,7 +6,7 @@
 /*   By: tadiyamu <tadiyamu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:22:39 by galtange          #+#    #+#             */
-/*   Updated: 2023/05/09 14:42:43 by tadiyamu         ###   ########.fr       */
+/*   Updated: 2023/05/22 13:58:07 by tadiyamu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ int	ft_pwd(char **strs)
 		else
 		{
 			if (i == EACCES)
-				write (2, "minishell> pwd: Permission denied", 34);
+				write (2, "minishell: pwd: Permission denied", 34);
 			else if (i == EFAULT)
-				write (2, "minishell> pwd: Bad address", 28);
+				write (2, "minishell: pwd: Bad address", 28);
 			else if (i == ENOENT)
-				write (2, "minishell> pwd: No such file or directory", 42);
+				write (2, "minishell: pwd: No such file or directory", 42);
 			write(1, "\n", 1);
 			return (i);
 		}
